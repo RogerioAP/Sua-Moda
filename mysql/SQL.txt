@@ -1,0 +1,16 @@
+drop database if exists site;
+create database site;
+use site;
+create table sis_login(
+idusuario int not null auto_increment primary key,
+nome varchar(50) not null,
+cpf varchar(20) not null,
+telefone varchar(20) not null,
+endereco varchar(50) not null,
+numero varchar(10) not null,
+bairro varchar(50) not null,
+cidade varchar(50) not null,
+email varchar(50) not null,
+senha varchar(50) not null,
+foto varchar(100) not null
+)engine=innodb;
