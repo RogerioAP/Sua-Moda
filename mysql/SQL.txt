@@ -12,5 +12,6 @@ bairro varchar(50) not null,
 cidade varchar(50) not null,
 email varchar(50) not null,
 senha varchar(50) not null,
-foto varchar(100) not null
+foto varchar(100) not null,
+tipo char(1) not null
 )engine=innodb;

@@ -72,6 +72,15 @@
 						$email = $_POST['email'];
 						$password = $_POST['password'];
 						$password2 = $_POST['password2'];
+						$usuario = 'u';
+						
+						// Faz a verificação da extensão do arquivo
+						// Array com as extensões permitidas
+
+						/*$extensao = strtolower(end(explode('.', $_FILES['foto']['name'])));						
+						if (array_search($extensao, $_UP['extensoes']) === false) {
+						echo "Por favor, envie arquivos com as seguintes extensões: jpg, png ou gif";						
+						}else{echo "certo!";}*/
 						
 						// testa pra ver se os dados foram preenchidos
 						if(!empty($nome) && !empty($cpf) && !empty($telefone) && !empty($endereco) && !empty($numero) && !empty($bairro)
@@ -80,6 +89,7 @@
 							//testa pra saber se a imagem foi carregada
 							if($_FILES['foto']['error']==0)
 							{
+								$foto = $_FILES['foto'];
 								// Tamanho máximo do arquivo em bytes
 								$tamanho = 100000;
 								
@@ -90,12 +100,11 @@
 								}
 								else
 								{
-									if($ext[1] != "jpg" && $ext[1] != "bmp" && $ext[1] != "png" && $ext[1] != "gif" && $ext[1] != "jpg" && $ext[1] != "jpeg")
+									$_UP['extensoes'] = array('jpg', 'jpeg', 'bmp', 'png', 'gif');
+									//if($ext[1] != "jpg" && $ext[1] != "bmp" && $ext[1] != "png" && $ext[1] != "gif" && $ext[1] != "jpg" && $ext[1] != "jpeg")
+									$extensao = strtolower(end(explode('.', $_FILES['foto']['name'])));						
+									if (array_search($extensao, $_UP['extensoes']) === false)
 									{
-										// Pega extensão da imagem4
-										preg_match("/\.(gif|bmp|png|jpg|jpeg){1}$/i", $foto["name"], $ext);
-										// Verifica se o arquivo é uma imagem
-										//if(!eregi("^image\/(pjpeg|jpeg|png|gif|bmp)$", $foto["type"]))
 									   echo "<center>Isso não é uma imagem!</center><br>";
 									}
 									else
@@ -103,7 +112,7 @@
 										// Pega as dimensões da imagem
 										$dimensoes = getimagesize($foto["tmp_name"]);
 										
-										//preg_match("/\.(gif|bmp|png|jpg|jpeg){1}$/i", $foto["name"], $ext);
+										preg_match("/\.(gif|bmp|png|jpg|jpeg){1}$/i", $foto["name"], $ext);
 										//echo "<br>".$ext[1];
 										// Gera um nome único para a imagem
 										$nome_imagem = md5(uniqid(time())) . "." . $ext[1];
@@ -125,7 +134,7 @@
 							}
 							include "classe.php";
 							$obj = new Classe; /* usando a função INSERIR do arquivo classe.php */
-							$obj->inserir($nome, $cpf, $telefone, $endereco, $numero, $bairro, $cidade, $email, $password, $caminho_imagem);
+							$obj->inserir($nome, $cpf, $telefone, $endereco, $numero, $bairro, $cidade, $email, $password, $caminho_imagem, $usuario);
 							echo "<br><center style='color:green;'>Cadastrado com sucesso!</center><br>";
 						}
 						else

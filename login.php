@@ -68,19 +68,16 @@
 							<br><center>Entrar</center>
 							<table border='0'>
 								<tr>
-									<td class='tex'>Email</td>
-									<td class='cai'><input type='text' id='txt' name='email' placeholder='Digite o email'></td>
+									<td class='tex'>Email
+									<br>Senha</td>
+									<td class='cai'><input type='text' id='txt' name='email' placeholder='Digite o email'>
+									<input type='password' id='txt' name='senha' placeholder='Digite a senha'></td>
 									<td rowspan='2'><a href='login_admin.php'><img src='picture/restrito-2.png'></a></td>
-								</tr>
-								<tr>
-									<td class='tex'>Senha</td>
-									<td class='cai'><input type='password' id='txt' name='senha' placeholder='Digite a senha'></td>
-								</tr>
-								<tr>
 								</tr>
 								<tr>
 									<td colspan='3'><button>Entrar</button></td>
 								</tr>
+								<tr></tr>
 							</table>
 						</form>";
 					}

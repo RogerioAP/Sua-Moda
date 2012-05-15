@@ -15,9 +15,9 @@
 			$bd = mysql_select_db("site")
 				or die('Conexao com o Banco de Dados falhou!');
 		}
-		function inserir($nome, $cpf, $telefone, $endereco, $numero, $bairro, $cidade, $email, $senha, $foto)/*Somente para o botão Salvar*/
+		function inserir($nome, $cpf, $telefone, $endereco, $numero, $bairro, $cidade, $email, $senha, $foto, $tipo)/*Somente para o botão Salvar*/
 		{
-			$sql = "INSERT INTO sis_login(nome, cpf, telefone, endereco, numero, bairro, cidade, email, senha, foto) values('$nome', '$cpf', '$telefone', '$endereco', '$numero', '$bairro', '$cidade', '$email', '$senha', '$foto')";
+			$sql = "INSERT INTO sis_login(nome, cpf, telefone, endereco, numero, bairro, cidade, email, senha, foto, tipo) values('$nome', '$cpf', '$telefone', '$endereco', '$numero', '$bairro', '$cidade', '$email', '$senha', '$foto', '$tipo')";
 			$this->execut($sql);
 		}
 		function execut($sql)/*Executa as SQL's*/
@@ -56,6 +56,6 @@
 			$sql = "DELETE FROM sis_login WHERE id='$id'";
 			$this->execut($sql);
 		}
-		mysql_close($conexao);
+		//mysql_close($conexao);
 	}
 ?>
