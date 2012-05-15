@@ -65,12 +65,15 @@
 					else
 					{
 						echo "<form method='post' action='autenticar.php'>
-							<br><center>Entrar</center>
+							<br><center>Entrar como Administrador</center>
 							<table border='0'>
+								<tr>
+									<td class='tex'>Nome</td>
+									<td class='cai'><input type='text' id='txt' name='nome' placeholder='Digite o nome'></td>
+								</tr>
 								<tr>
 									<td class='tex'>Email</td>
 									<td class='cai'><input type='text' id='txt' name='email' placeholder='Digite o email'></td>
-									<td rowspan='2'><a href='login_admin.php'><img src='picture/restrito-2.png'></a></td>
 								</tr>
 								<tr>
 									<td class='tex'>Senha</td>

@@ -13,7 +13,7 @@
 				<a href="home.php" class="image_title"><div class="image_title"></div></a>
 				<div class="pes"><!--Espaco "Pessoal"-->
 					<?php
-						$imagem_padrao = "fotos/803fbd58f1ed97adb518c3b2f6cc6d7a.png";
+						$imagem_padrao = "fotos/803fbd58f1ed97adb518c3b2f6cc6d7a.png"; /*imagem que vai ser utilizada como padrão caso o cliente não escolha nenhuma*/
 						//Iniciando a sessão
 						session_start();
 						include("connect.php");
@@ -55,13 +55,12 @@
             <div class="content"><!--Conteúdo-->
 				<?php //////////////************CADASTRANDO INCLUSIVE IMAGEM NO BD*********////////////
 					// Conexão com o banco de dados
-					$conn = @mysql_connect("localhost", "root", '') or die ("Problemas na conexão.");
-					$db = @mysql_select_db("site", $conn) or die ("Problemas na conexão.");
+					$conn = @mysql_connect("localhost", "root", '') or die ("Problemas na conexão com o banco de dados.");
+					$db = @mysql_select_db("site", $conn) or die ("Problemas na conexão com a tabela de dados.");
 					 
 					// Se o usuário clicou no botão cadastrar efetua as ações
 					if (isset($_POST['cadastrar']))
 					{
-						$verificar_foto = 0;
 						// Recupera os dados dos campos
 						$nome = $_POST['nome'] ." ". $_POST['sobrenome'];
 						$cpf = $_POST['cpf'];
@@ -73,36 +72,33 @@
 						$email = $_POST['email'];
 						$password = $_POST['password'];
 						$password2 = $_POST['password2'];
-						if(isset($_POST['foto'])) {$foto = $_FILES["foto"];}
-						else {$verificar_foto++;} /* se tiver diferente de ZERO carrega imagem padrão*/
-						  /*terá que permitir ao cliente a OPÇÂO de NÂO escolher imagem*/
-						/*if(!empty($foto["name"])){echo $foto["name"];}
-						else {echo "asdf";}*/
-						// Se a foto estiver sido selecionada
+						
+						// testa pra ver se os dados foram preenchidos
 						if(!empty($nome) && !empty($cpf) && !empty($telefone) && !empty($endereco) && !empty($numero) && !empty($bairro)
 							&& !empty($cidade) && !empty($email) && !empty($password) && !empty($password2) && $password==$password2) //(!empty($foto["name"]))
 						{
-							// Tamanho máximo do arquivo em bytes
-							$tamanho = 100000;
-							
-							// Verifica se o tamanho da imagem é maior que o tamanho permitido
-							if($foto["size"] > $tamanho && $verificar_foto==0)
+							//testa pra saber se a imagem foi carregada
+							if($_FILES['foto']['error']==0)
 							{
-								echo "<center>A imagem deve ter no máximo ".$tamanho." bytes</center><br>";
-							}
-							else
-							{
-								if($verificar_foto==0 && $ext[1] != "jpg" && $ext[1] != "bmp" && $ext[1] != "png" && $ext[1] != "gif" && $ext[1] != "jpg" && $ext[1] != "jpeg")
+								// Tamanho máximo do arquivo em bytes
+								$tamanho = 100000;
+								
+								// Verifica se o tamanho da imagem é maior que o tamanho permitido
+								if($foto["size"] > $tamanho)
 								{
-									// Pega extensão da imagem4
-									preg_match("/\.(gif|bmp|png|jpg|jpeg){1}$/i", $foto["name"], $ext);
-									// Verifica se o arquivo é uma imagem
-									//if(!eregi("^image\/(pjpeg|jpeg|png|gif|bmp)$", $foto["type"]))
-								   echo "<center>Isso não é uma imagem!</center><br>";
+									echo "<center>A imagem deve ter no máximo ".$tamanho." bytes</center><br>";
 								}
 								else
 								{
-									if($verificar_foto==0)
+									if($ext[1] != "jpg" && $ext[1] != "bmp" && $ext[1] != "png" && $ext[1] != "gif" && $ext[1] != "jpg" && $ext[1] != "jpeg")
+									{
+										// Pega extensão da imagem4
+										preg_match("/\.(gif|bmp|png|jpg|jpeg){1}$/i", $foto["name"], $ext);
+										// Verifica se o arquivo é uma imagem
+										//if(!eregi("^image\/(pjpeg|jpeg|png|gif|bmp)$", $foto["type"]))
+									   echo "<center>Isso não é uma imagem!</center><br>";
+									}
+									else
 									{
 										// Pega as dimensões da imagem
 										$dimensoes = getimagesize($foto["tmp_name"]);
@@ -118,20 +114,19 @@
 										// Faz o upload da imagem para seu respectivo caminho
 										move_uploaded_file($foto["tmp_name"], $caminho_imagem);
 									}
-									else
-									{
-										$caminho_imagem = "fotos/".$foto;
-									}
 									//echo "INSERT INTO usuarios VALUES (null, \"$nome\", \"$email\", \"$nome_imagem\");";
 									// Insere os dados no banco
 							////////$sql = mysql_query("INSERT INTO sis_login VALUES (null, \"$nome\", \"$email\", \"$password\", \"$caminho_imagem\");");//\"rog\", \"ema\", \"nom\")");//(null, '".$nome."', '".$email."', '".$nome_imagem."')");
-									
-									include "classe.php";
-									$obj = new Classe; /* usando a função INSERIR do arquivo classe.php */
-									$obj->inserir($nome, $cpf, $telefone, $endereco, $numero, $bairro, $cidade, $email, $password, $caminho_imagem);
-									echo "<br><center style='color:green;'>Cadastrado com sucesso!</center><br>";
 								}
 							}
+							else
+							{
+								$caminho_imagem = "fotos/" . $imagem_padrao;
+							}
+							include "classe.php";
+							$obj = new Classe; /* usando a função INSERIR do arquivo classe.php */
+							$obj->inserir($nome, $cpf, $telefone, $endereco, $numero, $bairro, $cidade, $email, $password, $caminho_imagem);
+							echo "<br><center style='color:green;'>Cadastrado com sucesso!</center><br>";
 						}
 						else
 						{//echo "<br><center style='color:red;'>Construindo! Aguarde...</center>";
@@ -205,8 +200,8 @@
 						</tr>
 					</table>
 				</form>				
-				
-				
+				<!--$_FILES['foto']['error']!=0){echo "<br>Erro";}
+				testando se foi feito upload-->
             </div>
 			<?php include_once 'designer.inc'; rodape(); ?>
         </div>

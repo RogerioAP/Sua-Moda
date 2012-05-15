@@ -56,6 +56,6 @@
 			$sql = "DELETE FROM sis_login WHERE id='$id'";
 			$this->execut($sql);
 		}
-		//mysql_close($conexao);
+		mysql_close($conexao);
 	}
 ?>
