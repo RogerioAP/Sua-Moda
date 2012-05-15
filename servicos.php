@@ -32,7 +32,7 @@
 								}
 								echo "<table border='0' style='float:right'>
 										<tr>
-											<td colspan='2'><img src='$foto' width='80px'></td>
+											<td colspan='2'><img src='$foto' width='55px' height='60px'></td>
 										</tr>
 										<tr>
 											<td><a href='user.php' style='color:black;'>$nome</a></td>

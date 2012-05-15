@@ -34,7 +34,7 @@
 								}
 								echo "<table border='0' style='float:right'>
 										<tr>
-											<td colspan='2'><img src='$foto' width='80px'></td>
+											<td colspan='2'><img src='$foto' width='55px' height='60px'></td>
 										</tr>
 										<tr>
 											<td><a href='user.php' style='color:black;'>$nome</a></td>
@@ -142,75 +142,86 @@
 							echo "<br><center style='color:red;'>Os campos com * não podem ficar em branco!</center><br>";
 						}
 					}
+					$est_ses = session_id();
+					if(empty($est_ses))
+					{
+						session_start();
+					}
+					include_once("connect.php");
+					if(isset($_SESSION['logado'])) /*se existir usuário logado dá ERRO (afinal como logar em outra conta já estando logado)*/
+					{
+						echo "<br><center>Existe um usuário ativo no momento, <a href='logout.php'>clique aqui</a> para sair e entrar em outra conta.</center><br>";
+					}
+					else
+					{
+						echo "<form method='post' action='cadastrar.php' enctype='multipart/form-data'>
+							<br><center>CADASTRAMENTO</center>
+							<table border='0'>
+								<tr>
+									<td colspan='2'><u>Dados de Contato</u></td>
+								</tr>
+								<tr>
+									<td>* Nome</td>
+									<td><input type='text' id='txt' name='nome' maxlength='10' placeholder='Digite o 1° nome'></td><!--Limmite de 10 dígitos neste campo-->
+								</tr>
+								<tr>
+									<td>* Sobrenome</td>
+									<td><input type='text' id='txt' name='sobrenome' placeholder='Digite o sobrenome'></td>
+								</tr>
+								<tr>
+									<td>* CPF</td>
+									<td><input type='text' id='txt' name='cpf' placeholder='Digite o CPF'></td>
+								</tr>
+								<tr>
+									<td>* Telefone</td>
+									<td><input type='text' id='txt' name='telefone' placeholder='Digite o telefone'></td>
+								</tr>
+								<tr>
+									<td colspan='2'><br><u>Dados de Endereço</u></td>
+								</tr>
+								<tr>
+									<td>* Endereço</td>
+									<td><input type='text' id='txt' name='endereco' placeholder='Digite o endereço'></td>
+								</tr>
+								<tr>
+									<td>* Número</td>
+									<td><input type='text' id='txt' name='numero' placeholder='Digite o número'></td>
+								</tr>
+								<tr>
+									<td>* Bairro</td>
+									<td><input type='text' id='txt' name='bairro' placeholder='Digite o bairro'></td>
+								</tr>
+								<tr>
+									<td>* Cidade</td>
+									<td><input type='text' id='txt' name='cidade' placeholder='Digite a cidade'></td>
+								</tr>
+								<tr>
+									<td colspan='2'><br><u>Dados de Identificação</u></td>
+								</tr>
+								<tr>
+									<td>* Email</td>
+									<td><input type='text' id='txt' name='email' placeholder='Digite o email'></td>
+								</tr>
+								<tr>
+									<td>* Senha</td>
+									<td><input type='password' id='txt' name='password' placeholder='Digite a senha'></td>
+								</tr>
+								<tr>
+									<td>* Confirmação da Senha</td>
+									<td><input type='password' id='txt' name='password2' placeholder='Digite a senha novamente'></td>
+								</tr>
+								<tr>
+									<td>Desejar escolher uma foto?</td>
+									<td><img src='$imagem_padrao'><br>
+									<input type='file' name='foto'></td>
+								</tr>
+								<tr>
+									<td colspan='2'><br><button name='cadastrar'>Cadastrar</button></td>
+								</tr>
+							</table>
+						</form>";
+					}
 				?>
-				<form method="post" action="cadastrar.php" enctype="multipart/form-data">
-					<br><center>CADASTRAMENTO</center>
-					<table border="0">
-						<tr>
-							<td colspan="2"><u>Dados de Contato</u></td>
-						</tr>
-						<tr>
-							<td>* Nome</td>
-							<td><input type="text" id="txt" name="nome" maxlength="10" placeholder="Digite o 1° nome"></td><!--Limmite de 10 dígitos neste campo-->
-						</tr>
-						<tr>
-							<td>* Sobrenome</td>
-							<td><input type="text" id="txt" name="sobrenome" placeholder="Digite o sobrenome"></td>
-						</tr>
-						<tr>
-							<td>* CPF</td>
-							<td><input type="text" id="txt" name="cpf" placeholder="Digite o CPF"></td>
-						</tr>
-						<tr>
-							<td>* Telefone</td>
-							<td><input type="text" id="txt" name="telefone" placeholder="Digite o telefone"></td>
-						</tr>
-						<tr>
-							<td colspan="2"><br><u>Dados de Endereço</u></td>
-						</tr>
-						<tr>
-							<td>* Endereço</td>
-							<td><input type="text" id="txt" name="endereco" placeholder="Digite o endereço"></td>
-						</tr>
-						<tr>
-							<td>* Número</td>
-							<td><input type="text" id="txt" name="numero" placeholder="Digite o número"></td>
-						</tr>
-						<tr>
-							<td>* Bairro</td>
-							<td><input type="text" id="txt" name="bairro" placeholder="Digite o bairro"></td>
-						</tr>
-						<tr>
-							<td>* Cidade</td>
-							<td><input type="text" id="txt" name="cidade" placeholder="Digite a cidade"></td>
-						</tr>
-						<tr>
-							<td colspan="2"><br><u>Dados de Identificação</u></td>
-						</tr>
-						<tr>
-							<td>* Email</td>
-							<td><input type="text" id="txt" name="email" placeholder="Digite o email"></td>
-						</tr>
-						<tr>
-							<td>* Senha</td>
-							<td><input type="password" id="txt" name="password" placeholder="Digite a senha"></td>
-						</tr>
-						<tr>
-							<td>* Confirmação da Senha</td>
-							<td><input type="password" id="txt" name="password2" placeholder="Digite a senha novamente"></td>
-						</tr>
-						<tr>
-							<td>Desejar escolher uma foto?</td>
-							<td><img src="<?php echo $imagem_padrao ?>"><br>
-							<input type="file" name="foto"></td>
-						</tr>
-						<tr>
-							<td colspan="2"><br><button name="cadastrar">Cadastrar</button></td>
-						</tr>
-					</table>
-				</form>				
-				<!--$_FILES['foto']['error']!=0){echo "<br>Erro";}
-				testando se foi feito upload-->
             </div>
 			<?php include_once 'designer.inc'; rodape(); ?>
         </div>

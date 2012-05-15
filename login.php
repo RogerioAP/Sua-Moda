@@ -32,7 +32,7 @@
 								}
 								echo "<table border='0' style='float:right'>
 										<tr>
-											<td colspan='2'><img src='$foto' width='80px'></td>
+											<td colspan='2'><img src='$foto' width='55px' height='60px'></td>
 										</tr>
 										<tr>
 											<td><a href='user.php' style='color:black;'>$nome</a></td>
@@ -57,7 +57,7 @@
 					{
 						session_start();
 					}
-					include("connect.php");
+					include_once("connect.php");
 					if(isset($_SESSION['logado'])) /*se existir usuário logado dá ERRO (afinal como logar em outra conta já estando logado)*/
 					{
 						echo "<br><center>Existe um usuário ativo no momento, <a href='logout.php'>clique aqui</a> para sair e entrar em outra conta.</center><br>";
