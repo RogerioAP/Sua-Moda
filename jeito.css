@@ -223,12 +223,21 @@ ul { list-style-type: none;}
 .content form table
 {
 	text-align: center;
-	margin: 0px auto;
-	padding: 20px 0px 20px;
+	/*margin: 0px auto;*/
+	padding: 20px 0px;
 }
 .content form table tr td button
 {
 	background-color: #ffffff;
+}
+.tex /*email*/
+{
+	text-align:right;
+	width:350px;
+}
+.cai/*senha*/
+{
+	text-align:left;
 }
 /************PÁGINA DE LOGIN******************/
 

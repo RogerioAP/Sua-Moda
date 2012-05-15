@@ -68,15 +68,18 @@
 							<br><center>Entrar</center>
 							<table border='0'>
 								<tr>
-									<td>Email</td>
-									<td><input type='text' id='txt' name='email' placeholder='Digite o email'></td>
+									<td class='tex'>Email</td>
+									<td class='cai'><input type='text' id='txt' name='email' placeholder='Digite o email'></td>
+									<td rowspan='2'><a href='#'><img src='picture/restrito-2.png'></a></td>
 								</tr>
 								<tr>
-									<td>Senha</td>
-									<td><input type='password' id='txt' name='senha' placeholder='Digite a senha'></td>
+									<td class='tex'>Senha</td>
+									<td class='cai'><input type='password' id='txt' name='senha' placeholder='Digite a senha'></td>
 								</tr>
 								<tr>
-									<td colspan='2'><button>Entrar</button></td>
+								</tr>
+								<tr>
+									<td colspan='3'><button>Entrar</button></td>
 								</tr>
 							</table>
 						</form>";

@@ -4,6 +4,7 @@
     <head>
             <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
             <link href="jeito.css" rel="StyleSheet" type="text/css">
+			
             <title>Sua Moda</title>
     </head>
     <body class="bodyW">
@@ -12,6 +13,7 @@
 				<a href="home.php" class="image_title"><div class="image_title"></div></a>
 				<div class="pes"><!--Espaco "Pessoal"-->
 					<?php
+						$imagem_padrao = "fotos/803fbd58f1ed97adb518c3b2f6cc6d7a.png";
 						//Iniciando a sessão
 						session_start();
 						include("connect.php");
@@ -194,13 +196,9 @@
 							<td><input type="password" id="txt" name="password2" placeholder="Digite a senha novamente"></td>
 						</tr>
 						<tr>
-							<td>Deseja escolher uma foto?</td>
-							<td><input type='radio' name='esc_fot'>Sim</td>
-							<td><input type='radio' name='esc_fot'>Não</td>
-						</tr>
-						<tr>
-							<td>Foto</td>
-							<td><input type="file" name="foto"></td>
+							<td>Desejar escolher uma foto?</td>
+							<td><img src="<?php echo $imagem_padrao ?>"><br>
+							<input type="file" name="foto"></td>
 						</tr>
 						<tr>
 							<td colspan="2"><br><button name="cadastrar">Cadastrar</button></td>
