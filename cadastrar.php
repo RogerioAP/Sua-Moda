@@ -13,7 +13,7 @@
 				<a href="home.php" class="image_title"><div class="image_title"></div></a>
 				<div class="pes"><!--Espaco "Pessoal"-->
 					<?php
-						$imagem_padrao = "fotos/803fbd58f1ed97adb518c3b2f6cc6d7a.png"; /*imagem que vai ser utilizada como padrão caso o cliente não escolha nenhuma*/
+						$caminho_imagem = "fotos/803fbd58f1ed97adb518c3b2f6cc6d7a.png"; /*imagem que vai ser utilizada como padrão caso o cliente não escolha nenhuma*/
 						//Iniciando a sessão
 						session_start();
 						include("connect.php");
@@ -24,14 +24,11 @@
 							$rs = mysql_query($sql);
 							if(mysql_num_rows($rs))
 							{
+								global $user;
 								$user = mysql_fetch_array($rs);
-								$nome1 = $user["nome"]; /*nome completo*/
+								$nome = $user["nome"]; /*nome completo*/
 								$foto = $user["foto"];
-								$nome = "";
-								for($cont=0; $nome1[$cont]!=' '; $cont++) /*pegar apenas 1° nome*/
-								{
-									$nome = $nome.$nome1[$cont]; /* $nome e o 1° nome*/
-								}
+								
 								echo "<table border='0' style='float:right'>
 										<tr>
 											<td colspan='2'><img src='$foto' width='55px' height='60px'></td>
@@ -55,14 +52,15 @@
             <div class="content"><!--Conteúdo-->
 				<?php //////////////************CADASTRANDO INCLUSIVE IMAGEM NO BD*********////////////
 					// Conexão com o banco de dados
-					$conn = @mysql_connect("localhost", "root", '') or die ("Problemas na conexão com o banco de dados.");
-					$db = @mysql_select_db("site", $conn) or die ("Problemas na conexão com a tabela de dados.");
+					//$conn = @mysql_connect("localhost", "root", '') or die ("Problemas na conexão com o banco de dados.");
+					//$db = @mysql_select_db("site", $conn) or die ("Problemas na conexão com a tabela de dados.");
 					 
 					// Se o usuário clicou no botão cadastrar efetua as ações
 					if (isset($_POST['cadastrar']))
 					{
 						// Recupera os dados dos campos
-						$nome = $_POST['nome'] ." ". $_POST['sobrenome'];
+						$nome = $_POST['nome'];
+						$sobrenome = $_POST['sobrenome'];
 						$cpf = $_POST['cpf'];
 						$telefone = $_POST['telefone'];
 						$endereco = $_POST['endereco'];
@@ -83,7 +81,7 @@
 						}else{echo "certo!";}*/
 						
 						// testa pra ver se os dados foram preenchidos
-						if(!empty($nome) && !empty($cpf) && !empty($telefone) && !empty($endereco) && !empty($numero) && !empty($bairro)
+						if(!empty($nome) && !empty($sobrenome) && !empty($cpf) && !empty($telefone) && !empty($endereco) && !empty($numero) && !empty($bairro)
 							&& !empty($cidade) && !empty($email) && !empty($password) && !empty($password2) && $password==$password2) //(!empty($foto["name"]))
 						{
 							//testa pra saber se a imagem foi carregada
@@ -118,6 +116,7 @@
 										$nome_imagem = md5(uniqid(time())) . "." . $ext[1];
 							 
 										// Caminho de onde ficará a imagem
+										$caminho_imagem = "";
 										$caminho_imagem = "fotos/" . $nome_imagem;
 							 
 										// Faz o upload da imagem para seu respectivo caminho
@@ -128,13 +127,9 @@
 							////////$sql = mysql_query("INSERT INTO sis_login VALUES (null, \"$nome\", \"$email\", \"$password\", \"$caminho_imagem\");");//\"rog\", \"ema\", \"nom\")");//(null, '".$nome."', '".$email."', '".$nome_imagem."')");
 								}
 							}
-							else
-							{
-								$caminho_imagem = "fotos/" . $imagem_padrao;
-							}
 							include "classe.php";
 							$obj = new Classe; /* usando a função INSERIR do arquivo classe.php */
-							$obj->inserir($nome, $cpf, $telefone, $endereco, $numero, $bairro, $cidade, $email, $password, $caminho_imagem, $usuario);
+							$obj->inserir($nome, $sobrenome, $cpf, $telefone, $endereco, $numero, $bairro, $cidade, $email, $password, $caminho_imagem, $usuario);
 							echo "<br><center style='color:green;'>Cadastrado com sucesso!</center><br>";
 						}
 						else
@@ -148,14 +143,18 @@
 						session_start();
 					}
 					include_once("connect.php");
-					if(isset($_SESSION['logado'])) /*se existir usuário logado dá ERRO (afinal como logar em outra conta já estando logado)*/
+					
+					$texto = "CADASTRAMENTO";
+					$tipo = "";
+					if(isset($_SESSION['logado'])){$tipo = $user["tipo"];if($tipo=='a'){$texto='ADICIONAR ADMINISTRADOR';}}/*pega o tipo de usuário logado*/
+					if(isset($_SESSION['logado']) && $tipo == 'u') /*se existir usuário logado dá ERRO (afinal como logar em outra conta já estando logado)*/
 					{
 						echo "<br><center>Existe um usuário ativo no momento, <a href='logout.php'>clique aqui</a> para sair e entrar em outra conta.</center><br>";
 					}
 					else
-					{
+					{					
 						echo "<form method='post' action='cadastrar.php' enctype='multipart/form-data'>
-							<br><center>CADASTRAMENTO</center>
+							<br><center>$texto</center>
 							<table border='0'>
 								<tr>
 									<td colspan='2'><u>Dados de Contato</u></td>
@@ -212,7 +211,7 @@
 								</tr>
 								<tr>
 									<td>Desejar escolher uma foto?</td>
-									<td><img src='$imagem_padrao'><br>
+									<td><img src='$caminho_imagem'><br>
 									<input type='file' name='foto'></td>
 								</tr>
 								<tr>

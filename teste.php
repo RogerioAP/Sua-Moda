@@ -26,13 +26,9 @@
 							if(mysql_num_rows($rs))
 							{
 								$user = mysql_fetch_array($rs);
-								$nome1 = $user["nome"]; /*nome completo*/
+								$nome = $user["nome"]; /*nome completo*/
 								$foto = $user["foto"];
-								$nome = "";
-								for($cont=0; $nome1[$cont]!=' '; $cont++) /*pegar apenas 1° nome*/
-								{
-									$nome = $nome.$nome1[$cont]; /* $nome e o 1° nome*/
-								}
+								
 								echo "<table border='0' style='float:right'>
 										<tr>
 											<td colspan='2'><img src='$foto' width='55px' height='60px'></td>

@@ -4,6 +4,7 @@ use site;
 create table sis_login(
 idusuario int not null auto_increment primary key,
 nome varchar(50) not null,
+sobrenome varchar(50) not null,
 cpf varchar(20) not null,
 telefone varchar(20) not null,
 endereco varchar(50) not null,

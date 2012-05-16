@@ -15,10 +15,17 @@
 			$bd = mysql_select_db("site")
 				or die('Conexao com o Banco de Dados falhou!');
 		}
-		function inserir($nome, $cpf, $telefone, $endereco, $numero, $bairro, $cidade, $email, $senha, $foto, $tipo)/*Somente para o botão Salvar*/
+		function inserir($nome, $sobrenome, $cpf, $telefone, $endereco, $numero, $bairro, $cidade, $email, $senha, $foto, $tipo)/*Somente para o botão Salvar*/
 		{
-			$sql = "INSERT INTO sis_login(nome, cpf, telefone, endereco, numero, bairro, cidade, email, senha, foto, tipo) values('$nome', '$cpf', '$telefone', '$endereco', '$numero', '$bairro', '$cidade', '$email', '$senha', '$foto', '$tipo')";
+			$sql = "INSERT INTO sis_login(nome, sobrenome, cpf, telefone, endereco, numero, bairro, cidade, email, senha, foto, tipo) values('$nome', '$sobrenome', '$cpf', '$telefone', '$endereco', '$numero', '$bairro', '$cidade', '$email', '$senha', '$foto', '$tipo')";
 			$this->execut($sql);
+		}
+		function editar($idusuario, $nome, $sobrenome, $cpf, $telefone, $endereco, $numero, $bairro, $cidade, $email, $senha, $foto, $tipo)
+		{
+			$sql = "update sis_login set nome='$nome', sobrenome='$sobrenome', cpf='$cpf', telefone='$telefone', endereco='$endereco',
+					 numero='$numero', bairro='$bairro', cidade='$cidade', email='$email', senha='$senha', foto='$foto', tipo='$tipo' where idusuario='$idusuario';";
+			$this->execut($sql);
+			//header("Location:admin.php?update|sis_login|set|nome='$nome',|sobrenome='$sobrenome',|cpf='$cpf',|telefone='$telefone',|endereco='$endereco',|numero='$numero',|bairro='$bairro',|cidade='$cidade',|email='$email',|senha='$senha',|foto='$foto',|tipo='$tipo'|where|idusuario='$idusuario';");
 		}
 		function execut($sql)/*Executa as SQL's*/
 		{
@@ -45,11 +52,6 @@
 				echo "</tr>";
 			}
 			echo "</table>";*/
-		}
-		function editar($nom, $end, $tel, $id)/*Editar  pessoa*/
-		{
-			$sql = "UPDATE sis_login SET nome='$nom', endereco='$end', telefone='$tel' where id='$id';";
-			$this->execut($sql);
 		}
 		function excluir($id)/*Exclui pessoa*/
 		{

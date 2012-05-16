@@ -36,7 +36,9 @@
 						$_SESSION["logado"] = $logado;
 						
 						//depois que criarmos a sessão, vamos redirecionar para a página privada
-						header("Location: home.php");
+						$tipo = $user['tipo'];
+						if($tipo=='u'){header("Location: home.php");}
+						else {header("Location: admin.php");}
 					}
 					else
 					{
