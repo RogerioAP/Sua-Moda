@@ -31,7 +31,7 @@
 				echo "<td>$email</td>";
 				echo "<td>$senha</td>";
 				echo "</tr></table>";
-			}	
+			}
 		?>
     </body>
 </html>

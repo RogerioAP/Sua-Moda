@@ -10,13 +10,23 @@
     <body class="bodyW">
         <div><!--Principal-->
             <div class="cabecalho"><!--Cabeçalho-->
-				<a href="home.php" class="image_title"><div class="image_title"></div></a>
+				<?php
+					session_start();
+					include_once "connect.php";
+					if(isset($_SESSION['logado']) && $user["tipo"]=='a')
+					{
+						echo "<div class='image_title'></div>";
+					}
+					else
+					{
+						echo "<a href='home.php' class='image_title'><div class='image_title'></div></a>";
+					}
+				?>
+				
 				<div class="pes"><!--Espaco "Pessoal"-->
 					<?php
 						$caminho_imagem = "fotos/803fbd58f1ed97adb518c3b2f6cc6d7a.png"; /*imagem que vai ser utilizada como padrão caso o cliente não escolha nenhuma*/
 						//Iniciando a sessão
-						session_start();
-						include("connect.php");
 						if(isset($_SESSION['logado']))
 						{
 							$sql = "SELECT * FROM sis_login WHERE idusuario = ".$_SESSION['id_user'];
@@ -28,13 +38,13 @@
 								$user = mysql_fetch_array($rs);
 								$nome = $user["nome"]; /*nome completo*/
 								$foto = $user["foto"];
-								
+								if($user["tipo"]=='a'){$linha=$nome;} else {$linha="<a href='user.php' style='color:black;'>$nome</a>";}//desativar link no nome
 								echo "<table border='0' style='float:right'>
 										<tr>
 											<td colspan='2'><img src='$foto' width='55px' height='60px'></td>
 										</tr>
 										<tr>
-											<td><a href='user.php' style='color:black;'>$nome</a></td>
+											<td>$linha</td>
 											<td><a href='logout.php' style='color:red;'>Sair</a></td>
 										</tr>
 									  </table>";
@@ -48,7 +58,16 @@
 					?>
 				</div>
             </div>
-            <?php include_once 'designer.inc'; menu();?>  <!--***MENU***-->
+            <?php
+				if($user["tipo"]=='a')
+				{
+					include_once 'designer.inc'; menu_admin();
+				}
+				else
+				{
+					include_once 'designer.inc'; menu();
+				}
+			?>  <!--***MENU***-->
             <div class="content"><!--Conteúdo-->
 				<?php //////////////************CADASTRANDO INCLUSIVE IMAGEM NO BD*********////////////
 					// Conexão com o banco de dados
@@ -70,7 +89,7 @@
 						$email = $_POST['email'];
 						$password = $_POST['password'];
 						$password2 = $_POST['password2'];
-						$usuario = 'u';
+						if($user["tipo"]=='a'){$usuario = 'a';}else{$usuario = 'u';}//para cadastro usuário ou admin
 						
 						// Faz a verificação da extensão do arquivo
 						// Array com as extensões permitidas
@@ -146,13 +165,13 @@
 					
 					$texto = "CADASTRAMENTO";
 					$tipo = "";
-					if(isset($_SESSION['logado'])){$tipo = $user["tipo"];if($tipo=='a'){$texto='ADICIONAR ADMINISTRADOR';}}/*pega o tipo de usuário logado*/
+					if(isset($_SESSION['logado'])){$tipo = $user["tipo"];if($tipo=='a'){$texto='ADICIONAR&nbsp&nbsp&nbsp&nbspADMINISTRADOR';}}/*pega o tipo de usuário logado*/
 					if(isset($_SESSION['logado']) && $tipo == 'u') /*se existir usuário logado dá ERRO (afinal como logar em outra conta já estando logado)*/
 					{
 						echo "<br><center>Existe um usuário ativo no momento, <a href='logout.php'>clique aqui</a> para sair e entrar em outra conta.</center><br>";
 					}
 					else
-					{					
+					{
 						echo "<form method='post' action='cadastrar.php' enctype='multipart/form-data'>
 							<br><center>$texto</center>
 							<table border='0'>
@@ -211,7 +230,7 @@
 								</tr>
 								<tr>
 									<td>Desejar escolher uma foto?</td>
-									<td><img src='$caminho_imagem'><br>
+									<td><img src='$caminho_imagem' width='55px' height='60px'><br>
 									<input type='file' name='foto'></td>
 								</tr>
 								<tr>

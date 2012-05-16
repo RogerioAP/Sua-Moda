@@ -20,6 +20,11 @@
 			$sql = "INSERT INTO sis_login(nome, sobrenome, cpf, telefone, endereco, numero, bairro, cidade, email, senha, foto, tipo) values('$nome', '$sobrenome', '$cpf', '$telefone', '$endereco', '$numero', '$bairro', '$cidade', '$email', '$senha', '$foto', '$tipo')";
 			$this->execut($sql);
 		}
+		function inserir_produto($nome, $descricao, $preco, $categoria, $imagem)/*Adicionar produtos*/
+		{
+			$sql = "INSERT INTO produtos(nome, descricao, preco, categoria, imagem) values('$nome', '$descricao', '$preco', '$categoria', '$imagem')";
+			$this->execut($sql);
+		}
 		function editar($idusuario, $nome, $sobrenome, $cpf, $telefone, $endereco, $numero, $bairro, $cidade, $email, $senha, $foto, $tipo)
 		{
 			$sql = "update sis_login set nome='$nome', sobrenome='$sobrenome', cpf='$cpf', telefone='$telefone', endereco='$endereco',
@@ -31,11 +36,16 @@
 		{
 			return mysql_query($sql) or die(mysql_error());/*Retorna resultado ou erro*/
 		}
+		public function listar_sistema($dado)
+		{
+			$sql = "SELECT $dado FROM sistema;";
+			return $this->execut($sql);
+		}
 		public function listar()/*Lista todos cadastrados*/
 		{
 			$sql = "SELECT * FROM sis_login;";
 			return $this->execut($sql);
-			/*$resultado = $this->execut($sql);
+			$resultado = $this->execut($sql);
 			
 			echo "<table>";
 			while($linha = mysql_fetch_assoc($resultado))
@@ -44,14 +54,12 @@
 				$id = $linha["idusuario"];
 				$nome = $linha["nome"];
 				$email = $linha["email"];
-				$senha = $linha["senha"];
 				echo "<td>$id</td>";
 				echo "<td>$nome</td>";
 				echo "<td>$email</td>";
-				echo "<td>$senha</td>";
 				echo "</tr>";
 			}
-			echo "</table>";*/
+			echo "</table>";
 		}
 		function excluir($id)/*Exclui pessoa*/
 		{

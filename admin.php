@@ -49,45 +49,17 @@
 			<?php
 				if($user["tipo"]=='a')
 				{
-					echo "<div class='menu'><!--Menu-->
-						<table>
-							<tr>
-								<td><a href='admin.php?d'>Dados</a></td>
-								<td><a href='admin.php?p'>Produtos</a></td>
-								<td><a href='admin.php?v'>Vendas</a></td>
-								<td><a href='cadastrar.php'>Novo Admin</a></td>
-							</tr>
-						</table>
-					</div>";
+					include_once 'designer.inc'; menu_admin();
 				}
 				else
 				{
-					echo "<div class='menu'><!--Menu-->
-						<table>
-							<tr>
-								<td><a href='#'></a></td>
-								<td><a href='#'></a></td>
-								<td><a href='#'></a></td>
-								<td><a href='#'></a></td>
-							</tr>
-						</table>
-					</div>";
+					include_once 'designer.inc'; menu_nulo();
 				}
 			?>
             <div class="content"><!--Conteúdo-->
-			Construindo...
-			<?php			
-				if($user["tipo"]=='a')
-				{
-					if(isset($_GET['p']))
-					{
-						echo "produtos...";
-					}
-					else if(isset($_GET['v']))
-					{
-						echo "vendas...";
-					}
-					else
+				Construindo...Algum problema na hora de atualizar
+				<?php			
+					if($user["tipo"]=='a')
 					{
 						$idusuario = $user["idusuario"];
 						$sobrenome = $user["sobrenome"];			
@@ -102,7 +74,7 @@
 						$usuario = "a";
 						
 						$caminho_imagem = $foto;
-						if (isset($_POST['atualizar']))
+						if (isset($_POST['atualizar']))/*clicou em atualuzar dados*/
 						{
 							$password = $_POST['password'];
 							$password2 = $_POST['password2'];
@@ -173,7 +145,7 @@
 							}
 						}
 						echo "<form method='post' action='admin.php' enctype='multipart/form-data'>
-								<br><center>ATUALIZAR CADASTRO?</center>
+								<br><center>ATUALIZAR&nbsp&nbsp&nbspDADOS&nbsp?</center>
 								<table border='0'>
 									<tr>
 										<td colspan='2'><u>Dados de Contato</u></td>
@@ -230,7 +202,7 @@
 									</tr>
 									<tr>
 										<td>Desejar escolher uma foto?</td>
-										<td><img src='$foto'><br>
+										<td><img src='$foto' width='55px' height='60px'><br>
 										<input type='file' name='foto'></td>
 									</tr>
 									<tr>
@@ -239,13 +211,12 @@
 								</table>
 							</form>";
 					}
-				}
-				else
-				{
-					echo "<center>É necessário ser ADMINISTRADOR!<br>
-						<a href='#'>Voltar</a></center><br>";
-				}
-			?>
+					else
+					{
+						echo "<center>É necessário ser ADMINISTRADOR!<br>
+							<a href='home.php'>Página Inicial</a></center><br>";
+					}
+				?>
 			</div>
 			<?php include_once 'designer.inc'; rodape(); ?>
         </div>
