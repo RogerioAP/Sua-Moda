@@ -23,6 +23,7 @@
 							if(mysql_num_rows($rs))
 							{
 								$user = mysql_fetch_array($rs);
+								if($user["tipo"]=='a'){header('Location:admin.php');} //admin tem págs específicas
 								$nome = $user["nome"]; /*nome completo*/
 								$foto = $user["foto"];
 								

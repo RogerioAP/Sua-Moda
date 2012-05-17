@@ -59,7 +59,10 @@
             <div class="content"><!--Conteúdo-->
 			<?php			
 				if($user["tipo"]=='a')
-				{
+				{	//sub-menu
+					echo "<center><a href='admin_site.php'><div style='width:265px;height:30px;padding-top:5px;background-color:#f8f8ff;float:left;color:red;'>Logo</div></a>
+							<a href='admin_site.php?rodape'><div style='width:265px;height:30px;padding-top:5px;background-color:#f8f8ff;float:left;color:red;'>Rodapé</div></a>
+							<a href='admin_site.php?imagem'><div style='width:270px;height:30px;padding-top:5px;background-color:#f8f8ff;float:left;color:red;'>Imagem-Padrão</div></a></center><br>";
 					if(isset($_POST["atualizar_logo"]))/*atualizar logo*/
 					{
 						//testa pra saber se a imagem foi carregada
@@ -67,12 +70,12 @@
 						{
 							$foto = $_FILES['logo'];
 							// Tamanho máximo do arquivo em bytes
-							$tamanho = 100000;
+							$tamanho = 200000;
 							
 							// Verifica se o tamanho da imagem é maior que o tamanho permitido
 							if($foto["size"] > $tamanho)
 							{
-								echo "<center>A imagem deve ter no máximo ".$tamanho." bytes</center><br>";
+								echo "<center style='color:red;'><br>A imagem deve ter no máximo ".$tamanho." bytes</center><br>";
 							}
 							else
 							{
@@ -81,7 +84,7 @@
 								$extensao = strtolower(end(explode('.', $_FILES['logo']['name'])));						
 								if (array_search($extensao, $_UP['extensoes']) === false)
 								{
-								   echo "<center>Isso não é uma imagem!</center><br>";
+								   echo "<center style='color:red;'><br>Isso não é uma imagem!</center><br>";
 								}
 								else
 								{
@@ -95,10 +98,11 @@
 						 
 									// Caminho de onde ficará a imagem
 									$caminho_imagem = "";
-									$caminho_imagem = "picture/titulo" . $ext[1];
+									$caminho_imagem = "picture/titulo.png";// . $ext[1];
 						 
 									// Faz o upload da imagem para seu respectivo caminho
 									move_uploaded_file($foto["tmp_name"], $caminho_imagem);
+									echo "<center style='color:green;'><br>Imagem da logomarca atualizada!</center>";
 								}
 								//echo "INSERT INTO usuarios VALUES (null, \"$nome\", \"$email\", \"$nome_imagem\");";
 								// Insere os dados no banco
@@ -108,16 +112,126 @@
 					}
 					else if(isset($_POST["atualizar_rodape"]))/*atualizar rodape*/
 					{
+						//testa pra saber se a imagem foi carregada
+						if($_FILES['rodape']['error']==0)
+						{
+							$foto = $_FILES['rodape'];
+							// Tamanho máximo do arquivo em bytes
+							$tamanho = 200000; //200 000 bytes equivale 200KB
+							
+							// Verifica se o tamanho da imagem é maior que o tamanho permitido
+							if($foto["size"] > $tamanho)
+							{
+								echo "<center style='color:red;'><br>A imagem deve ter no máximo ".$tamanho." bytes</center><br>";
+							}
+							else
+							{
+								$_UP['extensoes'] = array('jpg', 'jpeg', 'bmp', 'png', 'gif');
+								//if($ext[1] != "jpg" && $ext[1] != "bmp" && $ext[1] != "png" && $ext[1] != "gif" && $ext[1] != "jpg" && $ext[1] != "jpeg")
+								$extensao = strtolower(end(explode('.', $_FILES['rodape']['name'])));						
+								if (array_search($extensao, $_UP['extensoes']) === false)
+								{
+								   echo "<center style='color:red;'><br>Isso não é uma imagem!</center><br>";
+								}
+								else
+								{
+									// Pega as dimensões da imagem
+									$dimensoes = getimagesize($foto["tmp_name"]);
+									
+									preg_match("/\.(gif|bmp|png|jpg|jpeg){1}$/i", $foto["name"], $ext);
+									//echo "<br>".$ext[1];
+									// Gera um nome único para a imagem
+									//$nome_imagem = md5(uniqid(time())) . "." . $ext[1];
+						 
+									// Caminho de onde ficará a imagem
+									$caminho_imagem = "";
+									$caminho_imagem = "picture/rodape.png";// . $ext[1];
+						 
+									// Faz o upload da imagem para seu respectivo caminho
+									move_uploaded_file($foto["tmp_name"], $caminho_imagem);
+									echo "<center style='color:green;'><br>Imagem do rodapé atualizada!</center>";
+								}
+								//echo "INSERT INTO usuarios VALUES (null, \"$nome\", \"$email\", \"$nome_imagem\");";
+								// Insere os dados no banco
+						////////$sql = mysql_query("INSERT INTO sis_login VALUES (null, \"$nome\", \"$email\", \"$password\", \"$caminho_imagem\");");//\"rog\", \"ema\", \"nom\")");//(null, '".$nome."', '".$email."', '".$nome_imagem."')");
+							}
+						}
+					}
+					else if(isset($_POST["atualizar_foto"]))/*atualizar rodape*/
+					{
+						//testa pra saber se a imagem foi carregada
+						if($_FILES['rodape']['error']==0)
+						{
+							$foto = $_FILES['rodape'];
+							// Tamanho máximo do arquivo em bytes
+							$tamanho = 100000; //200 000 bytes equivale 200KB
+							
+							// Verifica se o tamanho da imagem é maior que o tamanho permitido
+							if($foto["size"] > $tamanho)
+							{
+								echo "<center style='color:red;'><br>A imagem deve ter no máximo ".$tamanho." bytes</center><br>";
+							}
+							else
+							{
+								$_UP['extensoes'] = array('jpg', 'jpeg', 'bmp', 'png', 'gif');
+								//if($ext[1] != "jpg" && $ext[1] != "bmp" && $ext[1] != "png" && $ext[1] != "gif" && $ext[1] != "jpg" && $ext[1] != "jpeg")
+								$extensao = strtolower(end(explode('.', $_FILES['rodape']['name'])));						
+								if (array_search($extensao, $_UP['extensoes']) === false)
+								{
+								   echo "<center style='color:red;'><br>Isso não é uma imagem!</center><br>";
+								}
+								else
+								{
+									// Pega as dimensões da imagem
+									$dimensoes = getimagesize($foto["tmp_name"]);
+									
+									preg_match("/\.(gif|bmp|png|jpg|jpeg){1}$/i", $foto["name"], $ext);
+									//echo "<br>".$ext[1];
+									// Gera um nome único para a imagem
+									//$nome_imagem = md5(uniqid(time())) . "." . $ext[1];
+						 
+									// Caminho de onde ficará a imagem
+									$caminho_imagem = "";
+									$caminho_imagem = "fotos/803fbd58f1ed97adb518c3b2f6cc6d7a.png";// . $ext[1];
+						 
+									// Faz o upload da imagem para seu respectivo caminho
+									move_uploaded_file($foto["tmp_name"], $caminho_imagem);
+									echo "<center style='color:green;'><br>Foto padrão atualizada!</center>";
+								}
+								//echo "INSERT INTO usuarios VALUES (null, \"$nome\", \"$email\", \"$nome_imagem\");";
+								// Insere os dados no banco
+						////////$sql = mysql_query("INSERT INTO sis_login VALUES (null, \"$nome\", \"$email\", \"$password\", \"$caminho_imagem\");");//\"rog\", \"ema\", \"nom\")");//(null, '".$nome."', '".$email."', '".$nome_imagem."')");
+							}
+						}
 					}
 					
-					/*logomarca*/
-					echo "<br><center>Atualizar imagem da <u>logomarca</u>? (501x98)<input type='file' name='logo'></center><br>";						
-					echo "<center><img src='picture/titulo.png'>";
-					echo "<br><button name='atualizar_logo'>Atualizar</button></center><hr style='height:10px;background-color:black'>";
 					/*rodape*/
-					echo "<center>Atualizar imagem do <u>rodapé</u>? (800x140)<input type='file' name='rodape'></center><br>";
-					echo "<center><img src='picture/rodape.png'>";
-					echo "<br><button name='atualizar_rodape'>Atualizar</button></center><hr style='height:10px;background-color:black'><br>";
+					if(isset($_GET['rodape']))
+					{
+						echo "<form method='post' action='admin_site.php?rodape' enctype='multipart/form-data'>
+								<br><center>Atualizar imagem do <u>rodapé</u>? (padrão é 800 x 140)
+								<br><input type='file' name='rodape'></center><br>";
+						echo "<center><img src='picture/rodape.png'>";
+						echo "<br><button name='atualizar_rodape'>Atualizar</button></center><br></form>";
+					}
+					/*foto padrão*/
+					else if(isset($_GET['imagem']))
+					{
+						echo "<form method='post' action='admin_site.php?imagem' enctype='multipart/form-data'>
+								<br><center>Atualizar <u>foto padrão</u>? (padrão é 100 x 100)
+								<br><input type='file' name='rodape'></center><br>";
+						echo "<center><img src='fotos/803fbd58f1ed97adb518c3b2f6cc6d7a.png'>";
+						echo "<br><button name='atualizar_foto'>Atualizar</button></center><br></form>";
+					}
+					/*logomarca*/
+					else
+					{
+						echo "<form method='post' action='admin_site.php' enctype='multipart/form-data'>
+								<br><center>Atualizar imagem da <u>logomarca</u>? (padrão é 501 x 98)
+								<br><input type='file' name='logo'></center><br>";						
+						echo "<center><img src='picture/titulo.png'>";
+						echo "<br><button name='atualizar_logo'>Atualizar</button></center><br></form>";
+					}
 				}
 				else
 				{

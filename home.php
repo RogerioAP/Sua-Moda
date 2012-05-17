@@ -7,7 +7,6 @@
             <title>Sua Moda</title>
     </head>
     <body class="bodyW">
-		
         <div><!--Principal-->
             <div class="cabecalho"><!--Cabeçalho-->
 				<a href="home.php" class="image_title"><div class="image_title"></div></a>
@@ -24,6 +23,7 @@
 							if(mysql_num_rows($rs))
 							{
 								$user = mysql_fetch_array($rs);
+								if($user["tipo"]=='a'){header('Location:admin.php');} //admin tem págs específicas
 								$nome = $user["nome"]; /*nome completo*/
 								$foto = $user["foto"];
 								

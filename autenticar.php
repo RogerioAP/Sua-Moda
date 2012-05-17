@@ -32,7 +32,7 @@
 						
 						//criando a sessão
 						session_start();
-						$_SESSION["id_user"] = $id_user;
+						$_SESSION["id_user"] = $id_user;;
 						$_SESSION["logado"] = $logado;
 						
 						//depois que criarmos a sessão, vamos redirecionar para a página privada

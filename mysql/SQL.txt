@@ -23,5 +23,5 @@ nome varchar(50) not null,
 descricao varchar(100),
 preco double not null,
 categoria varchar(10) not null,
-imagem varchar(100)
+imagem varchar(100) not null
 );

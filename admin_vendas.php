@@ -63,7 +63,7 @@
 					include_once("connect.php");
 					$sql = "SELECT * FROM sis_login;";
 					$rs = mysql_query($sql);
-					echo "<center>RELATÓRIO DE VENDAS</center>
+					echo "<center>RELATÓRIO DE VENDAS</center><br>
 					<table border=1>
 					<tr>
 						<td>CLIENTE</td>
