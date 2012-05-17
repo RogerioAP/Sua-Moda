@@ -53,6 +53,24 @@
 				<?php
 					if($user["tipo"]=='u')/*clicou em adicionar produto*/
 					{
+						if(isset($_POST["atualizar"]))
+						{
+							$nome = "";
+							$nome = $_POST["nome"];
+							$sobrenome = $_POST["sobrenome"];
+							$telefone = $_POST["telefone"];
+							$senha = $_POST["senha"];
+							
+							if(!empty($nome) && !empty($sobrenome) && !empty($telefone) && !empty($senha))
+							{//echo "certo";
+								//verificar se a senha está certa. Se sim faz o upload
+							}
+							else
+							{
+								echo "<br><center style='color:red;'>Os campos com * não podem ficar em branco!</center><br>";
+							}
+						}
+						
 						echo "<center><a href='user_d_pessoais.php'><div style='width:200px;height:30px;padding-top:5px;background-color:#f8f8ff;float:left;color:red;'>Dados Pessoais</div></a>
 							<a href='user_d_endereco.php'><div style='width:200px;height:30px;padding-top:5px;background-color:#f8f8ff;float:left;color:red;'>Dados de Endereço</div></a>
 							<a href='user_d_identificacao.php'><div style='width:200px;height:30px;padding-top:5px;background-color:#f8f8ff;float:left;color:red;'>Dados de Identificação</div></a>
@@ -62,7 +80,7 @@
 						$sobrenome = $user["sobrenome"];
 						
 						$telefone = $user["telefone"];
-						echo "<form method='post' action='autenticar.php?usuario'>
+						echo "<form method='post' action='user_d_pessoais.php'>
 							<br><center>ATUALIZAR&nbsp&nbsp&nbspDADOS&nbsp&nbsp&nbspPESSOAIS&nbsp?</center>
 							<table border=0>
 								<tr>
@@ -71,13 +89,13 @@
 									<br>* Telefone
 									<br><br>Digite sua senha</td>
 									<td class='cai'>
-									<input type='text' id='txt' name='email' value='$nome'><br>
-									<input type='text' id='txt' name='senha' value='$sobrenome'><br>
+									<input type='text' id='txt' name='nome' value='$nome'><br>
+									<input type='text' id='txt' name='sobrenome' value='$sobrenome'><br>
 									<input type='text' id='txt' name='telefone' value='$telefone'>
 									<br><br><input type='password' id='txt' name='senha' placeholder='Digite sua senha'></td>
 								</tr>
 								<tr>
-									<td colspan='3'><button>Atualizar</button></td>
+									<td colspan='3'><button name='atualizar'>Atualizar</button></td>
 								</tr>
 								<tr></tr>
 							</table>

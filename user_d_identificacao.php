@@ -60,7 +60,7 @@
 					
 						$email = $user["email"];
 						
-						echo "<form method='post' action='autenticar.php?usuario'>
+						echo "<form method='post' action='user_d_identificacao.php'>
 							<br><center>ATUALIZAR&nbsp&nbsp&nbspDADOS&nbsp&nbsp&nbspDE&nbsp&nbsp&nbspIDENTIFICAÇÃO&nbsp?</center>
 							<table border=0>
 								<tr>

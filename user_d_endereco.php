@@ -63,7 +63,7 @@
 						$bairro = $user["bairro"];						
 						$cidade = $user["cidade"];
 						
-						echo "<form method='post' action='autenticar.php?usuario'>
+						echo "<form method='post' action='user_d_endereco.php'>
 							<br><center>ATUALIZAR&nbsp&nbsp&nbspDADOS&nbsp&nbsp&nbspDE&nbsp&nbsp&nbspENDEREÇO&nbsp?</center>
 							<table border=0>
 								<tr>

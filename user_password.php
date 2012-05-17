@@ -53,33 +53,44 @@
 				<?php
 					if($user["tipo"]=='u')/*clicou em adicionar produto*/
 					{
+						
 						echo "<center><a href='user_d_pessoais.php'><div style='width:200px;height:30px;padding-top:5px;background-color:#f8f8ff;float:left;color:red;'>Dados Pessoais</div></a>
 							<a href='user_d_endereco.php'><div style='width:200px;height:30px;padding-top:5px;background-color:#f8f8ff;float:left;color:red;'>Dados de Endereço</div></a>
 							<a href='user_d_identificacao.php'><div style='width:200px;height:30px;padding-top:5px;background-color:#f8f8ff;float:left;color:red;'>Dados de Identificação</div></a>
 							<a href='user_password.php'><div style='width:200px;height:30px;padding-top:5px;background-color:#f8f8ff;float:left;color:red;'>Senha</div></a></center><br>";
 					
-						$nome = $user["nome"];
-						$sobrenome = $user["sobrenome"];
+						$senha_atual = $user["senha"];
+						$senha_nova = $user["senha_nova"];
+						$senha_nova = $user["senha_nova2"];
 						
-						$telefone = $user["telefone"];
+						if($senha_nova==$senha_nova2)
+						{
+							echo "<br><center>As novas senhas não estão iguais!<br>
+									<a href='home.php'>Página Inicial</a></center><br>";
+						}
+						include_once "classe.php";
+						$obj = new Classe;
+						$resultado = $obj->senha();
+						
+						if(){}
 						echo "<form method='post' action='autenticar.php?usuario'>
-							<br><center>ATUALIZAR&nbsp&nbsp&nbspDADOS&nbsp&nbsp&nbspPESSOAIS&nbsp?</center>
-							<table border=0>
-								<tr>
-									<td class='tex'>* Senha Atual<br>
-									<br>* Senha Nova
-									<br>* Senha Novamente</td>
-									<td class='cai'>
-									<input type='text' id='txt' name='email' placeholder='Digite sua senha atual'><br><br>
-									<input type='text' id='txt' name='senha' placeholder='Digite a nova senha'><br>
-									<input type='text' id='txt' name='telefone' placeholder='Digite a senha novamente'></td>
-								</tr>
-								<tr>
-									<td colspan='3'><button>Atualizar</button></td>
-								</tr>
-								<tr></tr>
-							</table>
-						</form>";
+								<br><center>ATUALIZAR&nbsp&nbsp&nbspDADOS&nbsp&nbsp&nbspPESSOAIS&nbsp?</center>
+								<table border=0>
+									<tr>
+										<td class='tex'>* Senha Atual<br>
+										<br>* Senha Nova
+										<br>* Senha Novamente</td>
+										<td class='cai'>
+										<input type='text' id='txt' name='senha' placeholder='Digite sua senha atual'><br><br>
+										<input type='text' id='txt' name='senh_nova' placeholder='Digite a nova senha'><br>
+										<input type='text' id='txt' name='senha_nova2' placeholder='Digite a senha novamente'></td>
+									</tr>
+									<tr>
+										<td colspan='3'><button>Atualizar</button></td>
+									</tr>
+									<tr></tr>
+								</table>
+							</form>";						
 					}
 					else
 					{
