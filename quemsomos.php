@@ -32,7 +32,7 @@
 											<td colspan='2'><img src='$foto' width='55px' height='60px'></td>
 										</tr>
 										<tr>
-											<td><a href='user.php' style='color:black;'>$nome</a></td>
+											<td><a href='user_d_pessoais.php' style='color:black;'>$nome</a></td>
 											<td><a href='logout.php' style='color:red;'>Sair</a></td>
 										</tr>
 									  </table>";
@@ -48,7 +48,10 @@
             </div>
             <?php include_once 'designer.inc'; menu();?>  <!--***MENU***-->
             <div class="content"><!--Conteúdo-->
-				<div><br><center>Construindo "Quem Somos"...<br><br>AQUI VAI TER LINKS PARA: HISTÓRIA, VALORES DA EMPRESA E LOCALIZAÇÃO OU TUDO ISSO VAI FICAR SOMENTE NESSA PÁGINA???</center><br></div>
+				<div><br><center>Construindo "Quem Somos"...
+						<br><a href="historia.php">História</a>
+						<br><a href="localizacao.php">Localizacao</a>
+						<br><a href="valores_empresa.php">Valores da Empresa</a></center><br></div>
             </div>
 			<?php include_once 'designer.inc'; rodape(); ?>
         </div>

@@ -48,8 +48,7 @@
             </div>
             <?php include_once 'designer.inc'; menu();?>  <!--***MENU***-->
             <div class="content"><!--Conteúdo-->
-				<div><br><center>Para entrar em contato mande email para suamoda@hotmail.com ou ligue para (38) 3333-3333.
-										Estamos também nas redes sociais!</center><br></div>
+				<div><br><center>Construindo "História"...</center><br></div>
             </div>
 			<?php include_once 'designer.inc'; rodape(); ?>
         </div>

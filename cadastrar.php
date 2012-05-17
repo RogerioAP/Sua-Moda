@@ -38,7 +38,7 @@
 								$user = mysql_fetch_array($rs);
 								$nome = $user["nome"]; /*nome completo*/
 								$foto = $user["foto"];
-								if($user["tipo"]=='a'){$linha=$nome;} else {$linha="<a href='user.php' style='color:black;'>$nome</a>";}//desativar link no nome
+								if($user["tipo"]=='a'){$linha=$nome;} else {$linha="<a href='user_d_pessoais.php' style='color:black;'>$nome</a>";}//desativar link no nome
 								echo "<table border='0' style='float:right'>
 										<tr>
 											<td colspan='2'><img src='$foto' width='55px' height='60px'></td>

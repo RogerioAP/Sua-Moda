@@ -14,7 +14,15 @@
 			$senha = addslashes($_POST["senha"]);
 			//$senha = md5(addslashes($_POST["senha"]));
 			
-			$sql = "SELECT * FROM sis_login WHERE email = '$email' AND senha = '$senha'";
+			if(isset($_GET['usuario']))
+			{
+				$sql = "SELECT * FROM sis_login WHERE email = '$email' AND senha = '$senha' AND tipo = 'u'";
+			}
+			else if(isset($_GET['admin']))
+			{
+				$cpf = addslashes($_POST["cpf"]);
+				$sql = "SELECT * FROM sis_login WHERE cpf = '$cpf' AND email = '$email' AND senha = '$senha' AND tipo = 'a'";
+			}
 			$rs = mysql_query($sql);
 			
 			if(mysql_num_rows($rs) == 1)
@@ -42,17 +50,17 @@
 					}
 					else
 					{
-						header("Location:login.php?error");				
+						if(isset($_GET['usuario'])) { header("Location:login.php?error"); } else { header("Location:login_admin.php?error"); }
 					}
 				}
 				else
 				{
-					header("Location:login.php?error");			
+					if(isset($_GET['usuario'])) { header("Location:login.php?error"); } else { header("Location:login_admin.php?error"); }
 				}
 			}
 			else
 			{
-				header("Location:login.php?error");
+				if(isset($_GET['usuario'])) { header("Location:login.php?error"); } else { header("Location:login_admin.php?error"); }
 			}
 			
 		?>

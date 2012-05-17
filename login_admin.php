@@ -61,12 +61,12 @@
 					}
 					else
 					{
-						echo "<form method='post' action='autenticar.php'>
+						echo "<form method='post' action='autenticar.php?admin'>
 							<br><center>Entrar como Administrador</center>
 							<table border='0'>
 								<tr>
-									<td class='tex'>Nome</td>
-									<td class='cai'><input type='text' id='txt' name='nome' placeholder='Digite o nome'></td>
+									<td class='tex'>CPF</td>
+									<td class='cai'><input type='text' id='txt' name='cpf' placeholder='Digite o CPF'></td>
 								</tr>
 								<tr>
 									<td class='tex'>Email</td>
@@ -87,7 +87,7 @@
 					if(isset($_GET["error"]))
 					{
 						echo "<center>
-							Usuário ou senha inválidos. Tente novamente.<br>Não tem uma conta? <a href='cadastrar.php'>Registre-se!</a></center></br>";
+							Dados inválidos. Tente novamente.<br>Não tem uma conta? <a href='cadastrar.php'>Registre-se!</a></center></br>";
 					}
 				?>
             </div>

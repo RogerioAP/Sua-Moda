@@ -7,6 +7,7 @@
             <title>Sua Moda</title>
     </head>
     <body class="bodyW">
+		
         <div><!--Principal-->
             <div class="cabecalho"><!--Cabeçalho-->
 				<a href="home.php" class="image_title"><div class="image_title"></div></a>
@@ -48,40 +49,47 @@
             </div>
             <?php include_once 'designer.inc'; menu();?>  <!--***MENU***-->
             <div class="content"><!--Conteúdo-->
+			Construindo...
 				<?php
-					$est_ses = session_id(); /*pega o estado da conexão se foi iniciada ou não*/
-					if(empty($est_ses))
+					if($user["tipo"]=='u')/*clicou em adicionar produto*/
 					{
-						session_start();
-					}
-					include_once("connect.php");
-					if(isset($_SESSION['logado'])) /*se existir usuário logado dá ERRO (afinal como logar em outra conta já estando logado)*/
-					{
-						echo "<br><center>Existe um usuário ativo no momento, <a href='logout.php'>clique aqui</a> para sair e entrar em outra conta.</center><br>";
-					}
-					else
-					{
+						echo "<center><a href='user_d_pessoais.php'><div style='width:200px;height:30px;padding-top:5px;background-color:#f8f8ff;float:left;color:red;'>Dados Pessoais</div></a>
+							<a href='user_d_endereco.php'><div style='width:200px;height:30px;padding-top:5px;background-color:#f8f8ff;float:left;color:red;'>Dados de Endereço</div></a>
+							<a href='user_d_identificacao.php'><div style='width:200px;height:30px;padding-top:5px;background-color:#f8f8ff;float:left;color:red;'>Dados de Identificação</div></a>
+							<a href='user_password.php'><div style='width:200px;height:30px;padding-top:5px;background-color:#f8f8ff;float:left;color:red;'>Senha</div></a></center><br>";
+					
+						$endereco = $user["endereco"];
+						$numero = $user["numero"];						
+						$bairro = $user["bairro"];						
+						$cidade = $user["cidade"];
+						
 						echo "<form method='post' action='autenticar.php?usuario'>
-							<br><center>Entrar</center>
-							<table border='0'>
+							<br><center>ATUALIZAR&nbsp&nbsp&nbspDADOS&nbsp&nbsp&nbspDE&nbsp&nbsp&nbspENDEREÇO&nbsp?</center>
+							<table border=0>
 								<tr>
-									<td class='tex'>Email
-									<br>Senha</td>
-									<td class='cai'><input type='text' id='txt' name='email' placeholder='Digite o email'>
-									<input type='password' id='txt' name='senha' placeholder='Digite a senha'></td>
-									<td rowspan='2'><a href='login_admin.php'><img src='picture/restrito-2.png'></a></td>
+									<td class='tex'>* Endereço
+									<br>* Número
+									<br>* Bairro
+									<br>* Cidade
+									<br><br>Digite sua senha</td>
+									<td class='cai'>
+									<input type='text' id='txt' name='endereco' value='$endereco'><br>
+									<input type='text' id='txt' name='numero' value='$numero'><br>
+									<input type='text' id='txt' name='bairro' value='$bairro'><br>
+									<input type='text' id='txt' name='cidade' value='$cidade'>
+									<br><br><input type='password' id='txt' name='senha' placeholder='Digite sua senha'></td>
 								</tr>
 								<tr>
-									<td colspan='3'><button>Entrar</button></td>
+									<td colspan='3'><button>Atualizar</button></td>
 								</tr>
 								<tr></tr>
 							</table>
 						</form>";
 					}
-					if(isset($_GET["error"]))
+					else
 					{
-						echo "<center>
-							Dados inválidos. Tente novamente.<br>Não tem uma conta? <a href='cadastrar.php'>Registre-se!</a></center></br>";
+						echo "<br><center>É necessário está cadastrado!<br>
+							<a href='home.php'>Página Inicial</a></center><br>";
 					}
 				?>
             </div>

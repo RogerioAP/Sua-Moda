@@ -7,6 +7,7 @@
             <title>Sua Moda</title>
     </head>
     <body class="bodyW">
+		
         <div><!--Principal-->
             <div class="cabecalho"><!--Cabeçalho-->
 				<a href="home.php" class="image_title"><div class="image_title"></div></a>
@@ -48,8 +49,42 @@
             </div>
             <?php include_once 'designer.inc'; menu();?>  <!--***MENU***-->
             <div class="content"><!--Conteúdo-->
-				<div><br><center>Para entrar em contato mande email para suamoda@hotmail.com ou ligue para (38) 3333-3333.
-										Estamos também nas redes sociais!</center><br></div>
+			Construindo...
+				<?php
+					if($user["tipo"]=='u')/*clicou em adicionar produto*/
+					{
+						echo "<center><a href='user_d_pessoais.php'><div style='width:200px;height:30px;padding-top:5px;background-color:#f8f8ff;float:left;color:red;'>Dados Pessoais</div></a>
+							<a href='user_d_endereco.php'><div style='width:200px;height:30px;padding-top:5px;background-color:#f8f8ff;float:left;color:red;'>Dados de Endereço</div></a>
+							<a href='user_d_identificacao.php'><div style='width:200px;height:30px;padding-top:5px;background-color:#f8f8ff;float:left;color:red;'>Dados de Identificação</div></a>
+							<a href='user_password.php'><div style='width:200px;height:30px;padding-top:5px;background-color:#f8f8ff;float:left;color:red;'>Senha</div></a></center><br>";
+					
+						$email = $user["email"];
+						
+						echo "<form method='post' action='autenticar.php?usuario'>
+							<br><center>ATUALIZAR&nbsp&nbsp&nbspDADOS&nbsp&nbsp&nbspDE&nbsp&nbsp&nbspIDENTIFICAÇÃO&nbsp?</center>
+							<table border=0>
+								<tr>
+									<td class='tex'>* Email
+									<br>* Email novamente
+									<br><br>Digite sua senha</td>
+									<td class='cai'>
+									<input type='text' id='txt' name='email' value='$email'><br>
+									<input type='text' id='txt' name='senha' placeholder='Digite novamente o email'>
+									<br><br><input type='password' id='txt' name='senha' placeholder='Digite sua senha'></td>
+								</tr>
+								<tr>
+									<td colspan='3'><button>Atualizar</button></td>
+								</tr>
+								<tr></tr>
+							</table>
+						</form>";
+					}
+					else
+					{
+						echo "<br><center>É necessário está cadastrado!<br>
+							<a href='home.php'>Página Inicial</a></center><br>";
+					}
+				?>
             </div>
 			<?php include_once 'designer.inc'; rodape(); ?>
         </div>

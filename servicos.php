@@ -32,7 +32,7 @@
 											<td colspan='2'><img src='$foto' width='55px' height='60px'></td>
 										</tr>
 										<tr>
-											<td><a href='user.php' style='color:black;'>$nome</a></td>
+											<td><a href='user_d_pessoais.php' style='color:black;'>$nome</a></td>
 											<td><a href='logout.php' style='color:red;'>Sair</a></td>
 										</tr>
 									  </table>";
