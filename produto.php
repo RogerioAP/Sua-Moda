@@ -48,54 +48,8 @@
             </div>
             <?php include_once 'designer.inc'; menu();?>  <!--***MENU***-->
             <div class="content"><!--Conteúdo-->
-				<?php
-					include_once 'connect.php';
-					$sql = "SELECT * FROM produtos";
-					$rs = mysql_query($sql);
-					
-					$cont = 0;//contador para saber quando é para trocar de linha
-					echo "<center>Acessórios --fazer essa pág funcionar e depois fazer vest. e gadg.</center>
-							<table border=0 class='lista_produtos'>";
-					while($linha = mysql_fetch_assoc($rs))
-					{
-						$imagem = $linha['imagem'];
-						$preco = $linha['preco'];
-						$nome = $linha['nome'];
-						
-						if($cont==0) // a primeira vez inicia a div e tr
-						{
-							echo "<tr>
-									<td><a href='#'>
-											<div>												
-												<img src='$imagem'>
-												<br>$nome - R$ $preco
-											</div>
-										</a></td>";
-						}
-						else if($cont%3==0) //quando for o 4° produto da linha, ele é deslocado para uma próxima linha
-						{
-							echo "</tr>
-									<tr>
-										<td><a href='#'>
-											<div>												
-												<img src='$imagem'>
-												<br>$nome - R$ $preco
-											</div>
-										</a></td>";
-						}
-						else //quando for adicionar produtos na linha normalmente
-						{
-							echo "<td><a href='#'>
-											<div>												
-												<img src='$imagem'>
-												<br>$nome - R$ $preco
-											</div>
-										</a></td>";
-						}
-						$cont++; //contador incrementando
-					}
-					echo "</table>";
-				?>
+				<div><br><center>Para entrar em contato mande email para suamoda@hotmail.com ou ligue para (38) 3333-3333.
+										Estamos também nas redes sociais!</center><br></div>
             </div>
 			<?php include_once 'designer.inc'; rodape(); ?>
         </div>

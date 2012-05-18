@@ -267,8 +267,9 @@ ul { list-style-type: none;}
 
 
 /************PÁGINA DE PRODUTOS***************/
-.lista_produtos tr td img /*lista de produtos para o usuário*/
+.lista_produtos tr td a /*lista de produtos para o usuário*/
 {
-	width: 100px;
+	text-decoration:none;
+	text-align:center;
 }
 /************PÁGINA DE PRODUTOS***************/

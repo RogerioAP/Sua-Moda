@@ -30,8 +30,9 @@
 				echo "<td>$nome</td>";
 				echo "<td>$email</td>";
 				echo "<td>$senha</td>";
-				echo "</tr></table>";
+				echo "</tr>";
 			}
+			echo "</table>";
 		?>
     </body>
 </html>
