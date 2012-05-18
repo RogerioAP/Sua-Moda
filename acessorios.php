@@ -54,7 +54,7 @@
 					$rs = mysql_query($sql);
 					
 					$cont = 0;//contador para saber quando é para trocar de linha
-					echo "<center>Acessórios --fazer essa pág funcionar e depois fazer vest. e gadg.</center>
+					echo "<center><img src='picture/acessorios.png'>Acessórios --fazer essa pág funcionar e depois fazer vest. e gadg.</center>
 							<table border=0 class='lista_produtos'>";
 					while($linha = mysql_fetch_assoc($rs))
 					{
