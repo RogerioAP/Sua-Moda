@@ -57,7 +57,39 @@
 							<a href='user_d_endereco.php'><div style='width:200px;height:30px;padding-top:5px;background-color:#f8f8ff;float:left;color:red;'>Dados de Endereço</div></a>
 							<a href='user_d_identificacao.php'><div style='width:200px;height:30px;padding-top:5px;background-color:#f8f8ff;float:left;color:red;'>Dados de Identificação</div></a>
 							<a href='user_password.php'><div style='width:200px;height:30px;padding-top:5px;background-color:#f8f8ff;float:left;color:red;'>Senha</div></a></center><br>";
-					
+											
+						if(isset($_POST['atualizar'])) //clicou no botão
+						{
+							$email = $_POST["email"];
+							$email2 = $_POST["email2"];
+							$senha = $_POST["senha"];
+							
+							if(!empty($email) && !empty($email2) && !empty($senha)) //verificando campos em branco
+							{
+								$idusuario = $user['idusuario'];
+								//verificar se a senha atual do usuário está correta
+								include_once "classe.php";
+								$obj = new Classe;
+								$sql = "SELECT idusuario, senha FROM sis_login WHERE tipo='u' AND idusuario='$idusuario' AND senha='$senha'";
+								$resultado = mysql_query($sql) or die (mysql_error());
+								
+								if(mysql_num_rows($resultado)) //se estiver certo
+								{
+									//chamar método de atualizar identificacao
+									echo "<br><center style='color:green;'>Dados de identificação atualizados!</center>";
+								}
+								else
+								{
+									echo "<br><center style='color:red;'>Senha inválida!</center>";
+								}
+								//$resultado = $obj->senha($user['idusuario'], $senha_atual);
+							}
+							else
+							{
+								echo "<br><center style='color:red;'>Os campos não podem ser nulos!</center>";
+							}
+						}
+						
 						$email = $user["email"];
 						
 						echo "<form method='post' action='user_d_identificacao.php'>
@@ -69,11 +101,11 @@
 									<br><br>Digite sua senha</td>
 									<td class='cai'>
 									<input type='text' id='txt' name='email' value='$email'><br>
-									<input type='text' id='txt' name='senha' placeholder='Digite novamente o email'>
+									<input type='text' id='txt' name='email2' placeholder='Digite novamente o email'>
 									<br><br><input type='password' id='txt' name='senha' placeholder='Digite sua senha'></td>
 								</tr>
 								<tr>
-									<td colspan='3'><button>Atualizar</button></td>
+									<td colspan='3'><button name='atualizar'>Atualizar</button></td>
 								</tr>
 								<tr></tr>
 							</table>

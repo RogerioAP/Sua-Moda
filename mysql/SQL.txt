@@ -14,7 +14,10 @@ cidade varchar(50) not null,
 email varchar(50) not null,
 senha varchar(50) not null,
 foto varchar(100) not null,
-tipo char(1) not null
+tipo char(1) not null,
+acessorios int default 0,
+vestuario int default 0,
+gadgets int default 0
 )engine=innodb;
 
 create table produtos(
@@ -24,4 +27,4 @@ descricao varchar(100),
 preco double not null,
 categoria varchar(10) not null,
 imagem varchar(100) not null
-);
+)engine=innodb;

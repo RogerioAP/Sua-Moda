@@ -57,7 +57,41 @@
 							<a href='user_d_endereco.php'><div style='width:200px;height:30px;padding-top:5px;background-color:#f8f8ff;float:left;color:red;'>Dados de Endereço</div></a>
 							<a href='user_d_identificacao.php'><div style='width:200px;height:30px;padding-top:5px;background-color:#f8f8ff;float:left;color:red;'>Dados de Identificação</div></a>
 							<a href='user_password.php'><div style='width:200px;height:30px;padding-top:5px;background-color:#f8f8ff;float:left;color:red;'>Senha</div></a></center><br>";
-					
+											
+						if(isset($_POST['atualizar'])) //clicou no botão
+						{
+							$endereco = $_POST["endereco"];
+							$numero = $_POST["numero"];						
+							$bairro = $_POST["bairro"];						
+							$cidade = $_POST["cidade"];
+							$senha = $_POST['senha'];
+							
+							if(!empty($endereco) && !empty($numero) && !empty($bairro) && !empty($cidade) && !empty($senha)) //verificando campos em branco
+							{
+								$idusuario = $user['idusuario'];
+								//verificar se a senha atual do usuário está correta
+								include_once "classe.php";
+								$obj = new Classe;
+								$sql = "SELECT idusuario, senha FROM sis_login WHERE tipo='u' AND idusuario='$idusuario' AND senha='$senha'";
+								$resultado = mysql_query($sql) or die (mysql_error());
+								
+								if(mysql_num_rows($resultado)) //se estiver certo
+								{
+									//chamar método de atualizar endereco
+									echo "<br><center style='color:green;'>Senha atualiada</center>";
+								}
+								else
+								{
+									echo "<br><center style='color:red;'>Dados de endereço atualizados!</center>";
+								}
+								//$resultado = $obj->senha($user['idusuario'], $senha_atual);
+							}
+							else
+							{
+								echo "<br><center style='color:red;'>Os campos não podem ser nulos!</center>";
+							}
+						}
+						
 						$endereco = $user["endereco"];
 						$numero = $user["numero"];						
 						$bairro = $user["bairro"];						
@@ -80,7 +114,7 @@
 									<br><br><input type='password' id='txt' name='senha' placeholder='Digite sua senha'></td>
 								</tr>
 								<tr>
-									<td colspan='3'><button>Atualizar</button></td>
+									<td colspan='3'><button name='atualizar'>Atualizar</button></td>
 								</tr>
 								<tr></tr>
 							</table>

@@ -264,3 +264,11 @@ ul { list-style-type: none;}
 	text-decoration:none;
 }
 /************PÁGINA DO USUÁRIO***************/
+
+
+/************PÁGINA DE PRODUTOS***************/
+.lista_produtos tr td img /*lista de produtos para o usuário*/
+{
+	width: 100px;
+}
+/************PÁGINA DE PRODUTOS***************/

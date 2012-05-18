@@ -49,45 +49,27 @@
             <?php include_once 'designer.inc'; menu();?>  <!--***MENU***-->
             <div class="content"><!--Conteúdo-->
 				<?php
-					$aces1 = "#";
-					$aces2 = "#";
-					$aces3 = "#";
+					include_once 'connect.php';
+					$sql = "SELECT * FROM produtos";
+					$rs = mysql_query($sql);
 					
 					$vest1 = "produtos/blusas4.png";
 					$vest2 = "produtos/blusas2.jpg";
 					$vest3 = "produtos/blusas3.jpg";
 					
-					$gad1 = "#";
-					$gad2 = "#";
-					$gad3 = "#";
-					echo "<div>
-						<table border=0 class='lista_produtos'>
-							<tr>
-								<td colspan='3'><a href='acessorios.php'>+ Acessórios</a></td>
-							</tr>
-							<tr>
-								<td><a href='#'><img src='$aces1'></a></td>
-								<td><a href='#'><img src='$aces2'></a></td>
-								<td><a href='#'><img src='$aces3'></a></td>
-							</tr>
-							<tr>
-								<td colspan='3'><a href='vestuario.php'>+ Vestuário</a></td>
-							</tr>
-							<tr>
-								<td><a href='#'><img src='$vest1'></a></td>
-								<td><a href='#'><img src='$vest2'></a></td>
-								<td><a href='#'><img src='$vest3'></a></td>
-							</tr>
-							<tr>
-								<td colspan='3'><a href='gadgets.php'>+ Gadgets</a></td>
-							</tr>
-							<tr>
-								<td><a href='#'><img src='$gad1'></a></td>
-								<td><a href='#'><img src='$gad2'></a></td>
-								<td><a href='#'><img src='$gad3'></a></td>
-							</tr>
-						</table>
-					</div>";
+					$cont = 0;//contador para saber quando é para trocar de linha
+					echo "<center>Acessórios</center>
+							<table border=0 class='lista_produtos'>";
+					while($linha = mysql_fetch_assoc($rs))
+					{
+						echo "<div>
+								<tr>
+									<td><a href='#'><img src='$vest1'></a></td>
+								</tr>
+							</div>";
+						$cont++;
+					}
+					echo "</table>";
 				?>
             </div>
 			<?php include_once 'designer.inc'; rodape(); ?>

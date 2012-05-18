@@ -52,8 +52,13 @@
 			Construindo...Falta a programação de parte...
 				<?php
 					if($user["tipo"]=='u')/*clicou em adicionar produto*/
-					{
-						if(isset($_POST["atualizar"]))
+					{						
+						echo "<center><a href='user_d_pessoais.php'><div style='width:200px;height:30px;padding-top:5px;background-color:#f8f8ff;float:left;color:red;'>Dados Pessoais</div></a>
+							<a href='user_d_endereco.php'><div style='width:200px;height:30px;padding-top:5px;background-color:#f8f8ff;float:left;color:red;'>Dados de Endereço</div></a>
+							<a href='user_d_identificacao.php'><div style='width:200px;height:30px;padding-top:5px;background-color:#f8f8ff;float:left;color:red;'>Dados de Identificação</div></a>
+							<a href='user_password.php'><div style='width:200px;height:30px;padding-top:5px;background-color:#f8f8ff;float:left;color:red;'>Senha</div></a></center><br>";
+											
+						if(isset($_POST['atualizar'])) //clicou no botão
 						{
 							$nome = "";
 							$nome = $_POST["nome"];
@@ -62,20 +67,31 @@
 							$senha = $_POST["senha"];
 							
 							if(!empty($nome) && !empty($sobrenome) && !empty($telefone) && !empty($senha))
-							{//echo "certo";
-								//verificar se a senha está certa. Se sim faz o upload
+							{
+								$idusuario = $user['idusuario'];
+								//verificar se a senha atual do usuário está correta
+								include_once "classe.php";
+								$obj = new Classe;
+								$sql = "SELECT idusuario, senha FROM sis_login WHERE tipo='u' AND idusuario='$idusuario' AND senha='$senha'";
+								$resultado = mysql_query($sql) or die (mysql_error());
+								
+								if(mysql_num_rows($resultado)) //se estiver certo
+								{
+									//chamar método de atualizar dados pessoais
+									echo "<br><center style='color:green;'>Dados pessoais atualizados!</center>";
+								}
+								else
+								{
+									echo "<br><center style='color:red;'>Senha inválida!</center>";
+								}
+								//$resultado = $obj->senha($user['idusuario'], $senha_atual);
 							}
 							else
 							{
-								echo "<br><center style='color:red;'>Os campos com * não podem ficar em branco!</center><br>";
+								echo "<br><center style='color:red;'>Os campos não podem ser nulos!</center>";
 							}
 						}
 						
-						echo "<center><a href='user_d_pessoais.php'><div style='width:200px;height:30px;padding-top:5px;background-color:#f8f8ff;float:left;color:red;'>Dados Pessoais</div></a>
-							<a href='user_d_endereco.php'><div style='width:200px;height:30px;padding-top:5px;background-color:#f8f8ff;float:left;color:red;'>Dados de Endereço</div></a>
-							<a href='user_d_identificacao.php'><div style='width:200px;height:30px;padding-top:5px;background-color:#f8f8ff;float:left;color:red;'>Dados de Identificação</div></a>
-							<a href='user_password.php'><div style='width:200px;height:30px;padding-top:5px;background-color:#f8f8ff;float:left;color:red;'>Senha</div></a></center><br>";
-					
 						$nome = $user["nome"];
 						$sobrenome = $user["sobrenome"];
 						

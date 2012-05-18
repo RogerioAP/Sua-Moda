@@ -15,7 +15,7 @@
 					<?php
 						//Iniciando a sessão
 						session_start();
-						include("connect.php");
+						include_once "connect.php";
 						if(isset($_SESSION['logado']))
 						{
 							$sql = "SELECT * FROM sis_login WHERE idusuario = ".$_SESSION['id_user'];
@@ -52,28 +52,61 @@
 			Construindo...
 				<?php
 					if($user["tipo"]=='u')/*clicou em adicionar produto*/
-					{
-						
+					{						
 						echo "<center><a href='user_d_pessoais.php'><div style='width:200px;height:30px;padding-top:5px;background-color:#f8f8ff;float:left;color:red;'>Dados Pessoais</div></a>
 							<a href='user_d_endereco.php'><div style='width:200px;height:30px;padding-top:5px;background-color:#f8f8ff;float:left;color:red;'>Dados de Endereço</div></a>
 							<a href='user_d_identificacao.php'><div style='width:200px;height:30px;padding-top:5px;background-color:#f8f8ff;float:left;color:red;'>Dados de Identificação</div></a>
 							<a href='user_password.php'><div style='width:200px;height:30px;padding-top:5px;background-color:#f8f8ff;float:left;color:red;'>Senha</div></a></center><br>";
-					
-						$senha_atual = $user["senha"];
-						$senha_nova = $user["senha_nova"];
-						$senha_nova = $user["senha_nova2"];
 						
-						if($senha_nova==$senha_nova2)
+						if(isset($_POST['atualizar'])) //clicou no botão
 						{
-							echo "<br><center>As novas senhas não estão iguais!<br>
-									<a href='home.php'>Página Inicial</a></center><br>";
+							$senha_atual = $_POST['senha_atual'];
+							$senha_nova = $_POST["senha_nova"];
+							$senha_nova2 = $_POST["senha_nova2"];
+							
+							if(!empty($senha_atual) && !empty($senha_nova) && !empty($senha_nova2))
+							{
+								if($senha_nova==$senha_nova2) //novas senhas iguais/corretas
+								{
+									if($senha_atual!=$senha_nova) //testa pra saber se a nova senha igual a senha atual
+									{
+										$idusuario = $user['idusuario'];
+										//verificar se a senha atual do usuário está correta
+										include_once "classe.php";
+										$obj = new Classe;
+										$sql = "SELECT idusuario, senha FROM sis_login WHERE tipo='u' AND idusuario='$idusuario' AND senha='$senha_atual'";
+										$resultado = mysql_query($sql) or die (mysql_error());
+										
+										if(mysql_num_rows($resultado)) //se estiver certo
+										{
+											$obj->atualizar_senha($senha_atual, $idusuario);
+											//$sql = "UPDATE sis_login SET senha='$senha_atual' WHERE idusuario='$idusuario'";
+											//$sd = mysql_query($sql);
+											echo "<br><center style='color:green;'>Senha atualiada</center>";
+										}
+										else
+										{
+											echo "<br><center style='color:red;'>Senha inválida!</center>";
+										}
+										//$resultado = $obj->senha($user['idusuario'], $senha_atual);
+									}
+									else
+									{
+										echo "<br><center style='color:red;'>A nova senha está igual a senha atual!</center>";
+									}
+								}
+								else
+								{
+									echo "<br><center style='color:red;'>Novas senhas não são iguais!</center>";
+								}
+							}
+							else
+							{
+								echo "<br><center style='color:red;'>Os campos não podem ser nulos!</center>";
+							}
 						}
-						include_once "classe.php";
-						$obj = new Classe;
-						$resultado = $obj->senha();
-						
-						if(){}
-						echo "<form method='post' action='autenticar.php?usuario'>
+						//if(){}
+						echo "<form method='post' action='user_password.php'>
 								<br><center>ATUALIZAR&nbsp&nbsp&nbspDADOS&nbsp&nbsp&nbspPESSOAIS&nbsp?</center>
 								<table border=0>
 									<tr>
@@ -81,12 +114,12 @@
 										<br>* Senha Nova
 										<br>* Senha Novamente</td>
 										<td class='cai'>
-										<input type='text' id='txt' name='senha' placeholder='Digite sua senha atual'><br><br>
-										<input type='text' id='txt' name='senh_nova' placeholder='Digite a nova senha'><br>
+										<input type='text' id='txt' name='senha_atual' placeholder='Digite sua senha atual'><br><br>
+										<input type='text' id='txt' name='senha_nova' placeholder='Digite a nova senha'><br>
 										<input type='text' id='txt' name='senha_nova2' placeholder='Digite a senha novamente'></td>
 									</tr>
 									<tr>
-										<td colspan='3'><button>Atualizar</button></td>
+										<td colspan='3'><button name='atualizar'>Atualizar</button></td>
 									</tr>
 									<tr></tr>
 								</table>
