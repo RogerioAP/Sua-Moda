@@ -8,13 +8,13 @@
     </head>
     <body class="bodyW">
         <div><!--Principal-->
-            <div class="cabecalho"><!--Cabeçalho-->
+            <div class="cabecalho"><!--CabeÃ§alho-->
 				<a href="home.php" class="image_title"><div class="image_title"></div></a>
 				<div class="pes"><!--Espaco "Pessoal"-->
 					<?php
-						//Iniciando a sessão
+						//Iniciando a sessao
 						session_start();
-						include("connect.php");
+						include_once "connect.php";
 						if(isset($_SESSION['logado']))
 						{
 							$sql = "SELECT * FROM sis_login WHERE idusuario = ".$_SESSION['id_user'];
@@ -23,7 +23,7 @@
 							if(mysql_num_rows($rs))
 							{
 								$user = mysql_fetch_array($rs);
-								if($user["tipo"]=='a'){header('Location:admin.php');} //admin tem págs específicas
+								if($user["tipo"]=='a'){header('Location:admin.php');} //admin tem pï¿½gs especï¿½ficas
 								$nome = $user["nome"]; /*nome completo*/
 								$foto = $user["foto"];
 								
@@ -47,17 +47,18 @@
 				</div>
             </div>
             <?php include_once 'designer.inc'; menu();?>  <!--***MENU***-->
-            <div class="content"><!--Conteúdo-->
+            <div class="content"><!--ConteÃºdo-->
 				<?php
 					include_once 'connect.php';
 					$sql = "SELECT * FROM produtos";
 					$rs = mysql_query($sql);
 					
-					$cont = 0;//contador para saber quando é para trocar de linha
-					echo "<center><img src='picture/acessorios.png'>Acessórios --fazer essa pág funcionar e depois fazer vest. e gadg.</center>
+					$cont = 0;//contador para saber quando eh para trocar de linha
+					/*<img src='picture/acessorios.png'>*/echo "<center>Acessorios --fazer essa pag funcionar e depois fazer vest. e gadg.</center>
 							<table border=0 class='lista_produtos'>";
 					while($linha = mysql_fetch_assoc($rs))
 					{
+						$id_produto = $linha['idproduto'];
 						$imagem = $linha['imagem'];
 						$preco = $linha['preco'];
 						$nome = $linha['nome'];
@@ -65,18 +66,18 @@
 						if($cont==0) // a primeira vez inicia a div e tr
 						{
 							echo "<tr>
-									<td><a href='#'>
+									<td><a href='produto.php?produto=$id_produto&&categoria=aces'>
 											<div>												
 												<img src='$imagem'>
 												<br>$nome - R$ $preco
 											</div>
 										</a></td>";
 						}
-						else if($cont%3==0) //quando for o 4° produto da linha, ele é deslocado para uma próxima linha
+						else if($cont%3==0) //quando for o 4Â° produto da linha, ele Ã© deslocado para uma prï¿½xima linha
 						{
 							echo "</tr>
 									<tr>
-										<td><a href='#'>
+										<td><a href='produto.php?produto=$id_produto&&categoria=aces'>
 											<div>												
 												<img src='$imagem'>
 												<br>$nome - R$ $preco
@@ -85,7 +86,7 @@
 						}
 						else //quando for adicionar produtos na linha normalmente
 						{
-							echo "<td><a href='#'>
+							echo "<td><a href='produto.php?produto=$id_produto&&categoria=aces'>
 											<div>												
 												<img src='$imagem'>
 												<br>$nome - R$ $preco
@@ -93,11 +94,12 @@
 										</a></td>";
 						}
 						$cont++; //contador incrementando
+						//contador para saber quando eh para trocar de linha
 					}
 					echo "</table>";
 				?>
             </div>
-			<?php include_once 'designer.inc'; rodape(); ?>
+			<?php include_once 'designer.inc'; rodape(); ?><!--**RODAPÃ‰**-->
         </div>
     </body>
 </html>

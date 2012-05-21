@@ -272,4 +272,44 @@ ul { list-style-type: none;}
 	text-decoration:none;
 	text-align:center;
 }
+
+.content div table tr td img /*exibição dos produtos*/
+{
+	width: 100px;
+	height: 100px;
+	padding: 10px 0;
+	text-decoration:none;
+}
+.content div table tr td /*só alinhando os produtos*/
+{	
+	text-align:center;
+}
 /************PÁGINA DE PRODUTOS***************/
+
+
+/************** PÁGINA DE ACESSORIOS************************/
+.content table tr td div img/*listando os produtos*/
+{
+	width: 100px;
+	height: 100px;
+	padding: 10px 0;
+	text-decoration:none;
+	text-align:center;
+}
+/************** PÁGINA DE ACESSORIOS************************/
+
+
+
+/*****************PÁGINA DO PRODUTO***********************/
+.content img
+{
+	width: 200px;
+	height: 200px;
+	padding: 10px 0px;
+	text-align: center;
+}
+.content
+{
+	text-align: center;
+}
+/*****************PÁGINA DO PRODUTO***********************/

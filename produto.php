@@ -48,8 +48,41 @@
             </div>
             <?php include_once 'designer.inc'; menu();?>  <!--***MENU***-->
             <div class="content"><!--Conteúdo-->
-				<div><br><center>Para entrar em contato mande email para suamoda@hotmail.com ou ligue para (38) 3333-3333.
-										Estamos também nas redes sociais!</center><br></div>
+				<?php
+					if($user["tipo"]=='a')/*clicou em adicionar produto*/
+					{
+						echo "<br><center>É necessário ser cliente!</center><br>";
+					}
+					else
+					{
+						include_once 'connect.php';
+						$id_produto = $_GET["produto"];
+						$sql = "SELECT * FROM produtos WHERE idproduto = $id_produto";
+						
+						$rs = '';
+						$rs = mysql_query($sql);
+						if(mysql_num_rows($rs))
+						{
+							$user = mysql_fetch_array($rs);
+							$imagem = $user["imagem"];
+							echo "<div><img src='$imagem'><br>";
+							
+							/*Exibir o link para voltar para a página anterior*/
+							if(isset($_GET['categoria'])=='aces')
+							{
+								echo "<a href='acessorios.php'><< Voltar a acessórios</a><br></div>";
+							}
+							else if(isset($_GET['categoria'])=='gadg')
+							{
+								echo "<a href='acessorios.php'><< Voltar a gadgets</a><br></div>";
+							}
+							else if(isset($_GET['categoria'])=='vest')
+							{
+								echo "<a href='acessorios.php'><< Voltar a vestuário</a><br></div>";
+							}
+						}
+					}
+				?>
             </div>
 			<?php include_once 'designer.inc'; rodape(); ?>
         </div>

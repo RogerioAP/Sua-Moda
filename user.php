@@ -24,13 +24,16 @@
 							if(mysql_num_rows($rs))
 							{
 								$user = mysql_fetch_array($rs);
-								if($user["tipo"]=='a'){header('Location:admin.php');} //admin tem págs específicas
-								$nome = $user["nome"]; /*nome completo*/
+								$nome1 = $user["nome"]; /*nome completo*/
 								$foto = $user["foto"];
-								
+								$nome = "";
+								for($cont=0; $nome1[$cont]!=' '; $cont++) /*pegar apenas 1° nome*/
+								{
+									$nome = $nome.$nome1[$cont]; /* $nome e o 1° nome*/
+								}
 								echo "<table border='0' style='float:right'>
 										<tr>
-											<td colspan='2'><img src='$foto' width='55px' height='60px'></td>
+											<td colspan='2'><img src='$foto' width='80px'></td>
 										</tr>
 										<tr>
 											<td><a href='user.php' style='color:black;'>$nome</a></td>
@@ -47,111 +50,21 @@
 					?>
 				</div>
             </div>
-            <?php include_once 'designer.inc'; menu();?>  <!--***MENU***-->
+            <div class="menu"><!--Menu-->
+                <table>
+                    <tr>
+                        <td><a href="home.php" style="text-decoration: none; color: #ffffff;" onmouseover="this.style.color='#000000'" onmouseout="this.style.color='#ffffff'">Home</a></td>
+                        <td><a href="produtos.php" style="text-decoration: none; color: #ffffff;" onmouseover="this.style.color='#000000'" onmouseout="this.style.color='#ffffff'">Produtos</a></td>
+                        <td><a href="servicos.php" style="text-decoration: none; color: #ffffff;" onmouseover="this.style.color='#000000'" onmouseout="this.style.color='#ffffff'">Serviços</a></td>
+                        <td><a href="quemsomos.php" style="text-decoration: none; color: #ffffff;" onmouseover="this.style.color='#000000'" onmouseout="this.style.color='#ffffff'">Quem somos</a></td>
+                        <td><a href="contatos.php" style="text-decoration: none; color: #ffffff;" onmouseover="this.style.color='#000000'" onmouseout="this.style.color='#ffffff'">Contatos</a></td>
+                    </tr>
+                </table>
+            </div>
             <div class="content"><!--Conteúdo-->
-			Construindo...
-				<table border='1'>
-					<tr>
-						<?php
-							if(isset($_GET['dp']))
-							{
-								echo "<td rowspan='4' class='dados-user'>
-								<table border='0'>
-									<tr>
-										<td>* Nome</td>
-										<td><input type='text' id='txt' name='nome' maxlength='10' placeholder='Digite o 1° nome'></td>
-									</tr>
-									<tr>
-										<td>* Sobrenome</td>
-										<td><input type='text' id='txt' name='sobrenome' placeholder='Digite o sobrenome'></td>
-									</tr>
-									<tr>
-										<td>* CPF</td>
-										<td><input type='text' id='txt' name='cpf' placeholder='Digite o CPF'></td>
-									</tr>
-									<tr>
-										<td>* Telefone</td>
-										<td><input type='text' id='txt' name='telefone' placeholder='Digite o telefone'></td>
-									</tr>
-									<tr>
-										<td colspan='2'><button name='salvarDP'>Salvar</button></td>
-									</tr>
-								</table>
-								</td>";
-							}
-							else if(isset($_GET['de']))
-							{
-								echo "<td rowspan='4' class='dados-user'>
-								<table border='1'>
-									<tr>
-										<td>* Nome</td>
-										<td><input type='text' id='txt' name='nome' maxlength='10' placeholder='Digite o 1° nome'></td>
-									</tr>
-									<tr>
-										<td>* Sobrenome</td>
-										<td><input type='text' id='txt' name='sobrenome' placeholder='Digite o sobrenome'></td>
-									</tr>
-									<tr>
-										<td>* CPF</td>
-										<td><input type='text' id='txt' name='cpf' placeholder='Digite o CPF'></td>
-									</tr>
-									<tr>
-										<td>* Telefone</td>
-										<td><input type='text' id='txt' name='telefone' placeholder='Digite o telefone'></td>
-									</tr>
-									<tr>
-										<td colspan='2'><button name='salvarDP'>Salvar</button></td>
-									</tr>
-								</table>
-								</td>";
-							}
-							else if(isset($_GET['di']))
-							{
-								echo "<td rowspan='4' class='dados-user'>
-								<table border='1'>
-									<tr>
-										<td>* Nome</td>
-										<td><input type='text' id='txt' name='nome' maxlength='10' placeholder='Digite o 1° nome'></td>
-									</tr>
-									<tr>
-										<td>* Sobrenome</td>
-										<td><input type='text' id='txt' name='sobrenome' placeholder='Digite o sobrenome'></td>
-									</tr>
-									<tr>
-										<td>* CPF</td>
-										<td><input type='text' id='txt' name='cpf' placeholder='Digite o CPF'></td>
-									</tr>
-									<tr>
-										<td>* Telefone</td>
-										<td><input type='text' id='txt' name='telefone' placeholder='Digite o telefone'></td>
-									</tr>
-									<tr>
-										<td colspan='2'><button name='salvarDP'>Salvar</button></td>
-									</tr>
-								</table>
-								</td>";
-							}
-							else if(isset($_GET['s']))
-							{
-								echo "<td rowspan='4' class='dados-user'>Construindo 'senha'...</td>";
-							}
-							else {echo "<td rowspan='4' class='dados-user'>Construindo 'dados pessoais'...</td>";}
-						?>
-						<td class='itens-user'><a href="user.php?dp">Dados Pessoais</a></td>
-					</tr>
-					<tr>
-						<td class='itens-user'><a href="user.php?de">Dados de Endereço</a></td>
-					</tr>
-					<tr>
-						<td class='itens-user'><a href="user.php?di">Dados de Identificação</a></td>
-					</tr>
-					<tr>
-						<td class='itens-user'><a href="user.php?s">Senha</a></td>
-					</tr>
-				</table>
-				<!--
+				<?php
 					//$origem = $_SERVER["HTTP_REFERER"];  para pegar a origem da visita
-					if(isset($_SESSION["logado"]))  /*se existir um usuário logado*
+					if(isset($_SESSION["logado"]))  /*se existir um usuário logado*/
 					{
 						echo "<center>
 								<br>Deseja alterar seus dados?
@@ -179,10 +92,14 @@
 					else
 					{
 						echo "<br><center>Não existe usuário ativo no momento! Faça o <a href='login.php'>login</a> ou <a href='cadastrar.php'>registre-se</a>.</center><br>";
-					}-->
-				
+					}
+				?>
+            </div>			
+            <div class="rodape"><!--Rodapé-->
+				<a href="http://www.facebook.com" target="_blank"><img src="picture/facebook.png"></a>
+				<a href="http://www.twitter.com" target="_blank"><img src="picture/twitter.png"></a>
+                <!--Sua Moda - 2012 - Resolução Miníma 1024x768 - Todos Direitos Reservados &#169-->
             </div>
-			<?php include_once 'designer.inc'; rodape(); ?>
         </div>
     </body>
 </html>
