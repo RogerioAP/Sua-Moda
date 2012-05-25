@@ -49,45 +49,25 @@
             <?php include_once 'designer.inc'; menu();?>  <!--***MENU***-->
             <div class="content"><!--Conteúdo-->
 				<?php
-					$aces1 = "produtos/adesivo_celular.jpg";
-					$aces2 = "produtos/adesivo_notebook.jpg";
-					$aces3 = "produtos/relogio.jpeg";
-					
-					$vest1 = "produtos/blusas4.png";
-					$vest2 = "produtos/blusas2.jpg";
-					$vest3 = "produtos/blusas3.jpg";
-					
-					$gad1 = "produtos/759f0b44b6c2bd4f5a169f862e8f4923.gif";
-					$gad2 = "produtos/759f0b44b6c2bd4f5a169f862e8f4923.gif";
-					$gad3 = "produtos/759f0b44b6c2bd4f5a169f862e8f4923.gif";
-					echo "<div>
-						<table border=0 class='lista_produtos'>
-							<tr>
-								<td colspan='3'><a href='acessorios.php'>+ Acessórios</a></td>
-							</tr>
-							<tr>
-								<td><a href='#'><img src='$aces1'></a></td>
-								<td><a href='#'><img src='$aces2'></a></td>
-								<td><a href='#'><img src='$aces3'></a></td>
-							</tr>
-							<tr>
-								<td colspan='3'><a href='vestuario.php'>+ Vestuário</a></td>
-							</tr>
-							<tr>
-								<td><a href='#'><img src='$vest1'></a></td>
-								<td><a href='#'><img src='$vest2'></a></td>
-								<td><a href='#'><img src='$vest3'></a></td>
-							</tr>
-							<tr>
-								<td colspan='3'><a href='gadgets.php'>+ Gadgets</a></td>
-							</tr>
-							<tr>
-								<td><a href='#'><img src='$gad1'></a></td>
-								<td><a href='#'><img src='$gad2'></a></td>
-								<td><a href='#'><img src='$gad3'></a></td>
-							</tr>
-						</table>
-					</div>";
+					/*if(isset())
+					{ TEM Q TESTAR SE O ADMINISTRADOR ESTÁ LOGADO!!!!!*/
+						echo "<br><form method='post' action='relatorios.php'>
+								<label for='txt'>Buscar por:</label>
+								<select name='opcao'>
+									<option>Cliente</option>
+									<option>Data</option>
+								</select>
+								<button name='buscar'>Buscar</button>
+							</form><br>";
+						echo "<table>
+								<tr>
+									<td><b><u>Cliente</u><b></td>
+									<td><b><u>Produtos</u><b></td>
+									<td><b><u>Data</u><b></td>
+									<td><b><u>Valor Total R$</u><b></td>
+								</tr>
+							</table>";
+					//}
 				?>
             </div>
 			<?php include_once 'designer.inc'; rodape(); ?>
