@@ -95,19 +95,21 @@
             <div class="content">				
 				<div style="width:100%;">
 					Novidades meninas, olhem!<hr>
-					<table border="1">
+					
+					<table border="0">
 						<tr>
-							<td><a href="#"><img src="produtos/sapatos_bolsa.jpg">Sapatos e Bolsa<br>R$ 34,90</a></td>
-							<td><a href="#"><img src="produtos/relogio.jpeg">Relógio Mondaine<br>R$ 24,90</a></td>
-							<td><a href="#"><img src="produtos/sapatos.jpg">Sapatos Chanel<br>R$ 29,90</a></td>
+							<td><a href="#"><img src="produtos/sapatos_bolsa.jpg"><br>Sapatos e Bolsa<br>R$ 34,90</a></td>
+							<td><a href="#"><img src="produtos/relogio.jpeg"><br>Relógio Mondaine<br>R$ 24,90</a></td>
+							<td><a href="#"><img src="produtos/sapatos.jpg"><br>Sapatos Chanel<br>R$ 29,90</a></td>
 						</tr>
 						<tr>
-							<td><a href="#"><img src="produtos/blusas.jpg">Blusas<br>R$ 14,90</a></td>
-							<td><a href="#"><img src="produtos/bolsa.jpg">Bolsa<br>R$ 34,90</a></td>
-							<td><a href="#"><img src="produtos/blusas2.jpg">Blusas<br>R$ 9,90</a></td>
-						</tr>	
-							<td><a href="#"><img src="produtos/adesivo_celular.jpg">Adesivo Hello Kid p/ Celular<br>R$ 2,90</a></td>
-							<td><a href="#"><img src="produtos/sapatos.jpg">Sapatinhos<br>R$ 19,90</a></td>
+							<td><a href="#"><img src="produtos/sapatos_bolsa.jpg"><br>Sapatos e Bolsa<br>R$ 34,90</a></td>
+							<td><a href="#"><img src="produtos/relogio.jpeg"><br>Relógio Mondaine<br>R$ 24,90</a></td>
+							<td><a href="#"><img src="produtos/sapatos.jpg"><br>Sapatos Chanel<br>R$ 29,90</a></td>
+						</tr>
+							<td><a href="#"><img src="produtos/sapatos_bolsa.jpg"><br>Sapatos e Bolsa<br>R$ 34,90</a></td>
+							<td><a href="#"><img src="produtos/relogio.jpeg"><br>Relógio Mondaine<br>R$ 24,90</a></td>
+							<td><a href="#"><img src="produtos/sapatos.jpg"><br>Sapatos Chanel<br>R$ 29,90</a></td>
 						</tr>
 					</table>
 				</div>

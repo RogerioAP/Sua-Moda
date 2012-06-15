@@ -156,48 +156,23 @@
 	text-decoration: none;
 }
 
-/*destaque*/
-.content div div
-{
-	width: 50%;
-	background-color: #ffccff;
-	float:right;
-}
-
-/*div dos produtos*/
-.content div
-{
-	background-color: #ffccff;
-}
-
 /*barras*/
 .content div hr
 {
 	width: 100%;
 }
 
-/*imagens dos produtos*/
-.content div img
+/*conteudo da pagina*/
+.content
 {
-	width: 260px;
-	height: 230px;
-	border: none;
-}
-
-/*ao passar mouse nas imagens*/
-.content div img:hover
-{
-	opacity: 0.5;
-}
-
-/*fundo dos produtos*/
-.content div table tr
-{
-	/*background-color: #ff6666;*/
-	border-color: black;
 	background-color: #ffffff;
 }
 
+.content div table tr td a
+{
+	text-decoration: none;
+	color: #000000;
+}
 
 /*MENU*/
 .NavbarMenu

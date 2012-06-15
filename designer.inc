@@ -22,9 +22,9 @@
 			<li><a href='home.php'>Home</a></li>
 			<li><a href='#'>Produtos</a>
 			<ul>
-			<li><a href='acessorios.php'>Acessórios</a></li>
-			<li><a href='vestuario.php'>Vestuário</a></li>
-			<li><a href='gadgets.php'>Gadgets</a></li>
+			<li><a href='categoria.php?cat=a'>Acessórios</a></li>
+			<li><a href='categoria.php?cat=v'>Vestuário</a></li>
+			<li><a href='categoria.php?cat=g'>Gadgets</a></li>
 			</ul>
 			</li>
 			<li><a href='servicos.php'>Serviços</a></li>

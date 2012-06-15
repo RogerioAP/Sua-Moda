@@ -7,10 +7,13 @@
             <title>Sua Moda</title>
     </head>
     <body class="bodyW">
-        <div><!--Principal-->
-            <div class="cabecalho"><!--Cabeçalho-->
+		<!--Div Principal-->
+        <div>
+			<!--Cabeçalho-->
+            <div class="cabecalho">
 				<a href="home.php" class="image_title"><div class="image_title"></div></a>
-				<div class="pes"><!--Espaco "Pessoal"-->
+				<!--Espaco "Pessoal"-->
+				<div class="pes">
 					<?php
 						//Iniciando a sessao
 						session_start();
@@ -23,7 +26,7 @@
 							if(mysql_num_rows($rs))
 							{
 								$user = mysql_fetch_array($rs);
-								if($user["tipo"]=='a'){header('Location:admin.php');} //admin tem p�gs espec�ficas
+								if($user["tipo"]=='a'){header('Location:admin.php');} //admin tem pags espec�ficas
 								$nome = $user["nome"]; /*nome completo*/
 								$foto = $user["foto"];
 								
@@ -46,16 +49,38 @@
 					?>
 				</div>
             </div>
-            <?php include_once 'designer.inc'; menu();?>  <!--***MENU***-->
-            <div class="content"><!--Conteúdo-->
-				<?php
+			
+			<!--***MENU***-->
+            <?php include_once 'designer.inc'; menu();?>
+			
+			<!--Conteúdo-->
+            <div class="content">
+				<?php					
 					include_once 'connect.php';
-					$sql = "SELECT * FROM produtos";
-					$rs = mysql_query($sql);
+				
+					if(isset($_GET["cat"])) {$categoria = $_GET['cat'];} //pega qual categoria é para abrir
+					
+					if($categoria == 'a')
+					{
+						echo "<center>Acessórios</center>";
+						$sql = "SELECT * FROM produtos where categoria = 'acessorios';";
+					}
+					else if($categoria == 'v')
+					{
+						echo "<center>Vestuário</center>";
+						$sql = "SELECT * FROM produtos categoria = 'vestuario';";
+					}
+					else if($categoria == 'g')
+					{
+						echo "<center>Gadgets</center>";
+						$sql = "SELECT * FROM produtos categoria = 'gadgets';";
+					}
+					
+					$rs = mysql_query($sql); //passa o resultado da busca para variavel
 					
 					$cont = 0;//contador para saber quando eh para trocar de linha
-					/*<img src='picture/acessorios.png'>*/echo "<center>Acessorios --fazer essa pag funcionar e depois fazer vest. e gadg.</center>
-							<table border=0 class='lista_produtos'>";
+					
+					//exibe produtos
 					while($linha = mysql_fetch_assoc($rs))
 					{
 						$id_produto = $linha['idproduto'];
@@ -63,7 +88,8 @@
 						$preco = $linha['preco'];
 						$nome = $linha['nome'];
 						
-						if($cont==0) // a primeira vez inicia a div e tr
+						// a primeira vez inicia a div e tr
+						if($cont==0)
 						{
 							echo "<tr>
 									<td><a href='produto.php?produto=$id_produto&&categoria=aces'>
@@ -73,8 +99,9 @@
 											</div>
 										</a></td>";
 						}
-						else if($cont%3==0) //quando for o 4° produto da linha, ele é deslocado para uma pr�xima linha
+						else if($cont%3==0)
 						{
+							//quando for o 4° produto da linha, ele é deslocado para uma pr�xima linha
 							echo "</tr>
 									<tr>
 										<td><a href='produto.php?produto=$id_produto&&categoria=aces'>
@@ -84,8 +111,9 @@
 											</div>
 										</a></td>";
 						}
-						else //quando for adicionar produtos na linha normalmente
+						else
 						{
+							//quando for adicionar produtos na linha normalmente
 							echo "<td><a href='produto.php?produto=$id_produto&&categoria=aces'>
 											<div>												
 												<img src='$imagem'>
@@ -93,13 +121,16 @@
 											</div>
 										</a></td>";
 						}
-						$cont++; //contador incrementando
+						//contador incrementando
+						$cont++;
 						//contador para saber quando eh para trocar de linha
 					}
 					echo "</table>";
 				?>
             </div>
-			<?php include_once 'designer.inc'; rodape(); ?><!--**RODAPÉ**-->
+			
+			<!--**RODAPÉ**-->
+			<?php include_once 'designer.inc'; rodape(); ?>
         </div>
     </body>
 </html>
