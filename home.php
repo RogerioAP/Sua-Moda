@@ -4,11 +4,32 @@
     <head>
             <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
             <link href="jeito.css" rel="StyleSheet" type="text/css">
-            <title>Sua Moda</title>
+			<link href="css/default.css" rel="stylesheet" type="text/css" />
+	
+			<!--2 arquivos javascript para o slideshow-->
+			<script src="javascript/jquery-1.2.6.pack.js" type="text/javascript"></script>
+			<script src="javascript/jquery.flow.1.1.min.js" type="text/javascript"></script>
+            
+			<title>Sua Moda</title>
+			
+			<!--Javascript que define as imagens do slideshow-->
+			<script type="text/javascript">
+			$(function() {
+				$("div#controller").jFlow({
+					slides: "#slides",
+					width: "800px",
+					height: "313px"
+				});
+			});
+			</script>
     </head>
     <body class="bodyW">
-        <div><!--Principal-->
-            <div class="cabecalho"><!--Cabeçalho-->
+		
+		<!--Div que recebe tudo e que tem a borda degradê-->
+		<div class="div-borda">
+		
+			<!--Cabeçalho-->
+            <div class="cabecalho">
 				<a href="home.php" class="image_title"><div class="image_title"></div></a>
 				<div class="pes"><!--Espaco "Pessoal"-->
 					<?php
@@ -46,57 +67,32 @@
 					?>
 				</div>
             </div>
-            <?php include_once 'designer.inc'; menu();?>  <!--***MENU***-->
-            <div class="content"><!--Conteúdo-->
-				<div><!--COLOCAR CONDICOES PHP PARA PRODUTOS CUSTOMIZADOS PARA CLIENTE-->
-					<div>Construindo...
-					</div>
-					<div><!--DESTAQUES-->
-						Destaques<hr/>
-						<!--<img src="picture/virtual.jpg">-->
-						<!--KKKKKKKKKK-->
-						<script src='javascript/jquery.js' type='text/javascript'></script>
-						<script src='javascript/s3Slider.js' type='text/javascript'></script>
-						<script type="text/javascript">
-						$(document).ready(function()
-						{
-							$('#slider').s3Slider({
-							timeOut: 3000 /*Representa em milesimos de segundo o tempo de troca de imagem (neste caso temos 3 segundos)*/
-						});
-						});
-						</script>
-						<div id="slider">
-							<ul id="sliderContent">
-								<li class="sliderImage">
-									<a href="#"><img src="produtos/blusas.jpg" border="0"/>
-									<span class="top">Blusas</span></a>
-								</li>
-								<li class="sliderImage">
-									<a href="#"><img src="produtos/adesivo_celular.jpg" border="0"/>
-									<span class="top">Adesivo p/ Celular</span></a>
-								</li>
-								<li class="sliderImage">
-									<a href="#"><img src="produtos/sapatos_bolsa.jpg" border="0"/>
-									<span class="top">Sapato e Bolsa</span></a>
-								</li>
-								<li class="sliderImage">
-									<a href="#"><img src="produtos/sapatos.jpg" border="0"/>
-									<span class="top">Sapatinhos</span></a>
-								</li>
-								<li class="sliderImage">
-									<a href="#"><img src="produtos/adesivo_notebook.jpg" border="0"/>
-									<span class="top">Adesivo p/ Notebook</span></a>
-								</li>
-								<div class="clear sliderImage"></div>	
-							</ul>
-						</div>
-					</div>
-					<!--KKKKKKKKKK-->
-					<!--<img src="produtos/1.jpg">
-					<img src="produtos/2.jpg">
-					<img src="produtos/3.jpg">
-					<img src="produtos/4.jpg">-->
+			
+			<!--***MENU***-->
+            <?php include_once 'designer.inc'; menu();?>
+			
+			<!--Div do slideshow-->
+			<div id="wrap" style="margin-top:-45px;padding:10px 0px 0px 300px;"><!--style="padding:10px 0px 0px 300px;">-->
+				<div id="controller" class="hidden">
+					<span class="jFlowControl">No 1</span>
+					<span class="jFlowControl">No 2</span>
+					<span class="jFlowControl">No 3</span>
 				</div>
+				
+				<div id="prevNext">
+					<img src="picture/prev.png" alt="Previous Tab" class="jFlowPrev" />
+					<img src="picture/next.png" alt="Next Tab" class="jFlowNext" />
+				</div>
+				
+				<div id="slides">
+					<div><a href="#"><img src="picture/1.jpg" alt="photo" /></a><p>This is photo number one. Neato!</p></div>
+					<div><a href="#"><img src="picture/2.jpg" alt="photo" /></a><p>This is photo number two. Neato!</p></div>
+					<div><a href="#"><img src="picture/3.jpg" alt="photo" /></a><p>This is photo number three. Neato!</p></div>
+				</div>
+			</div>
+
+			<!--Conteúdo-->
+            <div class="content">				
 				<div style="width:100%;">
 					Novidades meninas, olhem!<hr>
 					<table border="1">
@@ -116,6 +112,8 @@
 					</table>
 				</div>
             </div>
+			
+			<!--Rodapé-->
 			<?php include_once 'designer.inc'; rodape(); ?>
         </div>
     </body>

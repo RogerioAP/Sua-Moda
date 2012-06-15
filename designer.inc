@@ -15,17 +15,24 @@
 	
 	function menu()
 	{
-		echo "<div class='menu'><!--Menu-->
-                <table>
-                    <tr>
-                        <td><a href='home.php'>Home</a></td>
-                        <td><a href='produtos.php'>Produtos</a></td>
-                        <td><a href='servicos.php'>Serviços</a></td>
-                        <td><a href='quemsomos.php'>Quem somos</a></td>
-                        <td><a href='contatos.php'>Contatos</a></td>
-                    </tr>
-                </table>
-            </div>";
+		echo "
+			<div class='NavbarMenu'>
+			<ul id='nav'>
+
+			<li><a href='home.php'>Home</a></li>
+			<li><a href='#'>Produtos</a>
+			<ul>
+			<li><a href='acessorios.php'>Acessórios</a></li>
+			<li><a href='vestuario.php'>Vestuário</a></li>
+			<li><a href='gadgets.php'>Gadgets</a></li>
+			</ul>
+			</li>
+			<li><a href='servicos.php'>Serviços</a></li>
+			<li><a href='quemsomos.php'>Quem Somos</a></li>
+			<li><a href='contatos.php'>Contato</a></li>
+
+			</ul>
+			</div>";
 	}
 	
 	function menu_admin()/*menu para admin*/
