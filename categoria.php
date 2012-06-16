@@ -3,20 +3,56 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
     <head>
             <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-            <link href="jeito.css" rel="StyleSheet" type="text/css">
+            
+			<?php
+				if(isset($_GET['estilo']))
+				{
+					$estilo = $_GET['estilo'];
+					
+					if($estilo == 'nerd')
+					{
+						echo "<link href='nerd.css' rel='StyleSheet' type='text/css'>";
+					}
+					else if($estilo == 'rock')
+					{
+						echo "<link href='rock.css' rel='StyleSheet' type='text/css'>";
+					}
+					else
+					{
+						echo "<link href='jeito.css' rel='StyleSheet' type='text/css'>";
+					}
+				}
+				else
+				{
+					echo "<link href='jeito.css' rel='StyleSheet' type='text/css'>";
+				}
+			?>
             <title>Sua Moda</title>
     </head>
     <body class="bodyW">
+	
 		<!--Div Principal-->
-        <div>
+        <div class="div-borda">
+		
 			<!--Cabeçalho-->
             <div class="cabecalho">
-				<a href="home.php" class="image_title"><div class="image_title"></div></a>
+				<div class="image_title">
+					<?php
+						//Iniciando a sessão
+						session_start();
+						include_once 'connect.php';
+						/*if(isset($_SESSION['logado']))*/
+						{
+							/*Icones para mudar estilo do site*/
+							echo "<a href='home.php'><img src='picture/hello.png'></a><br>
+							<a href='home.php?estilo=rock'><img src='picture/guitarra.png'></a><br>
+							<a href='home.php?estilo=nerd'><img src='picture/android_rosa.png'></a>";
+						}
+					?>
+				</div>
 				<!--Espaco "Pessoal"-->
 				<div class="pes">
 					<?php
-						//Iniciando a sessao
-						session_start();
 						include_once "connect.php";
 						if(isset($_SESSION['logado']))
 						{
@@ -51,7 +87,11 @@
             </div>
 			
 			<!--***MENU***-->
-            <?php include_once 'designer.inc'; menu();?>
+			<div class='NavbarMenu'>
+				<ul id='nav'>
+					<?php include_once 'designer.inc'; menu();?>
+				</ul>
+			</div>
 			
 			<!--Conteúdo-->
             <div class="content">
@@ -62,7 +102,7 @@
 					
 					if($categoria == 'a')
 					{
-						echo "<center>Acessórios</center>";
+						echo "<center>Acessorios</center>";
 						$sql = "SELECT * FROM produtos where categoria = 'acessorios';";
 					}
 					else if($categoria == 'v')

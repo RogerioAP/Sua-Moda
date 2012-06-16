@@ -3,27 +3,57 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
     <head>
             <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-            <link href="jeito.css" rel="StyleSheet" type="text/css">
+            
+			<?php
+				if(isset($_GET['estilo']))
+				{
+					$estilo = $_GET['estilo'];
+					
+					if($estilo == 'nerd')
+					{
+						echo "<link href='nerd.css' rel='StyleSheet' type='text/css'>";
+					}
+					else if($estilo == 'rock')
+					{
+						echo "<link href='rock.css' rel='StyleSheet' type='text/css'>";
+					}
+					else
+					{
+						echo "<link href='jeito.css' rel='StyleSheet' type='text/css'>";
+					}
+				}
+				else
+				{
+					echo "<link href='jeito.css' rel='StyleSheet' type='text/css'>";
+				}
+			?>
 			
             <title>Sua Moda</title>
     </head>
     <body class="bodyW">
-        <div><!--Principal-->
-            <div class="cabecalho"><!--Cabeçalho-->
-				<?php
-					session_start();
-					include_once "connect.php";
-					if(isset($_SESSION['logado']) && $user["tipo"]=='a')
-					{
-						echo "<div class='image_title'></div>";
-					}
-					else
-					{
-						echo "<a href='home.php' class='image_title'><div class='image_title'></div></a>";
-					}
-				?>
+	
+		<!--Principal-->
+        <div class="div-borda">
+		
+			<!--Cabeçalho-->
+            <div class="cabecalho">
+				<div class="image_title">
+					<?php
+						//Iniciando a sessão
+						session_start();
+						include_once 'connect.php';
+						/*if(isset($_SESSION['logado']))*/
+						{
+							/*Icones para mudar estilo do site*/
+							echo "<a href='home.php'><img src='picture/hello.png'></a><br>
+							<a href='home.php?estilo=rock'><img src='picture/guitarra.png'></a><br>
+							<a href='home.php?estilo=nerd'><img src='picture/android_rosa.png'></a>";
+						}
+					?>
+				</div>
 				
-				<div class="pes"><!--Espaco "Pessoal"-->
+				<!--Espaco "Pessoal"-->
+				<div class="pes">
 					<?php
 						$caminho_imagem = "fotos/803fbd58f1ed97adb518c3b2f6cc6d7a.png"; /*imagem que vai ser utilizada como padrão caso o cliente não escolha nenhuma*/
 						//Iniciando a sessão
@@ -58,6 +88,8 @@
 					?>
 				</div>
             </div>
+			
+			<!--***MENU***-->
             <?php
 				if($user["tipo"]=='a')
 				{
@@ -65,9 +97,13 @@
 				}
 				else
 				{
-					include_once 'designer.inc'; menu();
+					echo "	<div class='NavbarMenu'>
+								<ul id='nav'>
+									<?php include_once 'designer.inc'; menu();?>
+								</ul>
+							</div>";
 				}
-			?>  <!--***MENU***-->
+			?>
             <div class="content"><!--Conteúdo-->
 				<?php //////////////************CADASTRANDO INCLUSIVE IMAGEM NO BD*********////////////
 					// Conexão com o banco de dados
@@ -146,19 +182,20 @@
 							////////$sql = mysql_query("INSERT INTO sis_login VALUES (null, \"$nome\", \"$email\", \"$password\", \"$caminho_imagem\");");//\"rog\", \"ema\", \"nom\")");//(null, '".$nome."', '".$email."', '".$nome_imagem."')");
 								}
 							}
-							include "classe.php";
+							include_once "classe.php";
 							$obj = new Classe; /* usando a função INSERIR do arquivo classe.php */
-							$obj->inserir($nome, $sobrenome, $cpf, $telefone, $endereco, $numero, $bairro, $cidade, $email, $password, $caminho_imagem, $usuario);
+							$obj->inserir($nome, $sobrenome, $cpf, $telefone, $endereco, $numero, $bairro, $cidade, $email, $password, $caminho_imagem);
 							echo "<br><center style='color:green;'>Cadastrado com sucesso!</center><br>";
 						}
 						else
-						{//echo "<br><center style='color:red;'>Construindo! Aguarde...</center>";
+						{
 							echo "<br><center style='color:red;'>Os campos com * não podem ficar em branco!</center><br>";
 						}
 					}
 					$est_ses = session_id();
 					if(empty($est_ses))
 					{
+						//inicia a sessao
 						session_start();
 					}
 					include_once("connect.php");

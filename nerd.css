@@ -10,21 +10,17 @@
 
 .bodyW
 {
-    background-color: #ffeeff; /*#e9e9e9;*/
+    background-color: #ffffff; /*#e9e9e9;*/
 	/*font-family: "ANDANTE";
 	src:url(ANDANTE.ttf) format("truetype");*/
 	
 	font-family: "Kristen ITC";/*ANDANTE;/*"Lucida Calligraphy";*"Kristen ITC";/*Jokerman;/*"Harrington";/*"Bauhaus 93";/* "Century Gothic";/*"Lucida Calligraphy Italic";*/
 }
-.div-borda
-{
-	border-image: url('picture/bord.png') 17 / 0 300px 0 300px stretch;
-}
 .cabecalho
 {
     width: 800px;
     height: 100px;
-    background-color: #ff1cae; /*#e9e9e9;*/
+    background-color: #ffffff; /*#e9e9e9;*/
     margin: 0px auto;
 }
 .menu
@@ -128,7 +124,7 @@
 /*espaco pessoal*/
 .pes
 {
-	background-color: #ffeeff;
+	background-color: #ffffff;
     width: 300px; /*configurado para o tamanho da imagem*/
     height: 98px; /*configurado para o tamanho da imagem*/
 	text-decoration: none;
@@ -152,15 +148,11 @@
 {
 	color: #000000;
 }
-.pes a:hover
-{
-	color: #ffffff;
-}
 
 /*ao passar mouse na div Cadastre e Login*/
 .pes div:hover
 {
-	background-color: red;
+	background-color: #e9e9e9;
 }
 
 /*tirar sublinhado do Cadastre e Login*/
@@ -188,7 +180,7 @@
 	height: 35px;
 	margin: 0px auto;
 	padding-left: 160px;
-	background-color: #FF1CAE;
+	background-color: #ffffff;
 	text-align: center;
 }
 
@@ -234,7 +226,7 @@
 
 #nav li a, #nav li a:link, #nav li a:visited
 {
-	color: #ffffff;
+	color: #000000;
 	display: block;
 	margin: 0;
 	padding: 9px 15px 8px;
@@ -246,7 +238,7 @@
 	color: #000000;
 	margin: 0;
 	padding: 9px 15px 8px;
-	background-color: #ffffff;
+	background-color: #e9e9e9;
 }
 
 #nav li li a, #nav li li a:link, #nav li li a:visited

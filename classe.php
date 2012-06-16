@@ -12,13 +12,13 @@
 		{
 			$conexao = mysql_connect("localhost", "root", "")
 				or die('Conexao com o Mysql falhou!');
-			$bd = mysql_select_db("site")
+			$bd = mysql_select_db("suamoda")
 				or die('Conexao com o Banco de Dados falhou!');
 		}
 		
-		function inserir($nome, $sobrenome, $cpf, $telefone, $endereco, $numero, $bairro, $cidade, $email, $senha, $foto, $tipo)/*Somente para o botão Salvar*/
+		function inserir($nome, $sobrenome, $cpf, $telefone, $endereco, $numero, $bairro, $cidade, $email, $senha, $foto)/*Somente para o botão Salvar*/
 		{	//adicionar novo usuário/administrador
-			$sql = "INSERT INTO sis_login(nome, sobrenome, cpf, telefone, endereco, numero, bairro, cidade, email, senha, foto, tipo) values('$nome', '$sobrenome', '$cpf', '$telefone', '$endereco', '$numero', '$bairro', '$cidade', '$email', '$senha', '$foto', '$tipo')";
+			$sql = "INSERT INTO usuario(cpf, nome, senha, email, sobrenome, telefone, cidade, foto, estilo) values('$cpf', '$nome', '$senha', '$email', '$sobrenome', '$telefone', '$cidade', '$foto', 'hello')";
 			$this->execut($sql);
 		}
 		

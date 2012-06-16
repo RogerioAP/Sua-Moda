@@ -16,9 +16,6 @@
 	function menu()
 	{
 		echo "
-			<div class='NavbarMenu'>
-			<ul id='nav'>
-
 			<li><a href='home.php'>Home</a></li>
 			<li><a href='#'>Produtos</a>
 			<ul>
@@ -29,10 +26,7 @@
 			</li>
 			<li><a href='servicos.php'>Serviços</a></li>
 			<li><a href='quemsomos.php'>Quem Somos</a></li>
-			<li><a href='contatos.php'>Contato</a></li>
-
-			</ul>
-			</div>";
+			<li><a href='contatos.php'>Contato</a></li>";
 	}
 	
 	function menu_admin()/*menu para admin*/

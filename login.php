@@ -3,17 +3,51 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
     <head>
             <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-            <link href="jeito.css" rel="StyleSheet" type="text/css">
+            
+			<?php
+				if(isset($_GET['estilo']))
+				{
+					$estilo = $_GET['estilo'];
+					
+					if($estilo == 'nerd')
+					{
+						echo "<link href='nerd.css' rel='StyleSheet' type='text/css'>";
+					}
+					else if($estilo == 'rock')
+					{
+						echo "<link href='rock.css' rel='StyleSheet' type='text/css'>";
+					}
+					else
+					{
+						echo "<link href='jeito.css' rel='StyleSheet' type='text/css'>";
+					}
+				}
+				else
+				{
+					echo "<link href='jeito.css' rel='StyleSheet' type='text/css'>";
+				}
+			?>
             <title>Sua Moda</title>
     </head>
     <body class="bodyW">
-        <div><!--Principal-->
+        <div class="div-borda"><!--Principal-->
             <div class="cabecalho"><!--Cabeçalho-->
-				<a href="home.php" class="image_title"><div class="image_title"></div></a>
-				<div class="pes"><!--Espaco "Pessoal"-->
+				<div class="image_title">
 					<?php
 						//Iniciando a sessão
 						session_start();
+						include_once 'connect.php';
+						/*if(isset($_SESSION['logado']))*/
+						{
+							/*Icones para mudar estilo do site*/
+							echo "<a href='home.php'><img src='picture/hello.png'></a><br>
+							<a href='home.php?estilo=rock'><img src='picture/guitarra.png'></a><br>
+							<a href='home.php?estilo=nerd'><img src='picture/android_rosa.png'></a>";
+						}
+					?>
+				</div>
+				<div class="pes"><!--Espaco "Pessoal"-->
+					<?php
 						include("connect.php");
 						if(isset($_SESSION['logado']))
 						{
@@ -46,15 +80,23 @@
 					?>
 				</div>
             </div>
-            <?php include_once 'designer.inc'; menu();?>  <!--***MENU***-->
-            <div class="content"><!--Conteúdo-->
+            
+			<!--***MENU***-->
+			<div class='NavbarMenu'>
+				<ul id='nav'>
+					<?php include_once 'designer.inc'; menu();?>
+				</ul>
+			</div>
+			
+			<!--Conteúdo-->
+            <div class="content">
 				<?php
 					$est_ses = session_id(); /*pega o estado da conexão se foi iniciada ou não*/
 					if(empty($est_ses))
 					{
 						session_start();
 					}
-					include_once("connect.php");
+					include_once 'connect.php';
 					if(isset($_SESSION['logado'])) /*se existir usuário logado dá ERRO (afinal como logar em outra conta já estando logado)*/
 					{
 						echo "<br><center>Existe um usuário ativo no momento, <a href='logout.php'>clique aqui</a> para sair e entrar em outra conta.</center><br>";
@@ -69,7 +111,7 @@
 									<br>Senha</td>
 									<td class='cai'><input type='text' id='txt' name='email' placeholder='Digite o email'>
 									<input type='password' id='txt' name='senha' placeholder='Digite a senha'></td>
-									<td rowspan='2'><a href='login_admin.php'><img src='picture/restrito-2.png'></a></td>
+									<td rowspan='2'><a href='login_admin.php'><img src='picture/restrito-2.png' style='height:110px;width:120px;'></a></td>
 								</tr>
 								<tr>
 									<td colspan='3'><button>Entrar</button></td>
@@ -85,6 +127,8 @@
 					}
 				?>
             </div>
+			
+			<!--Rodape-->
 			<?php include_once 'designer.inc'; rodape(); ?>
         </div>
     </body>

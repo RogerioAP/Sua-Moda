@@ -3,7 +3,30 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
     <head>
             <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-            <link href="jeito.css" rel="StyleSheet" type="text/css">
+			
+			<?php
+				if(isset($_GET['estilo']))
+				{
+					$estilo = $_GET['estilo'];
+					
+					if($estilo == 'nerd')
+					{
+						echo "<link href='nerd.css' rel='StyleSheet' type='text/css'>";
+					}
+					else if($estilo == 'rock')
+					{
+						echo "<link href='rock.css' rel='StyleSheet' type='text/css'>";
+					}
+					else
+					{
+						echo "<link href='jeito.css' rel='StyleSheet' type='text/css'>";
+					}
+				}
+				else
+				{
+					echo "<link href='jeito.css' rel='StyleSheet' type='text/css'>";
+				}
+			?>
 			<link href="css/default.css" rel="stylesheet" type="text/css" />
 	
 			<!--2 arquivos javascript para o slideshow-->
@@ -30,12 +53,23 @@
 		
 			<!--Cabeçalho-->
             <div class="cabecalho">
-				<a href="home.php" class="image_title"><div class="image_title"></div></a>
-				<div class="pes"><!--Espaco "Pessoal"-->
+				<div class="image_title">
 					<?php
 						//Iniciando a sessão
 						session_start();
-						include("connect.php");
+						include_once 'connect.php';
+						/*if(isset($_SESSION['logado']))*/
+						{
+							/*Icones para mudar estilo do site*/
+							echo "<a href='home.php'><img src='picture/hello.png'></a><br>
+							<a href='home.php?estilo=rock'><img src='picture/guitarra.png'></a><br>
+							<a href='home.php?estilo=nerd'><img src='picture/android_rosa.png'></a>";
+						}
+					?>
+				</div>
+				<div class="pes"><!--Espaco "Pessoal"-->
+					<?php
+						include_once 'connect.php';
 						if(isset($_SESSION['logado']))
 						{
 							$sql = "SELECT * FROM sis_login WHERE idusuario = ".$_SESSION['id_user'];
@@ -69,7 +103,11 @@
             </div>
 			
 			<!--***MENU***-->
-            <?php include_once 'designer.inc'; menu();?>
+			<div class='NavbarMenu'>
+				<ul id='nav'>
+					<?php include_once 'designer.inc'; menu();?>
+				</ul>
+			</div>
 			
 			<!--Div do slideshow-->
 			<div id="wrap" style="margin-top:-45px;padding:10px 0px 0px 300px;"><!--style="padding:10px 0px 0px 300px;">-->
@@ -94,7 +132,7 @@
 			<!--Conteúdo-->
             <div class="content">				
 				<div style="width:100%;">
-					Novidades meninas, olhem!<hr>
+					Novidades meninas, olhem!
 					
 					<table border="0">
 						<tr>

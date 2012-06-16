@@ -2,7 +2,7 @@
 	$host = "localhost";
 	$user = "root";
 	$password = "";
-	$dbname = "site";
+	$dbname = "suamoda";
 
 	mysql_connect($host, $user, $password) or die("Erro ao tentar se conectar!");
 

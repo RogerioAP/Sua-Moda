@@ -2,56 +2,51 @@ drop database if exists suamoda;
 create database suamoda;
 use suamoda;
 
+CREATE TABLE imagens (
+imagem1 varchar(100),
+imagem2 varchar(100),
+imagem3 varchar(100)
+)engine=innodb;
+
+CREATE TABLE compra (
+idcompra int PRIMARY KEY,
+CPF varchar(100),
+data varchar(100),
+idProduto int
+)engine=innodb;
+
+CREATE TABLE usuario (
+CPF varchar(100) PRIMARY KEY,
+Nome varchar(100),
+Senha varchar(100),
+Email varchar(100),
+Sobrenome varchar(100),
+Telefone varchar(100),
+Cidade varchar(100),
+Foto varchar(100),
+Estilo varchar(100)
+)engine=innodb;
+
+CREATE TABLE Endereco (
+rua varchar(100),
+bairro varchar(100),
+numero varchar(100)
+)engine=innodb;
+
 CREATE TABLE Administrador (
-CPF varchar(11) PRIMARY KEY,
+CPF varchar(100) PRIMARY KEY,
 Nome varchar(100),
 Senha varchar(100),
 Email varchar(100)
 )engine=innodb;
 
 CREATE TABLE Produto (
+idProduto int PRIMARY KEY,
 Nome varchar(100),
-Numero_Serie int PRIMARY KEY,
 Descricao varchar(100),
 Categoria varchar(100),
 Preco float
 )engine=innodb;
 
-CREATE TABLE imagens (
-idImagem int PRIMARY KEY,
-idProduto int,
-imagens varchar(100),
-FOREIGN KEY(idProduto) REFERENCES Produto (Numero_Serie)
-)engine=innodb;
-
-CREATE TABLE cadastrar (
-CPF varchar(11),
-Numero_Serie int,
-PRIMARY KEY(CPF,Numero_Serie),
-FOREIGN KEY(CPF) REFERENCES Administrador (CPF),
-FOREIGN KEY(Numero_Serie) REFERENCES Produto (Numero_Serie)
-)engine=innodb;
-
-CREATE TABLE Usuario (
-CPF varchar(11) PRIMARY KEY,
-Nome varchar(100),
-Senha varchar(100),
-Email varchar(100),
-Sobrenome varchar(100),
-rua varchar(100),
-bairro varchar(100),
-numero varchar(100),
-Telefone varchar(100),
-Cidade varchar(100),
-Foto varchar(100)
-)engine=innodb;
-
-CREATE TABLE compra (
-Numero_Serie int,
-CPF varchar(11),
-data varchar(100),
-Numero_Venda int,
-PRIMARY KEY(Numero_Serie,CPF),
-FOREIGN KEY(Numero_Serie) REFERENCES Produto (Numero_Serie),
-FOREIGN KEY(CPF) REFERENCES Usuario (CPF)
-)engine=innodb;
+ALTER TABLE compra ADD FOREIGN KEY(CPF) REFERENCES Usuario (CPF);
+ALTER TABLE compra ADD FOREIGN KEY(idProduto) REFERENCES Produto (idProduto);
