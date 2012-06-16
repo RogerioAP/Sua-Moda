@@ -3,6 +3,7 @@ create database suamoda;
 use suamoda;
 
 CREATE TABLE imagens (
+idProduto int,
 imagem1 varchar(100),
 imagem2 varchar(100),
 imagem3 varchar(100)
@@ -50,3 +51,4 @@ Preco float
 
 ALTER TABLE compra ADD FOREIGN KEY(CPF) REFERENCES Usuario (CPF);
 ALTER TABLE compra ADD FOREIGN KEY(idProduto) REFERENCES Produto (idProduto);
+ALTER TABLE imagens ADD FOREIGN KEY(idProduto) REFERENCES Produto (idProduto);

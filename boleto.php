@@ -17,17 +17,29 @@
 
   <body>
 	<?php
-		$nome = 'Robinho';
-		$imagem_tutulo = 'picture/r.png';
-		$imagem_banco = 'picture/banco.gif';
-		$codigo_barra = 'picture/barra.png';
+		//$amanha = date('d/m/Y', strtotime("+1 day"));
 		
-		$data_atual = '2012'; // data atual
-		$vencimento = '25/05/2012'; //data um dia a mais do que a atual
-		$nao_receber_apos = '2012222'; //data atual mais 9 dias
-		$valor_total = '99,99'; //valor total
-		$endereco = 'rua a '.'1000'; //endereço, número e bairro
-		$cpf = '000000000'; //cpf dããããããããa
+		//Iniciando a sessão
+		session_start();
+		include_once 'connect.php';
+		if(isset($_SESSION['logado']))
+		{
+			$sql = "SELECT * FROM usuario WHERE idusuario = ".$_SESSION['id_user'];
+			$rs = mysql_query($sql);
+			$user = mysql_fetch_array($rs);
+			
+			$imagem_tutulo = 'picture/r.png';
+			$imagem_banco = 'picture/banco.gif';
+			$codigo_barra = 'picture/barra.png';
+			
+			$nome = $user["nome"]; //'Robinho';
+			$data_atual = date('d/m/Y'); //'2012'; // data atual
+			$vencimento = date('d/m/Y', strtotime("+1 day")); //data um dia a mais do que a atual
+			$nao_receber_apos = date('d/m/Y', strtotime("+9 day")); //data atual mais 9 dias
+			$valor_total = '99,99'; //valor total
+			$endereco = 'rua a '.'1000'; //endereço, número e bairro
+			$cpf = $user["cpf"];//'000000000'; //cpf dããããããããa
+		}
 	?>
 	
     <div style="width:640px">

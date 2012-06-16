@@ -72,7 +72,7 @@
 						include_once 'connect.php';
 						if(isset($_SESSION['logado']))
 						{
-							$sql = "SELECT * FROM sis_login WHERE idusuario = ".$_SESSION['id_user'];
+							$sql = "SELECT * FROM suamoda WHERE idusuario = ".$_SESSION['id_user'];
 							
 							$rs = mysql_query($sql);
 							if(mysql_num_rows($rs))

@@ -56,7 +56,7 @@
 						include_once "connect.php";
 						if(isset($_SESSION['logado']))
 						{
-							$sql = "SELECT * FROM sis_login WHERE idusuario = ".$_SESSION['id_user'];
+							$sql = "SELECT * FROM usuario WHERE idusuario = ".$_SESSION['id_user'];
 							
 							$rs = mysql_query($sql);
 							if(mysql_num_rows($rs))
@@ -102,70 +102,85 @@
 					
 					if($categoria == 'a')
 					{
-						echo "<center>Acessorios</center>";
-						$sql = "SELECT * FROM produtos where categoria = 'acessorios';";
+						//echo "<center>Acessorios</center>";
+						$sql = "SELECT * FROM produto where categoria = 'acessorios';";
 					}
 					else if($categoria == 'v')
 					{
-						echo "<center>Vestuário</center>";
-						$sql = "SELECT * FROM produtos categoria = 'vestuario';";
+						echo "<center>Vestuario</center>";
+						$sql = "SELECT * FROM produto where categoria = 'vestuario';";
 					}
 					else if($categoria == 'g')
 					{
 						echo "<center>Gadgets</center>";
-						$sql = "SELECT * FROM produtos categoria = 'gadgets';";
+						$sql = "SELECT * FROM produto where categoria = 'gadgets';";
 					}
 					
 					$rs = mysql_query($sql); //passa o resultado da busca para variavel
 					
-					$cont = 0;//contador para saber quando eh para trocar de linha
+					$cont = 0; //contador para saber quando eh para trocar de linha
 					
 					//exibe produtos
-					while($linha = mysql_fetch_assoc($rs))
+					//while($linha = mysql_fetch_assoc($rs))
+					
+					echo "<div>";
+					echo "<table border='0'>";
+					for($i=0; $i<=12; $i++)
 					{
-						$id_produto = $linha['idproduto'];
-						$imagem = $linha['imagem'];
-						$preco = $linha['preco'];
-						$nome = $linha['nome'];
+						$id_produto = '0'; //$linha['idproduto'];
+						$imagem = 'produtos/sapatos_bolsa.jpg'; //$linha['imagem'];
+						$preco = '29,90'; //$linha['preco'];
+						$nome = 'Sapato'; //$linha['nome'];
 						
 						// a primeira vez inicia a div e tr
 						if($cont==0)
 						{
-							echo "<tr>
+							/*echo "<tr>
 									<td><a href='produto.php?produto=$id_produto&&categoria=aces'>
 											<div>												
 												<img src='$imagem'>
 												<br>$nome - R$ $preco
 											</div>
-										</a></td>";
+										</a></td>";*/
+							
+							echo "<tr>
+									<td><a href='produto.php?produto=$id_produto&&categoria=aces'>
+									<img src='produtos/sapatos_bolsa.jpg'><br>Sapatos e Bolsa<br>R$ 34,90</a></td>";
 						}
 						else if($cont%3==0)
 						{
 							//quando for o 4° produto da linha, ele é deslocado para uma pr�xima linha
-							echo "</tr>
+							/*echo "</tr>
 									<tr>
 										<td><a href='produto.php?produto=$id_produto&&categoria=aces'>
 											<div>												
 												<img src='$imagem'>
 												<br>$nome - R$ $preco
 											</div>
-										</a></td>";
+										</a></td>";*/
+										
+							echo "</tr> <tr>
+									<td><a href='produto.php?produto=$id_produto&&categoria=aces'>
+									<img src='produtos/sapatos_bolsa.jpg'><br>Sapatos e Bolsa<br>R$ 34,90</a></td>";
 						}
 						else
 						{
 							//quando for adicionar produtos na linha normalmente
-							echo "<td><a href='produto.php?produto=$id_produto&&categoria=aces'>
+							/*echo "<td><a href='produto.php?produto=$id_produto&&categoria=aces'>
 											<div>												
 												<img src='$imagem'>
 												<br>$nome - R$ $preco
 											</div>
-										</a></td>";
+										</a></td>";*/
+							echo "<td><a href='produto.php?produto=$id_produto&&categoria=aces'>
+									<img src='produtos/sapatos_bolsa.jpg'><br>Sapatos e Bolsa<br>R$ 34,90</a></td>";
 						}
 						//contador incrementando
 						$cont++;
 						//contador para saber quando eh para trocar de linha
 					}
 					echo "</table>";
+					echo "</div>";
 				?>
             </div>
 			

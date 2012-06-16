@@ -51,7 +51,7 @@
 						include("connect.php");
 						if(isset($_SESSION['logado']))
 						{
-							$sql = "SELECT * FROM sis_login WHERE idusuario = ".$_SESSION['id_user'];
+							$sql = "SELECT * FROM usuario WHERE cpf = ".$_SESSION['cpf_user'];
 							
 							$rs = mysql_query($sql);
 							if(mysql_num_rows($rs))
@@ -98,15 +98,23 @@
 					{
 						include_once 'connect.php';
 						$id_produto = $_GET["produto"];
-						$sql = "SELECT * FROM produtos WHERE idproduto = $id_produto";
+						$sql = "SELECT * FROM produto WHERE idproduto = $id_produto";
 						
 						$rs = '';
 						$rs = mysql_query($sql);
 						if(mysql_num_rows($rs))
 						{
 							$user = mysql_fetch_array($rs);
-							$imagem = $user["imagem"];
-							echo "<div><img src='$imagem'><br>";
+							$imagem = 'produtos/sapatos_bolsa.jpg'; //$user["imagem"];
+							$nome = 'Bolsa';
+							$descricao = 'Rosa';
+							$preco = '29,90';
+							
+							echo "<div><img src='$imagem' style='width:300px; height:250px;'><br>
+									<b>$nome</b><br>
+									$descricao<br>
+									R$ $preco<br>
+									<button onclick='window.location=\"venda.php\";'>Comprar</button><br><br>";
 							
 							/*Exibir o link para voltar para a página anterior*/
 							if(isset($_GET['categoria'])=='aces')
