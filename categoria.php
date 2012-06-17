@@ -98,39 +98,51 @@
 				<?php					
 					include_once 'connect.php';
 				
+					$categoria = '';
 					if(isset($_GET["cat"])) {$categoria = $_GET['cat'];} //pega qual categoria é para abrir
 					
+					$sql = '';
+					
+					//verifica qual tipo de produto eh para listar
 					if($categoria == 'a')
 					{
-						//echo "<center>Acessorios</center>";
-						$sql = "SELECT * FROM produto where categoria = 'acessorios';";
-					}
-					else if($categoria == 'v')
-					{
-						echo "<center>Vestuario</center>";
-						$sql = "SELECT * FROM produto where categoria = 'vestuario';";
+						echo "<div style='clear:both;'>Acessorios</div>";
+						$sql = "SELECT * FROM produto where categoria = 'acessorios' limit 9;";
 					}
 					else if($categoria == 'g')
 					{
-						echo "<center>Gadgets</center>";
-						$sql = "SELECT * FROM produto where categoria = 'gadgets';";
+						echo "<div style='clear:both;'>Gadgets</div>";
+						$sql = "SELECT * FROM produto where categoria = 'gadgets' limit 9;";
+					}
+					else
+					{
+						echo "<div style='clear:both;'>Vestuario</div>";
+						$sql = "SELECT * FROM produto where categoria = 'vestuario' limit 9;";
 					}
 					
-					$rs = mysql_query($sql); //passa o resultado da busca para variavel
+					//passa o resultado da busca para variavel
+					$rs = mysql_query($sql);
 					
-					$cont = 0; //contador para saber quando eh para trocar de linha
+					//contador para saber quando eh para trocar de linha
+					$cont = 0;
 					
-					//exibe produtos
-					//while($linha = mysql_fetch_assoc($rs))
-					
+					//exibe produtos					
 					echo "<div>";
 					echo "<table border='0'>";
-					for($i=0; $i<=12; $i++)
+					while($linha = mysql_fetch_assoc($rs)) //for($i=0; $i<=12; $i++)
 					{
-						$id_produto = '0'; //$linha['idproduto'];
-						$imagem = 'produtos/sapatos_bolsa.jpg'; //$linha['imagem'];
-						$preco = '29,90'; //$linha['preco'];
-						$nome = 'Sapato'; //$linha['nome'];
+						$id_produto = $linha['idProduto'];
+						$preco = $linha['Preco'];
+						$nome = $linha['Nome'];
+						
+						$sql2 = "select * from imagens where idProduto=$id_produto;";
+						$rs2 = '';
+						$rs2 = mysql_query($sql2) or die (mysql_error());
+						if(mysql_num_rows($rs2))
+						{
+							$user2 = mysql_fetch_array($rs2);
+							$imagem = $user2["imagem1"];
+						}
 						
 						// a primeira vez inicia a div e tr
 						if($cont==0)
@@ -145,11 +157,11 @@
 							
 							echo "<tr>
 									<td><a href='produto.php?produto=$id_produto&&categoria=aces'>
-									<img src='produtos/sapatos_bolsa.jpg'><br>Sapatos e Bolsa<br>R$ 34,90</a></td>";
+									<img src='$imagem'><br>$nome<br>$preco</a></td>";
 						}
 						else if($cont%3==0)
 						{
-							//quando for o 4° produto da linha, ele é deslocado para uma pr�xima linha
+							//quando for o 4° produto da linha, ele é deslocado para uma proxima linha
 							/*echo "</tr>
 									<tr>
 										<td><a href='produto.php?produto=$id_produto&&categoria=aces'>
@@ -161,7 +173,7 @@
 										
 							echo "</tr> <tr>
 									<td><a href='produto.php?produto=$id_produto&&categoria=aces'>
-									<img src='produtos/sapatos_bolsa.jpg'><br>Sapatos e Bolsa<br>R$ 34,90</a></td>";
+									<img src='$imagem'><br>$nome<br>$preco</a></td>";
 						}
 						else
 						{
@@ -173,7 +185,7 @@
 											</div>
 										</a></td>";*/
 							echo "<td><a href='produto.php?produto=$id_produto&&categoria=aces'>
-									<img src='produtos/sapatos_bolsa.jpg'><br>Sapatos e Bolsa<br>R$ 34,90</a></td>";
+									<img src='$imagem'><br>$nome<br>$preco</a></td>";
 						}
 						//contador incrementando
 						$cont++;

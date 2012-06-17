@@ -121,11 +121,24 @@
 					<img src="picture/prev.png" alt="Previous Tab" class="jFlowPrev" />
 					<img src="picture/next.png" alt="Next Tab" class="jFlowNext" />
 				</div>
+							
+				<?php
+					$sql = '';
+					$sql = 'select imagens.idproduto, imagens.imagem1 from imagens order by idproduto desc limit 3;'; //busca 3 ultimos produtos adicionados no BD
+					$rs = '';
+					$rs = mysql_query($sql) or die (mysql_error());					
+					
+					while($linha = mysql_fetch_assoc($rs))
+					{
+						$imagens[] = $linha['imagem1'];
+						$prod_id[] = $linha['idproduto'];
+					}
+				?>
 				
-				<div id="slides">
-					<div><a href="#"><img src="picture/1.jpg" alt="photo" /></a><p>This is photo number one. Neato!</p></div>
-					<div><a href="#"><img src="picture/2.jpg" alt="photo" /></a><p>This is photo number two. Neato!</p></div>
-					<div><a href="#"><img src="picture/3.jpg" alt="photo" /></a><p>This is photo number three. Neato!</p></div>
+				<div id="slides" align='center'>
+					<div><a href="produto.php?produto=<?php echo $prod_id[0]; ?>"><img src=<?php echo $imagens[0]; ?> alt="photo" /></a><p>This is photo number one. Neato!</p></div>
+					<div><a href="produto.php?produto=<?php echo $prod_id[1] ?>"><img src=<?php echo $imagens[1]; ?> alt="photo" /></a><p>This is photo number two. Neato!</p></div>
+					<div><a href="produto.php?produto=<?php echo $prod_id[2] ?>"><img src=<?php echo $imagens[2]; ?> alt="photo" /></a><p>This is photo number three. Neato!</p></div>
 				</div>
 			</div>
 
@@ -134,20 +147,66 @@
 				<div style="width:100%;">
 					Novidades meninas, olhem!
 					
+					<?php
+						//acessorios
+						$sql = '';
+						$sql = "select produto.idproduto, produto.Nome, produto.Preco, imagens.imagem1 from produto,
+						imagens where produto.categoria='acessorios' and produto.idproduto=imagens.idproduto order by produto.idproduto desc limit 3;";
+						$rs = '';
+						$rs = mysql_query($sql) or die (mysql_error());					
+						
+						while($linha = mysql_fetch_assoc($rs))
+						{
+							$acessorios[] = $linha['imagem1'];
+							$aces_nome[] = $linha['Nome'];
+							$aces_pre[] = $linha['Preco'];
+							$aces_id[] = $linha['idproduto'];
+						}
+						//vestuario
+						$sql = '';
+						$sql = "select produto.idproduto, produto.Nome, produto.Preco, imagens.imagem1 from produto,
+						imagens where produto.categoria='vestuario' and produto.idproduto=imagens.idproduto order by produto.idproduto desc limit 3;";
+						$rs = '';
+						$rs = mysql_query($sql) or die (mysql_error());					
+						
+						while($linha = mysql_fetch_assoc($rs))
+						{
+							$vestuario[] = $linha['imagem1'];
+							$vest_nome[] = $linha['Nome'];
+							$vest_pre[] = $linha['Preco'];
+							$vest_id[] = $linha['idproduto'];
+						}
+						//gadgets
+						$sql = '';
+						$sql = "select produto.idproduto, produto.Nome, produto.Preco, imagens.imagem1 from produto,
+						imagens where produto.categoria='gadgets' and produto.idproduto=imagens.idproduto order by produto.idproduto desc limit 3;";
+						$rs = '';
+						$rs = mysql_query($sql) or die (mysql_error());					
+						
+						while($linha = mysql_fetch_assoc($rs))
+						{
+							$gadgets[] = $linha['imagem1'];
+							$gad_nome[] = $linha['Nome'];
+							$gad_pre[] = $linha['Preco'];
+							$gad_id[] = $linha['idproduto'];
+						}
+						
+					?>
+					
 					<table border="0">
 						<tr>
-							<td><a href="#"><img src="produtos/sapatos_bolsa.jpg"><br>Sapatos e Bolsa<br>R$ 34,90</a></td>
-							<td><a href="#"><img src="produtos/relogio.jpeg"><br>Relógio Mondaine<br>R$ 24,90</a></td>
-							<td><a href="#"><img src="produtos/sapatos.jpg"><br>Sapatos Chanel<br>R$ 29,90</a></td>
+							<td><a href="produto.php?produto=<?php echo $aces_id[0]; ?>"><img src=<?php echo $acessorios[0]; ?> ><br><?php echo $aces_nome[0]; ?><br><?php echo "R$ ".$aces_pre[0]; ?></a></td>
+							<td><a href="produto.php?produto=<?php echo $aces_id[1]; ?>"><img src=<?php echo $acessorios[1]; ?> ><br><?php echo $aces_nome[1]; ?><br><?php echo "R$ ".$aces_pre[1]; ?></a></td>
+							<td><a href="produto.php?produto=<?php echo $aces_id[2]; ?>"><img src=<?php echo $acessorios[2]; ?> ><br><?php echo $aces_nome[2]; ?><br><?php echo "R$ ".$aces_pre[2]; ?></a></td>
 						</tr>
 						<tr>
-							<td><a href="#"><img src="produtos/sapatos_bolsa.jpg"><br>Sapatos e Bolsa<br>R$ 34,90</a></td>
-							<td><a href="#"><img src="produtos/relogio.jpeg"><br>Relógio Mondaine<br>R$ 24,90</a></td>
-							<td><a href="#"><img src="produtos/sapatos.jpg"><br>Sapatos Chanel<br>R$ 29,90</a></td>
+							<td><a href="produto.php?produto=<?php echo $vest_id[0]; ?>"><img src=<?php echo $vestuario[0]; ?> ><br><?php echo $vest_nome[0]; ?><br><?php echo "R$ ".$vest_pre[0]; ?></a></td>
+							<td><a href="produto.php?produto=<?php echo $vest_id[1]; ?>"><img src=<?php echo $vestuario[1]; ?> ><br><?php echo $vest_nome[1]; ?><br><?php echo "R$ ".$vest_pre[1]; ?></a></td>
+							<td><a href="produto.php?produto=<?php echo $vest_id[2]; ?>"><img src=<?php echo $vestuario[2]; ?> ><br><?php echo $vest_nome[2]; ?><br><?php echo "R$ ".$vest_pre[2]; ?></a></td>
 						</tr>
-							<td><a href="#"><img src="produtos/sapatos_bolsa.jpg"><br>Sapatos e Bolsa<br>R$ 34,90</a></td>
-							<td><a href="#"><img src="produtos/relogio.jpeg"><br>Relógio Mondaine<br>R$ 24,90</a></td>
-							<td><a href="#"><img src="produtos/sapatos.jpg"><br>Sapatos Chanel<br>R$ 29,90</a></td>
+							<td><a href="produto.php?produto=<?php echo $gad_id[0]; ?>"><img src=<?php echo $gadgets[0]; ?> ><br><?php echo $gad_nome[0]; ?><br><?php echo "R$ ".$gad_pre[0]; ?></a></td>
+							<td><a href="produto.php?produto=<?php echo $gad_id[1]; ?>"><img src=<?php echo $gadgets[1]; ?> ><br><?php echo $gad_nome[1]; ?><br><?php echo "R$ ".$gad_pre[1]; ?></a></td>
+							<td><a href="produto.php?produto=<?php echo $gad_id[2]; ?>"><img src=<?php echo $gadgets[2]; ?> ><br><?php echo $gad_nome[2]; ?><br><?php echo "R$ ".$gad_pre[2]; ?></a></td>
 						</tr>
 					</table>
 				</div>

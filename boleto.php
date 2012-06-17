@@ -32,12 +32,12 @@
 			$imagem_banco = 'picture/banco.gif';
 			$codigo_barra = 'picture/barra.png';
 			
-			$nome = $user["nome"]; //'Robinho';
-			$data_atual = date('d/m/Y'); //'2012'; // data atual
+			$nome = $user["Nome"]; //'Robinho';
+			$data_atual = date('d/m/Y'); //'2012'; //data atual
 			$vencimento = date('d/m/Y', strtotime("+1 day")); //data um dia a mais do que a atual
 			$nao_receber_apos = date('d/m/Y', strtotime("+9 day")); //data atual mais 9 dias
 			$valor_total = '99,99'; //valor total
-			$endereco = 'rua a '.'1000'; //endereço, número e bairro
+			$endereco = $user["rua"] . " " . $user["numero"] . " " . $user["bairro"]; //'rua a '.'1000'; //endereço, número e bairro
 			$cpf = $user["cpf"];//'000000000'; //cpf dããããããããa
 		}
 	?>

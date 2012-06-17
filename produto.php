@@ -98,17 +98,28 @@
 					{
 						include_once 'connect.php';
 						$id_produto = $_GET["produto"];
-						$sql = "SELECT * FROM produto WHERE idproduto = $id_produto";
+						$sql = "SELECT * FROM produto WHERE idProduto = $id_produto;";
 						
 						$rs = '';
-						$rs = mysql_query($sql);
+						$rs = mysql_query($sql) or die (mysql_error());						
+						
 						if(mysql_num_rows($rs))
 						{
 							$user = mysql_fetch_array($rs);
-							$imagem = 'produtos/sapatos_bolsa.jpg'; //$user["imagem"];
-							$nome = 'Bolsa';
-							$descricao = 'Rosa';
-							$preco = '29,90';
+							
+							$nome = $user['Nome'];
+							$descricao = $user['Descricao'];
+							$preco = $user['Preco'];
+							
+							$sql2 = "select * from imagens where idProduto=$id_produto;";
+							$rs2 = '';
+							$rs2 = mysql_query($sql2) or die (mysql_error());
+							if(mysql_num_rows($rs2))
+							{
+								$user2 = mysql_fetch_array($rs2);
+								$imagem = $user2["imagem1"];
+							}
+							
 							
 							echo "<div><img src='$imagem' style='width:300px; height:250px;'><br>
 									<b>$nome</b><br>
@@ -133,6 +144,7 @@
 					}
 				?>
             </div>
+			
 			<?php include_once 'designer.inc'; rodape(); ?>
         </div>
     </body>

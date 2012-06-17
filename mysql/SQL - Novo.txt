@@ -19,10 +19,13 @@ idProduto int
 CREATE TABLE usuario (
 CPF varchar(100) PRIMARY KEY,
 Nome varchar(100),
+Sobrenome varchar(100),
 Senha varchar(100),
 Email varchar(100),
-Sobrenome varchar(100),
 Telefone varchar(100),
+Rua varchar(100),
+Numero varchar(100),
+Bairro varchar(100),
 Cidade varchar(100),
 Foto varchar(100),
 Estilo varchar(100)
@@ -42,7 +45,7 @@ Email varchar(100)
 )engine=innodb;
 
 CREATE TABLE Produto (
-idProduto int PRIMARY KEY,
+idProduto int PRIMARY KEY auto_increment,
 Nome varchar(100),
 Descricao varchar(100),
 Categoria varchar(100),
@@ -52,3 +55,31 @@ Preco float
 ALTER TABLE compra ADD FOREIGN KEY(CPF) REFERENCES Usuario (CPF);
 ALTER TABLE compra ADD FOREIGN KEY(idProduto) REFERENCES Produto (idProduto);
 ALTER TABLE imagens ADD FOREIGN KEY(idProduto) REFERENCES Produto (idProduto);
+
+insert into produto values(null, 'Sapato', 'Rosa', 'vestuario', '29');
+insert into produto values(null, 'Blusas', 'Rosa', 'vestuario', '19');
+insert into produto values(null, 'Sapato', 'Rosa', 'vestuario', '29');
+
+insert into produto values(null, 'Relogio', 'Rosa', 'acessorios', '50');
+insert into produto values(null, 'Bolsa', 'Rosa e branca', 'acessorios', '30');
+insert into produto values(null, 'Relogio', 'Rosa', 'acessorios', '50');
+
+insert into produto values(null, 'Adesivo p/ celular', 'Rosa', 'gadgets', '2');
+insert into produto values(null, 'Adesivo p/ notebook', 'Rosa', 'gadgets', '2');
+insert into produto values(null, 'Adesivo p/ celular', 'Rosa', 'gadgets', '2');
+
+
+insert into imagens values(1, 'produtos/sapatos.jpg', '', '');
+insert into imagens values(2, 'produtos/blusas.jpg', '', '');
+insert into imagens values(3, 'produtos/sapatos.jpg', '', '');
+
+insert into imagens values(4, 'produtos/relogio.jpeg', '', '');
+insert into imagens values(5, 'produtos/bolsa.jpg', '', '');
+insert into imagens values(6, 'produtos/relogio.jpeg', '', '');
+
+insert into imagens values(7, 'produtos/adesivo_celular.jpg', '', '');
+insert into imagens values(8, 'produtos/adesivo_notebook.jpg', '', '');
+insert into imagens values(9, 'produtos/adesivo_celular.jpg', '', '');
+
+
+insert into usuario values('123.456.789-00', 'Mariana', 'Canela', '123', 'marianinha_canela@hotmail.com', '3232-3232', 'rua Sei Lá', '000', 'Centro', 'Montes Claros', 'fotos/803fbd58f1ed97adb518c3b2f6cc6d7a.png', 'hello');

@@ -83,25 +83,16 @@
 					?>
 				</div>
             </div>
-            <?php
-				if($user["tipo"]=='a')
-				{
-					include_once 'designer.inc'; menu_admin();
-				}
-				else
-				{
-					/*MENU*/
-					echo "<div class='NavbarMenu'>
-							<ul id='nav'>
-								<?php include_once 'designer.inc'; menu();?>
-							</ul>
-						</div>";
-				}
-			?>
+            
+			<div class='NavbarMenu'>
+				<ul id='nav'>
+					<?php include_once 'designer.inc'; menu();?>
+				</ul>
+			</div>						
 			
 			<!--Conteúdo-->
             <div class="content">
-				<br><center>Selecione a forma de pagamento:<br>
+				<br><center>Clique em uma forma de pagamento:<br>
 				<a href='#'><img src='picture/visa.gif' style='width:60px; height:38px;'></a>
 				<a href='#'><img src='picture/master_card.gif' style='padding-left:50px; width:60px; height:38px;'></a>
 				<a href='boleto.php'><img src='picture/boleto.gif' style='padding-left:50px; width:60px; height:38px;'></a>
