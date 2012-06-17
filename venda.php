@@ -121,21 +121,28 @@
 				<?php
 					if(isset($_SESSION['logado']))
 					{
-						if(isset($_POST['produto']))
+						if(isset($_POST['id_produto']))
 						{
-							$_SESSION['valor_total'] = $_POST['produto'];
+							//passa para a sessao o id do produto
+							$_SESSION['id_produto'] = $_POST['id_produto'];
+							
+							//exibe as formas de pagamento
+							echo "<br><center>Clique em uma forma de pagamento para confirmar a compra:<br>
+								<form method='post' action='venda.php'><a href='#'><img src='picture/visa.gif' style='width:60px; height:38px;'></a>
+								<a href='#'><img src='picture/master_card.gif' style='padding-left:50px; width:60px; height:38px;'></a>
+								<a href='boleto.php' target='_blank'><img src='picture/boleto.gif' name='forma' style='padding-left:50px; width:60px; height:38px;' onclick='window.location=\"home.php\"'></a>
+								</form></center>";
 						}
-						
-						echo "<br><center>Clique em uma forma de pagamento:<br>
-						<a href='#'><img src='picture/visa.gif' style='width:60px; height:38px;'></a>
-						<a href='#'><img src='picture/master_card.gif' style='padding-left:50px; width:60px; height:38px;'></a>
-						<a href='boleto.php'><img src='picture/boleto.gif' style='padding-left:50px; width:60px; height:38px;'></a>
-						</center>";
 					}
 					else
 					{
 						echo "<br><center>É necessário está logado!<br>
 								<a href='login.php'>Entrar</a></center>";
+					}
+					
+					if(isset($_POST['forma']))
+					{
+						echo "Aki";
 					}
 				?>
             </div>

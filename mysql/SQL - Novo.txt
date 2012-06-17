@@ -3,17 +3,18 @@ create database suamoda;
 use suamoda;
 
 CREATE TABLE imagens (
-idProduto int,
+idProduto int primary key auto_increment,
 imagem1 varchar(100),
 imagem2 varchar(100),
 imagem3 varchar(100)
 )engine=innodb;
 
 CREATE TABLE compra (
-idcompra int PRIMARY KEY,
+idcompra int PRIMARY KEY auto_increment,
 CPF varchar(100),
 data varchar(100),
-idProduto int
+idProduto int,
+valor float
 )engine=innodb;
 
 CREATE TABLE usuario (
@@ -31,17 +32,12 @@ Foto varchar(100),
 Estilo varchar(100)
 )engine=innodb;
 
-CREATE TABLE Endereco (
-rua varchar(100),
-bairro varchar(100),
-numero varchar(100)
-)engine=innodb;
-
 CREATE TABLE Administrador (
 CPF varchar(100) PRIMARY KEY,
 Nome varchar(100),
 Senha varchar(100),
-Email varchar(100)
+Email varchar(100),
+Foto varchar(200)
 )engine=innodb;
 
 CREATE TABLE Produto (
@@ -83,3 +79,5 @@ insert into imagens values(9, 'produtos/adesivo_celular.jpg', '', '');
 
 
 insert into usuario values('123.456.789-00', 'Mariana', 'Canela', '123', 'marianinha_canela@hotmail.com', '3232-3232', 'rua Sei Lá', '000', 'Centro', 'Montes Claros', 'fotos/803fbd58f1ed97adb518c3b2f6cc6d7a.png', 'hello');
+
+insert into administrador values('100.100.100-10', 'Rogerio Almeida', 'rogerio', 'rogerioalmpe@hotmail.com', 'fotos/rogerio_almeida.png');

@@ -27,16 +27,16 @@
 			//se entrou, entao o login é igual
 			if($senha == $user['Senha'])
 			{
-				//se entrou, então a senha também é igual
-				$logado = "1";
+				//se entrou, então a senha também é igual				
 				$cpf_user = $user['CPF'];
 				
 				//criando a sessão
 				session_start();
-				$_SESSION["cpf_user"] = $cpf_user;;
-				$_SESSION["logado"] = $logado;
+				$_SESSION["cpf_user"] = $cpf_user;;				
 				
-				header("Location: home.php");
+				/*Se logado==1 eh usuario, senao se for logado==2 eh admnistrador*/
+				if(isset($_GET['usuario'])) { $logado = "1"; $_SESSION["logado"] = $logado; header("Location: home.php"); }
+				if(isset($_GET['admin'])) { $logado = "2"; $_SESSION["logado"] = $logado; header("Location: admin.php"); }
 			}
 			else
 			{

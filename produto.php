@@ -146,7 +146,7 @@
 								$descricao<br>
 								R$ $preco<br>
 								<form method='post' action='venda.php'>
-									<button value='$preco' name='produto' onclick='window.location=\"venda.php\";'>Comprar</button><br><br>
+									<button value='$id_produto' name='id_produto' onclick='window.location=\"venda.php\";'>Comprar</button><br><br>
 								</form>";
 						
 						/*Exibir o link para voltar para a página anterior*/

@@ -239,6 +239,7 @@
 	margin: 0;
 	padding: 9px 15px 8px;
 	text-decoration:none;
+	-webkit-transition: 0.2s;
 }
 
 #nav li a:hover, #nav li a:active

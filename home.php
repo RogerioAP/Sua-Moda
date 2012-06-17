@@ -178,6 +178,7 @@
 					<?php
 						//acessorios
 						$sql = '';
+						//select que busca tambem uma imagem do produto
 						$sql = "select produto.idproduto, produto.Nome, produto.Preco, imagens.imagem1 from produto,
 						imagens where produto.categoria='acessorios' and produto.idproduto=imagens.idproduto order by produto.idproduto desc limit 3;";
 						$rs = '';

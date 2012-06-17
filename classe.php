@@ -22,9 +22,10 @@
 			$this->execut($sql);
 		}
 		
-		function inserir_produto($nome, $descricao, $preco, $categoria, $imagem)
-		{	//Adicionar produtos
-			$sql = "INSERT INTO produtos(nome, descricao, preco, categoria, imagem) values('$nome', '$descricao', '$preco', '$categoria', '$imagem')";
+		//Adicionar imagem de um produto
+		function inserir_imagem_produto($imagem)
+		{
+			$sql = "INSERT INTO imagens(imagem1) values('$imagem')";
 			$this->execut($sql);
 		}
 		

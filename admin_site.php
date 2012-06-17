@@ -14,25 +14,25 @@
 					<?php
 						//Iniciando a sessão
 						session_start();
-						include("connect.php");
+						include_once 'connect.php';
 						if(isset($_SESSION['logado']))
 						{
-							$sql = "SELECT * FROM sis_login WHERE idusuario = ".$_SESSION['id_user'];
+							$cpf = $_SESSION['cpf_user'];
+							$sql = "SELECT * FROM administrador WHERE cpf = '$cpf'";
 							
-							$rs = mysql_query($sql);
+							$rs = mysql_query($sql) or die(mysql_error());
 							if(mysql_num_rows($rs))
 							{
+								global $user;
 								$user = mysql_fetch_array($rs);
-								$nome = $user["nome"]; /*nome completo*/
-								$foto = $user["foto"];
-								if($user["tipo"]=='a'){$linha=$nome;} else {$linha="<a href='user.php' style='color:black;'>$nome</a>";}//desativar link no nome
-								
+								$nome = $user["Nome"]; /*nome completo*/
+								$foto = $user["Foto"];
 								echo "<table border='0' style='float:right'>
 										<tr>
 											<td colspan='2'><img src='$foto' width='55px' height='60px'></td>
 										</tr>
 										<tr>
-											<td>$linha</td>
+											<td>$nome</td>
 											<td><a href='logout.php' style='color:red;'>Sair</a></td>
 										</tr>
 									  </table>";
@@ -46,19 +46,18 @@
 					?>
 				</div>
             </div>
-            <?php
-				if($user["tipo"]=='a')
-				{
-					include_once 'designer.inc'; menu_admin();
-				}
-				else
-				{
-					include_once 'designer.inc'; menu_nulo();
-				}
-			?>  <!--***MENU***-->
-            <div class="content"><!--Conteúdo-->
+			
+			<!--***MENU***-->
+			<div class='NavbarMenu'>
+				<ul id='nav'>
+					<?php include_once 'designer.inc'; menu_admin();?>
+				</ul>
+			</div>
+			
+			<!--Conteúdo-->
+            <div class="content">
 			<?php			
-				if($user["tipo"]=='a')
+				if(isset($_SESSION["logado"]))
 				{	//sub-menu
 					echo "<center><a href='admin_site.php'><div style='width:265px;height:30px;padding-top:5px;background-color:#f8f8ff;float:left;color:red;'>Logo</div></a>
 							<a href='admin_site.php?rodape'><div style='width:265px;height:30px;padding-top:5px;background-color:#f8f8ff;float:left;color:red;'>Rodapé</div></a>
@@ -211,7 +210,7 @@
 						echo "<form method='post' action='admin_site.php?rodape' enctype='multipart/form-data'>
 								<br><center>Atualizar imagem do <u>rodapé</u>? (padrão é 800 x 140)
 								<br><input type='file' name='rodape'></center><br>";
-						echo "<center><img src='picture/rodape.png'>";
+						echo "<center><img src='picture/rodape.png' style='width:100%;'>";
 						echo "<br><button name='atualizar_rodape'>Atualizar</button></center><br></form>";
 					}
 					/*foto padrão*/
@@ -229,7 +228,7 @@
 						echo "<form method='post' action='admin_site.php' enctype='multipart/form-data'>
 								<br><center>Atualizar imagem da <u>logomarca</u>? (padrão é 501 x 98)
 								<br><input type='file' name='logo'></center><br>";						
-						echo "<center><img src='picture/titulo.png'>";
+						echo "<center><img src='picture/titulo.png' style='width:100%;'>";
 						echo "<br><button name='atualizar_logo'>Atualizar</button></center><br></form>";
 					}
 				}

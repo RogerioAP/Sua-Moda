@@ -24,9 +24,25 @@
 		include_once 'connect.php';
 		if(isset($_SESSION['logado']))
 		{
-			$cpf = $_SESSION['cpf_user'];
-			$sql = "SELECT * FROM usuario WHERE cpf = '$cpf'";
+			//busca o preco do produto atraves do id recebido
+			$id_produto = $_SESSION['id_produto'];
+			$sql = '';
+			$sql = "select*from produto where idproduto='$id_produto'";
+			$rs = '';
 			$rs = mysql_query($sql) or die(mysql_error());
+			$user = mysql_fetch_array($rs);
+			
+			//preco do produto
+			$valor_total = $user['Preco'];
+			
+			
+			//busca os dados do usuario
+			$cpf = $_SESSION['cpf_user'];
+			$sql = '';
+			$sql = "SELECT * FROM usuario WHERE cpf = '$cpf'";
+			$rs = '';
+			$rs = mysql_query($sql) or die(mysql_error());
+			$user = '';
 			$user = mysql_fetch_array($rs);
 			
 			$imagem_tutulo = 'picture/r.png';
@@ -37,9 +53,14 @@
 			$data_atual = date('d/m/Y'); //'2012'; //data atual
 			$vencimento = date('d/m/Y', strtotime("+1 day")); //data um dia a mais do que a atual
 			$nao_receber_apos = date('d/m/Y', strtotime("+9 day")); //data atual mais 9 dias
-			$valor_total = $_SESSION['valor_total']; //valor total
 			$endereco = $user["Rua"] . " " . $user["Numero"] . " " . $user["Bairro"]; //'rua a '.'1000'; //endereço, número e bairro
-			$cpf = $user["CPF"];//'000000000'; //cpf dããããããããa
+			
+			
+			//incluir os dados da compra no banco de dados
+			$sql = '';
+			$sql = "insert into compra values(null, '$cpf', '$data_atual', '$id_produto', '$valor_total');";
+			$rs = '';
+			$rs = mysql_query($sql) or die(mysql_error());
 		}
 	?>
 	
@@ -280,5 +301,3 @@
 
   </body>
 </html>
-
-<?php $_SESSION['valor_total'] = ''; ?>
