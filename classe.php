@@ -28,20 +28,12 @@
 			$this->execut($sql);
 		}
 		
-		function editar($idusuario, $nome, $sobrenome, $cpf, $telefone, $endereco, $numero, $bairro, $cidade, $email, $senha, $foto, $tipo)
-		{	//alterar informações do usuário
-			$sql = "update sis_login set nome='$nome', sobrenome='$sobrenome', cpf='$cpf', telefone='$telefone', endereco='$endereco',
-					 numero='$numero', bairro='$bairro', cidade='$cidade', email='$email', senha='$senha', foto='$foto', tipo='$tipo' where idusuario='$idusuario';";
-			$this->execut($sql);
-			//header("Location:admin.php?update|sis_login|set|nome='$nome',|sobrenome='$sobrenome',|cpf='$cpf',|telefone='$telefone',|endereco='$endereco',|numero='$numero',|bairro='$bairro',|cidade='$cidade',|email='$email',|senha='$senha',|foto='$foto',|tipo='$tipo'|where|idusuario='$idusuario';");
-		}
-		
 		function execut($sql)/*Executa as SQL's*/
 		{
 			return mysql_query($sql) or die(mysql_error());/*Retorna resultado ou erro*/
 		}
 		
-		function senha($id_usuario, $senha) //para testar se a senha, administrador(id) existem no BD
+		function senha($id_usuario, $senha) //para testar se a senha, administrador(id) existem com o respectivo CPF no BD
 		{
 			$sql = "SELECT id_usuario, senha WHERE tipo='a' AND idusuario='$id_usuario' AND senha='$senha'";
 			return $this->execut($sql);
@@ -72,6 +64,14 @@
 		{
 			$sql = "UPDATE sis_login SET senha='$senha' WHERE idusuario='$idusuario'";
 			$this->execut($sql);
+		}
+		
+		//Atualizar dados pessoais do usuario
+		function atualizar_dados_pessoais($cpf, $nome, $sobrenome, $telefone)
+		{
+			$sql = "update usuario set nome='$nome', sobrenome='$sobrenome', telefone='$telefone' where cpf='$cpf';";
+			$this->execut($sql);
+			//header("Location:admin.php?update|sis_login|set|nome='$nome',|sobrenome='$sobrenome',|cpf='$cpf',|telefone='$telefone',|endereco='$endereco',|numero='$numero',|bairro='$bairro',|cidade='$cidade',|email='$email',|senha='$senha',|foto='$foto',|tipo='$tipo'|where|idusuario='$idusuario';");
 		}
 		
 		function excluir($id)/*Exclui usuário*/

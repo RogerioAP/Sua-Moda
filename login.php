@@ -37,7 +37,7 @@
 						//Iniciando a sessão
 						session_start();
 						include_once 'connect.php';
-						/*if(isset($_SESSION['logado']))*/
+						if(isset($_SESSION['logado']))
 						{
 							/*Icones para mudar estilo do site*/
 							echo "<a href='home.php'><img src='picture/hello.png'></a><br>

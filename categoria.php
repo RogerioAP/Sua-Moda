@@ -5,9 +5,18 @@
             <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
             
 			<?php
-				if(isset($_GET['estilo']))
+				//Iniciando a sessão
+				session_start();
+				include_once 'connect.php';
+				
+				if(isset($_SESSION['logado']))
 				{
-					$estilo = $_GET['estilo'];
+					$cpf = $_SESSION['cpf_user'];
+					$sql = "select * from usuario where CPF='$cpf'";
+					$rs = mysql_query($sql) or die (mysql_error());
+					$user = mysql_fetch_array($rs);
+					
+					$estilo = $user["Estilo"];
 					
 					if($estilo == 'nerd')
 					{
@@ -17,12 +26,12 @@
 					{
 						echo "<link href='rock.css' rel='StyleSheet' type='text/css'>";
 					}
-					else
+					else //hello
 					{
 						echo "<link href='jeito.css' rel='StyleSheet' type='text/css'>";
 					}
 				}
-				else
+				else //hello
 				{
 					echo "<link href='jeito.css' rel='StyleSheet' type='text/css'>";
 				}
@@ -38,10 +47,8 @@
             <div class="cabecalho">
 				<div class="image_title">
 					<?php
-						//Iniciando a sessão
-						session_start();
 						include_once 'connect.php';
-						/*if(isset($_SESSION['logado']))*/
+						if(isset($_SESSION['logado']))
 						{
 							/*Icones para mudar estilo do site*/
 							echo "<a href='home.php'><img src='picture/hello.png'></a><br>
@@ -56,15 +63,16 @@
 						include_once "connect.php";
 						if(isset($_SESSION['logado']))
 						{
-							$sql = "SELECT * FROM usuario WHERE idusuario = ".$_SESSION['id_user'];
+							$cpf = $_SESSION['cpf_user'];
+							$sql = "SELECT * FROM usuario WHERE cpf = '$cpf'";
 							
-							$rs = mysql_query($sql);
+							$rs = mysql_query($sql) or die (mysql_error());
 							if(mysql_num_rows($rs))
 							{
 								$user = mysql_fetch_array($rs);
-								if($user["tipo"]=='a'){header('Location:admin.php');} //admin tem pags espec�ficas
-								$nome = $user["nome"]; /*nome completo*/
-								$foto = $user["foto"];
+								//if($user["tipo"]=='a'){header('Location:admin.php');} //admin tem pags espec�ficas
+								$nome = $user["Nome"]; /*nome completo*/
+								$foto = $user["Foto"];
 								
 								echo "<table border='0' style='float:right'>
 										<tr>
@@ -129,11 +137,12 @@
 					//exibe produtos					
 					echo "<div>";
 					echo "<table border='0'>";
-					while($linha = mysql_fetch_assoc($rs)) //for($i=0; $i<=12; $i++)
+					while($linha = mysql_fetch_assoc($rs))
 					{
 						$id_produto = $linha['idProduto'];
 						$preco = $linha['Preco'];
 						$nome = $linha['Nome'];
+						$categoria = $linha['Categoria'];
 						
 						$sql2 = "select * from imagens where idProduto=$id_produto;";
 						$rs2 = '';
@@ -147,46 +156,22 @@
 						// a primeira vez inicia a div e tr
 						if($cont==0)
 						{
-							/*echo "<tr>
-									<td><a href='produto.php?produto=$id_produto&&categoria=aces'>
-											<div>												
-												<img src='$imagem'>
-												<br>$nome - R$ $preco
-											</div>
-										</a></td>";*/
-							
 							echo "<tr>
-									<td><a href='produto.php?produto=$id_produto&&categoria=aces'>
+									<td><a href='produto.php?produto=$id_produto&&categoria=$categoria'>
 									<img src='$imagem'><br>$nome<br>$preco</a></td>";
 						}
 						else if($cont%3==0)
 						{
-							//quando for o 4° produto da linha, ele é deslocado para uma proxima linha
-							/*echo "</tr>
-									<tr>
-										<td><a href='produto.php?produto=$id_produto&&categoria=aces'>
-											<div>												
-												<img src='$imagem'>
-												<br>$nome - R$ $preco
-											</div>
-										</a></td>";*/
-										
 							echo "</tr> <tr>
-									<td><a href='produto.php?produto=$id_produto&&categoria=aces'>
+									<td><a href='produto.php?produto=$id_produto&&categoria=$categoria'>
 									<img src='$imagem'><br>$nome<br>$preco</a></td>";
 						}
 						else
 						{
-							//quando for adicionar produtos na linha normalmente
-							/*echo "<td><a href='produto.php?produto=$id_produto&&categoria=aces'>
-											<div>												
-												<img src='$imagem'>
-												<br>$nome - R$ $preco
-											</div>
-										</a></td>";*/
-							echo "<td><a href='produto.php?produto=$id_produto&&categoria=aces'>
+							echo "<td><a href='produto.php?produto=$id_produto&&categoria=$categoria'>
 									<img src='$imagem'><br>$nome<br>$preco</a></td>";
 						}
+						
 						//contador incrementando
 						$cont++;
 						//contador para saber quando eh para trocar de linha

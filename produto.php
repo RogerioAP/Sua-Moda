@@ -5,9 +5,18 @@
             <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
             
 			<?php
-				if(isset($_GET['estilo']))
+				//Iniciando a sessão
+				session_start();
+				include_once 'connect.php';
+				
+				if(isset($_SESSION['logado']))
 				{
-					$estilo = $_GET['estilo'];
+					$cpf = $_SESSION['cpf_user'];
+					$sql = "select * from usuario where CPF='$cpf'";
+					$rs = mysql_query($sql) or die (mysql_error());
+					$user = mysql_fetch_array($rs);
+					
+					$estilo = $user["Estilo"];
 					
 					if($estilo == 'nerd')
 					{
@@ -17,12 +26,12 @@
 					{
 						echo "<link href='rock.css' rel='StyleSheet' type='text/css'>";
 					}
-					else
+					else //hello
 					{
 						echo "<link href='jeito.css' rel='StyleSheet' type='text/css'>";
 					}
 				}
-				else
+				else //hello
 				{
 					echo "<link href='jeito.css' rel='StyleSheet' type='text/css'>";
 				}
@@ -34,10 +43,8 @@
             <div class="cabecalho"><!--Cabeçalho-->
 				<div class="image_title">
 					<?php
-						//Iniciando a sessão
-						session_start();
 						include_once 'connect.php';
-						/*if(isset($_SESSION['logado']))*/
+						if(isset($_SESSION['logado']))
 						{
 							/*Icones para mudar estilo do site*/
 							echo "<a href='home.php'><img src='picture/hello.png'></a><br>
@@ -51,15 +58,16 @@
 						include("connect.php");
 						if(isset($_SESSION['logado']))
 						{
-							$sql = "SELECT * FROM usuario WHERE cpf = ".$_SESSION['cpf_user'];
+							$cpf = $_SESSION['cpf_user'];
+							$sql = "SELECT * FROM usuario WHERE cpf = '$cpf'";
 							
-							$rs = mysql_query($sql);
+							$rs = mysql_query($sql) or die (mysql_error());
 							if(mysql_num_rows($rs))
 							{
 								$user = mysql_fetch_array($rs);
-								if($user["tipo"]=='a'){header('Location:admin.php');} //admin tem págs específicas
-								$nome = $user["nome"]; /*nome completo*/
-								$foto = $user["foto"];
+								//if($user["tipo"]=='a'){header('Location:admin.php');} //admin tem págs específicas
+								$nome = $user["Nome"]; /*nome completo*/
+								$foto = $user["Foto"];
 								
 								echo "<table border='0' style='float:right'>
 										<tr>
@@ -90,56 +98,58 @@
 			
             <div class="content"><!--Conteúdo-->
 				<?php
-					if($user["tipo"]=='a')/*clicou em adicionar produto*/
+					include_once 'connect.php';
+					$id_produto = $_GET["produto"];
+					$sql = "SELECT * FROM produto WHERE idProduto = $id_produto;";
+					
+					$rs = '';
+					$rs = mysql_query($sql) or die (mysql_error());						
+					
+					if(mysql_num_rows($rs))
 					{
-						echo "<br><center>É necessário ser cliente!</center><br>";
-					}
-					else
-					{
-						include_once 'connect.php';
-						$id_produto = $_GET["produto"];
-						$sql = "SELECT * FROM produto WHERE idProduto = $id_produto;";
+						$user = mysql_fetch_array($rs);
 						
-						$rs = '';
-						$rs = mysql_query($sql) or die (mysql_error());						
+						$nome = $user['Nome'];
+						$descricao = $user['Descricao'];
+						$preco = $user['Preco'];
 						
-						if(mysql_num_rows($rs))
+						$sql2 = "select * from imagens where idProduto=$id_produto;";
+						$rs2 = '';
+						$rs2 = mysql_query($sql2) or die (mysql_error());
+						if(mysql_num_rows($rs2))
 						{
-							$user = mysql_fetch_array($rs);
-							
-							$nome = $user['Nome'];
-							$descricao = $user['Descricao'];
-							$preco = $user['Preco'];
-							
-							$sql2 = "select * from imagens where idProduto=$id_produto;";
-							$rs2 = '';
-							$rs2 = mysql_query($sql2) or die (mysql_error());
-							if(mysql_num_rows($rs2))
+							$user2 = mysql_fetch_array($rs2);
+							$imagem = $user2["imagem1"];
+						}
+						
+						
+						echo "<div><img src='$imagem' style='width:300px; height:250px;'><br>
+								<b>$nome</b><br>
+								$descricao<br>
+								R$ $preco<br>
+								<form method='post' action='venda.php'>
+									<button value='$preco' name='produto' onclick='window.location=\"venda.php\";'>Comprar</button><br><br>
+								</form>";
+						
+						/*Exibir o link para voltar para a página anterior*/
+						if(isset($_GET['categoria']))
+						{
+							if($_GET['categoria']=='acessorios')
 							{
-								$user2 = mysql_fetch_array($rs2);
-								$imagem = $user2["imagem1"];
+								echo "<a href='categoria.php?cat=a'><< Voltar a acessórios</a><br></div>";
 							}
-							
-							
-							echo "<div><img src='$imagem' style='width:300px; height:250px;'><br>
-									<b>$nome</b><br>
-									$descricao<br>
-									R$ $preco<br>
-									<button onclick='window.location=\"venda.php\";'>Comprar</button><br><br>";
-							
-							/*Exibir o link para voltar para a página anterior*/
-							if(isset($_GET['categoria'])=='aces')
+							else if($_GET['categoria']=='gadgets')
 							{
-								echo "<a href='acessorios.php'><< Voltar a acessórios</a><br></div>";
+								echo "<a href='categoria.php?cat=g'><< Voltar a gadgets</a><br></div>";
 							}
-							else if(isset($_GET['categoria'])=='gadg')
+							else if($_GET['categoria']=='vestuario')
 							{
-								echo "<a href='acessorios.php'><< Voltar a gadgets</a><br></div>";
+								echo "<a href='categoria.php?cat=v'><< Voltar a vestuário</a><br></div>";
 							}
-							else if(isset($_GET['categoria'])=='vest')
-							{
-								echo "<a href='acessorios.php'><< Voltar a vestuário</a><br></div>";
-							}
+						}
+						else
+						{
+							echo "<a href='home.php'><< Voltar a Página Inicial</a><br></div>";
 						}
 					}
 				?>

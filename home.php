@@ -5,10 +5,29 @@
             <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 			
 			<?php
-				if(isset($_GET['estilo']))
+				//Iniciando a sessão
+				session_start();
+				include_once 'connect.php';
+				
+				//verifica se esta logado
+				if(isset($_SESSION['logado']))
 				{
-					$estilo = $_GET['estilo'];
+					//verifica e cicou para alterar estilo do site
+					if(isset($_GET['estilo']))
+					{
+						$estilo = $_GET['estilo'];
+					}
+					else //se na tiver clicado apenas busca o estilo o usuario no banco de dados
+					{
+						$cpf = $_SESSION['cpf_user'];
+						$sql = "select * from usuario where CPF='$cpf'";
+						$rs = mysql_query($sql) or die (mysql_error());
+						$user = mysql_fetch_array($rs);
+						
+						$estilo = $user["Estilo"];
+					}
 					
+					//muda a aparencia do site
 					if($estilo == 'nerd')
 					{
 						echo "<link href='nerd.css' rel='StyleSheet' type='text/css'>";
@@ -17,12 +36,12 @@
 					{
 						echo "<link href='rock.css' rel='StyleSheet' type='text/css'>";
 					}
-					else
+					else //hello
 					{
 						echo "<link href='jeito.css' rel='StyleSheet' type='text/css'>";
 					}
 				}
-				else
+				else //hello
 				{
 					echo "<link href='jeito.css' rel='StyleSheet' type='text/css'>";
 				}
@@ -55,10 +74,8 @@
             <div class="cabecalho">
 				<div class="image_title">
 					<?php
-						//Iniciando a sessão
-						session_start();
 						include_once 'connect.php';
-						/*if(isset($_SESSION['logado']))*/
+						if(isset($_SESSION['logado']))
 						{
 							/*Icones para mudar estilo do site*/
 							echo "<a href='home.php'><img src='picture/hello.png'></a><br>
@@ -72,15 +89,18 @@
 						include_once 'connect.php';
 						if(isset($_SESSION['logado']))
 						{
-							$sql = "SELECT * FROM suamoda WHERE idusuario = ".$_SESSION['id_user'];
+							$cpf = $_SESSION['cpf_user'];
+							$sql = '';
+							$sql = "SELECT * FROM usuario WHERE CPF = '$cpf';";
 							
-							$rs = mysql_query($sql);
+							$rs = '';
+							$rs = mysql_query($sql) or die (mysql_error());
 							if(mysql_num_rows($rs))
 							{
 								$user = mysql_fetch_array($rs);
-								if($user["tipo"]=='a'){header('Location:admin.php');} //admin tem págs específicas
-								$nome = $user["nome"]; /*nome completo*/
-								$foto = $user["foto"];
+								//if($user["tipo"]=='a'){header('Location:admin.php');} //admin tem págs específicas
+								$nome = $user["Nome"]; /*nome completo*/
+								$foto = $user["Foto"];
 								
 								echo "<table border='0' style='float:right'>
 										<tr>

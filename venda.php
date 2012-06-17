@@ -5,9 +5,18 @@
             <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
             
 			<?php
-				if(isset($_GET['estilo']))
+				//Iniciando a sessão
+				session_start();
+				include_once 'connect.php';
+				
+				if(isset($_SESSION['logado']))
 				{
-					$estilo = $_GET['estilo'];
+					$cpf = $_SESSION['cpf_user'];
+					$sql = "select * from usuario where CPF='$cpf'";
+					$rs = mysql_query($sql) or die (mysql_error());
+					$user = mysql_fetch_array($rs);
+					
+					$estilo = $user["Estilo"];
 					
 					if($estilo == 'nerd')
 					{
@@ -17,12 +26,12 @@
 					{
 						echo "<link href='rock.css' rel='StyleSheet' type='text/css'>";
 					}
-					else
+					else //hello
 					{
 						echo "<link href='jeito.css' rel='StyleSheet' type='text/css'>";
 					}
 				}
-				else
+				else //hello
 				{
 					echo "<link href='jeito.css' rel='StyleSheet' type='text/css'>";
 				}
@@ -35,8 +44,6 @@
             <div class="cabecalho"><!--Cabeçalho-->
 				<div class="image_title">
 					<?php
-						//Iniciando a sessão
-						session_start();
 						include_once 'connect.php';
 						/*if(isset($_SESSION['logado']))*/
 						{
@@ -54,22 +61,23 @@
 						//Iniciando a sessão
 						if(isset($_SESSION['logado']))
 						{
-							$sql = "SELECT * FROM sis_login WHERE idusuario = ".$_SESSION['id_user'];
+							$cpf = $_SESSION['cpf_user'];
+							$sql = "SELECT * FROM usuario WHERE cpf = '$cpf'";
 							
-							$rs = mysql_query($sql);
+							$rs = mysql_query($sql) or die (mysql_error());
 							if(mysql_num_rows($rs))
 							{
 								global $user;
 								$user = mysql_fetch_array($rs);
-								$nome = $user["nome"]; /*nome completo*/
-								$foto = $user["foto"];
-								if($user["tipo"]=='a'){$linha=$nome;} else {$linha="<a href='user_d_pessoais.php' style='color:black;'>$nome</a>";}//desativar link no nome
+								$nome = $user["Nome"]; /*nome completo*/
+								$foto = $user["Foto"];
+								//if($user["tipo"]=='a'){$linha=$nome;} else {$linha="<a href='user_d_pessoais.php' style='color:black;'>$nome</a>";}//desativar link no nome
 								echo "<table border='0' style='float:right'>
 										<tr>
 											<td colspan='2'><img src='$foto' width='55px' height='60px'></td>
 										</tr>
 										<tr>
-											<td>$linha</td>
+											<td><a href='user_d_pessoais.php' style='color:black;'>$nome</a></td>
 											<td><a href='logout.php' style='color:red;'>Sair</a></td>
 										</tr>
 									  </table>";
@@ -92,11 +100,26 @@
 			
 			<!--Conteúdo-->
             <div class="content">
-				<br><center>Clique em uma forma de pagamento:<br>
-				<a href='#'><img src='picture/visa.gif' style='width:60px; height:38px;'></a>
-				<a href='#'><img src='picture/master_card.gif' style='padding-left:50px; width:60px; height:38px;'></a>
-				<a href='boleto.php'><img src='picture/boleto.gif' style='padding-left:50px; width:60px; height:38px;'></a>
-				</center>
+				<?php
+					if(isset($_SESSION['logado']))
+					{
+						if(isset($_POST['produto']))
+						{
+							$_SESSION['valor_total'] = $_POST['produto'];
+						}
+						
+						echo "<br><center>Clique em uma forma de pagamento:<br>
+						<a href='#'><img src='picture/visa.gif' style='width:60px; height:38px;'></a>
+						<a href='#'><img src='picture/master_card.gif' style='padding-left:50px; width:60px; height:38px;'></a>
+						<a href='boleto.php'><img src='picture/boleto.gif' style='padding-left:50px; width:60px; height:38px;'></a>
+						</center>";
+					}
+					else
+					{
+						echo "<br><center>É necessário está logado!<br>
+								<a href='login.php'>Entrar</a></center>";
+					}
+				?>
             </div>
 			
 			<!--Rodape-->

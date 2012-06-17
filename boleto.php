@@ -24,8 +24,9 @@
 		include_once 'connect.php';
 		if(isset($_SESSION['logado']))
 		{
-			$sql = "SELECT * FROM usuario WHERE idusuario = ".$_SESSION['id_user'];
-			$rs = mysql_query($sql);
+			$cpf = $_SESSION['cpf_user'];
+			$sql = "SELECT * FROM usuario WHERE cpf = '$cpf'";
+			$rs = mysql_query($sql) or die(mysql_error());
 			$user = mysql_fetch_array($rs);
 			
 			$imagem_tutulo = 'picture/r.png';
@@ -36,9 +37,9 @@
 			$data_atual = date('d/m/Y'); //'2012'; //data atual
 			$vencimento = date('d/m/Y', strtotime("+1 day")); //data um dia a mais do que a atual
 			$nao_receber_apos = date('d/m/Y', strtotime("+9 day")); //data atual mais 9 dias
-			$valor_total = '99,99'; //valor total
-			$endereco = $user["rua"] . " " . $user["numero"] . " " . $user["bairro"]; //'rua a '.'1000'; //endereço, número e bairro
-			$cpf = $user["cpf"];//'000000000'; //cpf dããããããããa
+			$valor_total = $_SESSION['valor_total']; //valor total
+			$endereco = $user["Rua"] . " " . $user["Numero"] . " " . $user["Bairro"]; //'rua a '.'1000'; //endereço, número e bairro
+			$cpf = $user["CPF"];//'000000000'; //cpf dããããããããa
 		}
 	?>
 	
@@ -77,7 +78,7 @@
 	  <td>
 	    <div class="small">Sacado</div>
 	    <div class="normal">
-	      <?php echo $nome; ?><br/>CPF: 105.137.356-58
+	      <?php echo $nome; ?><br/>CPF: <?php echo $cpf; ?>
 	    </div>
 	  </td>
 	  <td>
@@ -219,8 +220,6 @@
 		  N&Atilde;O RECEBER APOS <?php echo $nao_receber_apos; ?><br/>
 		  N&Atilde;O COBRAR JUROS DE MORA<br/>
 		  N&Atilde;O RECEBER MENOS QUE R$ <?php echo $valor_total; ?>
-		  (manuten&ccedil;&atilde;o pelo per&iacute;odo m&iacute;nimo
-		  de 1 ano)
 	      </b></div>
 	    </td>
 	    <td >
@@ -282,4 +281,4 @@
   </body>
 </html>
 
-<!-- Registro .br (c) 1998/2011 -->
+<?php $_SESSION['valor_total'] = ''; ?>

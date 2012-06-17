@@ -5,9 +5,18 @@
             <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
             
 			<?php
-				if(isset($_GET['estilo']))
+				//Iniciando a sessão
+				session_start();
+				include_once 'connect.php';
+				
+				if(isset($_SESSION['logado']))
 				{
-					$estilo = $_GET['estilo'];
+					$cpf = $_SESSION['cpf_user'];
+					$sql = "select * from usuario where CPF='$cpf'";
+					$rs = mysql_query($sql) or die (mysql_error());
+					$user = mysql_fetch_array($rs);
+					
+					$estilo = $user["Estilo"];
 					
 					if($estilo == 'nerd')
 					{
@@ -17,12 +26,12 @@
 					{
 						echo "<link href='rock.css' rel='StyleSheet' type='text/css'>";
 					}
-					else
+					else //hello
 					{
 						echo "<link href='jeito.css' rel='StyleSheet' type='text/css'>";
 					}
 				}
-				else
+				else //hello
 				{
 					echo "<link href='jeito.css' rel='StyleSheet' type='text/css'>";
 				}
@@ -35,8 +44,6 @@
             <div class="cabecalho"><!--Cabeçalho-->
 				<div class="image_title">
 					<?php
-						//Iniciando a sessão
-						session_start();
 						include_once 'connect.php';
 						/*if(isset($_SESSION['logado']))*/
 						{
@@ -52,15 +59,16 @@
 						include("connect.php");
 						if(isset($_SESSION['logado']))
 						{
-							$sql = "SELECT * FROM sis_login WHERE idusuario = ".$_SESSION['id_user'];
+							$cpf = $_SESSION['cpf_user'];
+							$sql = "SELECT * FROM usuario WHERE CPF = '$cpf';";
 							
-							$rs = mysql_query($sql);
+							$rs = mysql_query($sql) or die(mysql_error());
 							if(mysql_num_rows($rs))
 							{
 								$user = mysql_fetch_array($rs);
-								if($user["tipo"]=='a'){header('Location:admin.php');} //admin tem págs específicas
-								$nome = $user["nome"]; /*nome completo*/
-								$foto = $user["foto"];
+								//if($user["tipo"]=='a'){header('Location:admin.php');} //admin tem págs específicas
+								$nome = $user["Nome"]; /*nome completo*/
+								$foto = $user["Foto"];
 								
 								echo "<table border='0' style='float:right'>
 										<tr>
@@ -90,9 +98,9 @@
 			</div>
 			
             <div class="content"><!--Conteúdo-->
-			Construindo...Falta a programação de parte...
+			Funciona!
 				<?php
-					if($user["tipo"]=='u')/*clicou em adicionar produto*/
+					if(isset($_SESSION['logado']))
 					{						
 						echo "<center><a href='user_d_pessoais.php'><div style='width:200px;height:30px;padding-top:5px;background-color:#f8f8ff;float:left;color:red;'>Dados Pessoais</div></a>
 							<a href='user_d_endereco.php'><div style='width:200px;height:30px;padding-top:5px;background-color:#f8f8ff;float:left;color:red;'>Dados de Endereço</div></a>
@@ -109,16 +117,17 @@
 							
 							if(!empty($nome) && !empty($sobrenome) && !empty($telefone) && !empty($senha))
 							{
-								$idusuario = $user['idusuario'];
+								$cpf = $user['CPF'];
 								//verificar se a senha atual do usuário está correta
 								include_once "classe.php";
 								$obj = new Classe;
-								$sql = "SELECT idusuario, senha FROM sis_login WHERE tipo='u' AND idusuario='$idusuario' AND senha='$senha'";
+								$sql = "SELECT cpf, senha FROM usuario WHERE cpf='$cpf' AND senha='$senha'";
 								$resultado = mysql_query($sql) or die (mysql_error());
 								
 								if(mysql_num_rows($resultado)) //se estiver certo
 								{
 									//chamar método de atualizar dados pessoais
+									$obj->atualizar_dados_pessoais($cpf, $nome, $sobrenome, $telefone);
 									echo "<br><center style='color:green;'>Dados pessoais atualizados!</center>";
 								}
 								else
@@ -133,10 +142,10 @@
 							}
 						}
 						
-						$nome = $user["nome"];
-						$sobrenome = $user["sobrenome"];
+						$nome = $user["Nome"];
+						$sobrenome = $user["Sobrenome"];
 						
-						$telefone = $user["telefone"];
+						$telefone = $user["Telefone"];
 						echo "<form method='post' action='user_d_pessoais.php'>
 							<br><center>ATUALIZAR&nbsp&nbsp&nbspDADOS&nbsp&nbsp&nbspPESSOAIS&nbsp?</center>
 							<table border=0>

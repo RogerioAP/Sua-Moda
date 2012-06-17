@@ -5,10 +5,18 @@
             <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
             
 			<?php
-				global $estilo;
-				if(isset($_GET['estilo']))
+				//Iniciando a sessão
+				session_start();
+				include_once 'connect.php';
+				
+				if(isset($_SESSION['logado']))
 				{
-					$estilo = $_GET['estilo'];
+					$cpf = $_SESSION['cpf_user'];
+					$sql = "select * from usuario where CPF='$cpf'";
+					$rs = mysql_query($sql) or die (mysql_error());
+					$user = mysql_fetch_array($rs);
+					
+					$estilo = $user["Estilo"];
 					
 					if($estilo == 'nerd')
 					{
@@ -18,12 +26,12 @@
 					{
 						echo "<link href='rock.css' rel='StyleSheet' type='text/css'>";
 					}
-					else
+					else //hello
 					{
 						echo "<link href='jeito.css' rel='StyleSheet' type='text/css'>";
 					}
 				}
-				else
+				else //hello
 				{
 					echo "<link href='jeito.css' rel='StyleSheet' type='text/css'>";
 				}
@@ -35,10 +43,8 @@
             <div class="cabecalho"><!--Cabeçalho-->
 				<div class="image_title">
 					<?php
-						//Iniciando a sessão
-						session_start();
 						include_once 'connect.php';
-						/*if(isset($_SESSION['logado']))*/
+						if(isset($_SESSION['logado']))
 						{
 							/*Icones para mudar estilo do site*/
 							echo "<a href='contatos.php'><img src='picture/hello.png'></a><br>
@@ -52,15 +58,16 @@
 						include("connect.php");
 						if(isset($_SESSION['logado']))
 						{
-							$sql = "SELECT * FROM sis_login WHERE idusuario = ".$_SESSION['id_user'];
+							$cpf = $_SESSION['cpf_user'];
+							$sql = "SELECT * FROM usuario WHERE cpf = '$cpf'";
 							
-							$rs = mysql_query($sql);
+							$rs = mysql_query($sql) or die (mysql_error());
 							if(mysql_num_rows($rs))
 							{
 								$user = mysql_fetch_array($rs);
-								if($user["tipo"]=='a'){header('Location:admin.php');} //admin tem págs específicas
-								$nome = $user["nome"]; /*nome completo*/
-								$foto = $user["foto"];
+								//if($user["tipo"]=='a'){header('Location:admin.php');} //admin tem págs específicas
+								$nome = $user["Nome"]; /*nome completo*/
+								$foto = $user["Foto"];
 								
 								echo "<table border='0' style='float:right'>
 										<tr>

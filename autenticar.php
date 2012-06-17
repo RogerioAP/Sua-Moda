@@ -22,14 +22,14 @@
 		$user = mysql_fetch_array($rs);
 		
 		//conferindo o login e senha para segurança
-		if($email == $user['email'])
+		if($email == $user['Email'])
 		{
 			//se entrou, entao o login é igual
-			if($senha == $user['senha'])
+			if($senha == $user['Senha'])
 			{
 				//se entrou, então a senha também é igual
 				$logado = "1";
-				$cpf_user = $user['cpf'];
+				$cpf_user = $user['CPF'];
 				
 				//criando a sessão
 				session_start();
