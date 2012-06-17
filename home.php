@@ -12,14 +12,18 @@
 				//verifica se esta logado
 				if(isset($_SESSION['logado']))
 				{
-					//verifica e cicou para alterar estilo do site
+					$cpf = $_SESSION['cpf_user'];
+						
+					//verifica e clicou para alterar estilo do site
 					if(isset($_GET['estilo']))
 					{
 						$estilo = $_GET['estilo'];
+						$sql = '';
+						$sql = "update usuario set estilo='$estilo' where cpf='$cpf'";
+						$rs = mysql_query($sql) or die (mysql_error());
 					}
-					else //se na tiver clicado apenas busca o estilo o usuario no banco de dados
+					else //se nao tiver clicado apenas busca o estilo o usuario no banco de dados
 					{
-						$cpf = $_SESSION['cpf_user'];
 						$sql = "select * from usuario where CPF='$cpf'";
 						$rs = mysql_query($sql) or die (mysql_error());
 						$user = mysql_fetch_array($rs);
@@ -35,6 +39,10 @@
 					else if($estilo == 'rock')
 					{
 						echo "<link href='rock.css' rel='StyleSheet' type='text/css'>";
+					}
+					else  if($estilo == 'hello')//hello
+					{
+						echo "<link href='jeito.css' rel='StyleSheet' type='text/css'>";
 					}
 					else //hello
 					{
@@ -78,7 +86,7 @@
 						if(isset($_SESSION['logado']))
 						{
 							/*Icones para mudar estilo do site*/
-							echo "<a href='home.php'><img src='picture/hello.png'></a><br>
+							echo "<a href='home.php?estilo=hello'><img src='picture/hello.png'></a><br>
 							<a href='home.php?estilo=rock'><img src='picture/guitarra.png'></a><br>
 							<a href='home.php?estilo=nerd'><img src='picture/android_rosa.png'></a>";
 						}

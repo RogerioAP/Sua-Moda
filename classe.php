@@ -60,12 +60,6 @@
 			echo "</table>";
 		}
 		
-		function atualizar_senha($senha, $idusuario) //atualizar a senha
-		{
-			$sql = "UPDATE sis_login SET senha='$senha' WHERE idusuario='$idusuario'";
-			$this->execut($sql);
-		}
-		
 		//Atualizar dados pessoais do usuario
 		function atualizar_dados_pessoais($cpf, $nome, $sobrenome, $telefone)
 		{

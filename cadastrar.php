@@ -5,10 +5,33 @@
             <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
             
 			<?php
-				if(isset($_GET['estilo']))
+				//Iniciando a sessão
+				session_start();
+				include_once 'connect.php';
+				
+				//verifica se esta logado
+				if(isset($_SESSION['logado']))
 				{
-					$estilo = $_GET['estilo'];
+					$cpf = $_SESSION['cpf_user'];
+						
+					//verifica e clicou para alterar estilo do site
+					if(isset($_GET['estilo']))
+					{
+						$estilo = $_GET['estilo'];
+						$sql = '';
+						$sql = "update usuario set estilo='$estilo' where cpf='$cpf'";
+						$rs = mysql_query($sql) or die (mysql_error());
+					}
+					else //se nao tiver clicado apenas busca o estilo o usuario no banco de dados
+					{
+						$sql = "select * from usuario where CPF='$cpf'";
+						$rs = mysql_query($sql) or die (mysql_error());
+						$user = mysql_fetch_array($rs);
+						
+						$estilo = $user["Estilo"];
+					}
 					
+					//muda a aparencia do site
 					if($estilo == 'nerd')
 					{
 						echo "<link href='nerd.css' rel='StyleSheet' type='text/css'>";
@@ -17,12 +40,16 @@
 					{
 						echo "<link href='rock.css' rel='StyleSheet' type='text/css'>";
 					}
-					else
+					else  if($estilo == 'hello')//hello
+					{
+						echo "<link href='jeito.css' rel='StyleSheet' type='text/css'>";
+					}
+					else //hello
 					{
 						echo "<link href='jeito.css' rel='StyleSheet' type='text/css'>";
 					}
 				}
-				else
+				else //hello
 				{
 					echo "<link href='jeito.css' rel='StyleSheet' type='text/css'>";
 				}
@@ -39,10 +66,8 @@
             <div class="cabecalho">
 				<div class="image_title">
 					<?php
-						//Iniciando a sessão
-						session_start();
 						include_once 'connect.php';
-						/*if(isset($_SESSION['logado']))*/
+						if(isset($_SESSION['logado']))
 						{
 							/*Icones para mudar estilo do site*/
 							echo "<a href='home.php'><img src='picture/hello.png'></a><br>
@@ -90,20 +115,12 @@
             </div>
 			
 			<!--***MENU***-->
-            <?php
-				if($user["tipo"]=='a')
-				{
-					include_once 'designer.inc'; menu_admin();
-				}
-				else
-				{
-					echo "	<div class='NavbarMenu'>
-								<ul id='nav'>
-									<?php include_once 'designer.inc'; menu();?>
-								</ul>
-							</div>";
-				}
-			?>
+			<div class='NavbarMenu'>
+				<ul id='nav'>
+					<?php include_once 'designer.inc'; menu();?>
+				</ul>
+			</div>
+			
             <div class="content"><!--Conteúdo-->
 				<?php //////////////************CADASTRANDO INCLUSIVE IMAGEM NO BD*********////////////
 					// Conexão com o banco de dados

@@ -9,15 +9,31 @@
 				session_start();
 				include_once 'connect.php';
 				
+				//verifica se esta logado
 				if(isset($_SESSION['logado']))
 				{
 					$cpf = $_SESSION['cpf_user'];
-					$sql = "select * from usuario where CPF='$cpf'";
-					$rs = mysql_query($sql) or die (mysql_error());
-					$user = mysql_fetch_array($rs);
+						
+					//verifica e clicou para alterar estilo do site
+					if(isset($_GET['estilo']))
+					{
+						//atualiza no banco de dados o estilo do site
+						$estilo = $_GET['estilo'];
+						$sql = '';
+						$sql = "update usuario set estilo='$estilo' where cpf='$cpf'";
+						$rs = mysql_query($sql) or die (mysql_error());
+					}
+					else
+					{
+						//se nao tiver clicado apenas busca o estilo do usuario no banco de dados
+						$sql = "select * from usuario where CPF='$cpf'";
+						$rs = mysql_query($sql) or die (mysql_error());
+						$user = mysql_fetch_array($rs);
+						
+						$estilo = $user["Estilo"];
+					}
 					
-					$estilo = $user["Estilo"];
-					
+					//muda a aparencia do site
 					if($estilo == 'nerd')
 					{
 						echo "<link href='nerd.css' rel='StyleSheet' type='text/css'>";
@@ -25,6 +41,10 @@
 					else if($estilo == 'rock')
 					{
 						echo "<link href='rock.css' rel='StyleSheet' type='text/css'>";
+					}
+					else  if($estilo == 'hello')//hello
+					{
+						echo "<link href='jeito.css' rel='StyleSheet' type='text/css'>";
 					}
 					else //hello
 					{
@@ -60,7 +80,7 @@
 						if(isset($_SESSION['logado']))
 						{
 							$cpf = $_SESSION['cpf_user'];
-							$sql = "SELECT * FROM usuario WHERE CPF = '$cpf';";
+							$sql = "SELECT * FROM usuario WHERE cpf = '$cpf';";
 							
 							$rs = mysql_query($sql) or die(mysql_error());
 							if(mysql_num_rows($rs))
@@ -116,21 +136,22 @@
 							
 							if(!empty($endereco) && !empty($numero) && !empty($bairro) && !empty($cidade) && !empty($senha)) //verificando campos em branco
 							{
-								$idusuario = $user['idusuario'];
+								$cpf = $user['CPF'];
 								//verificar se a senha atual do usuário está correta
 								include_once "classe.php";
 								$obj = new Classe;
-								$sql = "SELECT idusuario, senha FROM sis_login WHERE tipo='u' AND idusuario='$idusuario' AND senha='$senha'";
+								$sql = "SELECT cpf, senha FROM usuario WHERE cpf='$cpf' AND senha='$senha'";
 								$resultado = mysql_query($sql) or die (mysql_error());
 								
 								if(mysql_num_rows($resultado)) //se estiver certo
 								{
-									//chamar método de atualizar endereco
-									echo "<br><center style='color:green;'>Senha atualiada</center>";
+									$sql = "UPDATE usuario SET rua='$endereco', numero='$numero', bairro='$bairro', cidade='$cidade' WHERE cpf='$cpf'";
+									$sd = mysql_query($sql) or die (mysql_error());
+									echo "<br><center style='color:green;'>Dados de endereço atualizados!</center>";
 								}
 								else
 								{
-									echo "<br><center style='color:red;'>Dados de endereço atualizados!</center>";
+									echo "<br><center style='color:red;'>Senha inválida!</center>";
 								}
 								//$resultado = $obj->senha($user['idusuario'], $senha_atual);
 							}

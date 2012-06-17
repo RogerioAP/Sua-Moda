@@ -9,15 +9,29 @@
 				session_start();
 				include_once 'connect.php';
 				
+				//verifica se esta logado
 				if(isset($_SESSION['logado']))
 				{
 					$cpf = $_SESSION['cpf_user'];
-					$sql = "select * from usuario where CPF='$cpf'";
-					$rs = mysql_query($sql) or die (mysql_error());
-					$user = mysql_fetch_array($rs);
+						
+					//verifica e clicou para alterar estilo do site
+					if(isset($_GET['estilo']))
+					{
+						$estilo = $_GET['estilo'];
+						$sql = '';
+						$sql = "update usuario set estilo='$estilo' where cpf='$cpf'";
+						$rs = mysql_query($sql) or die (mysql_error());
+					}
+					else //se nao tiver clicado apenas busca o estilo o usuario no banco de dados
+					{
+						$sql = "select * from usuario where CPF='$cpf'";
+						$rs = mysql_query($sql) or die (mysql_error());
+						$user = mysql_fetch_array($rs);
+						
+						$estilo = $user["Estilo"];
+					}
 					
-					$estilo = $user["Estilo"];
-					
+					//muda a aparencia do site
 					if($estilo == 'nerd')
 					{
 						echo "<link href='nerd.css' rel='StyleSheet' type='text/css'>";
@@ -25,6 +39,10 @@
 					else if($estilo == 'rock')
 					{
 						echo "<link href='rock.css' rel='StyleSheet' type='text/css'>";
+					}
+					else  if($estilo == 'hello')//hello
+					{
+						echo "<link href='jeito.css' rel='StyleSheet' type='text/css'>";
 					}
 					else //hello
 					{
@@ -97,7 +115,8 @@
 				</ul>
 			</div>
 			
-            <div class="content"><!--Conteúdo-->
+			<!--Conteúdo-->
+            <div class="content">
 				<?php
 					if(isset($_SESSION['logado']))
 					{						
@@ -118,18 +137,18 @@
 								{
 									if($senha_atual!=$senha_nova) //testa pra saber se a nova senha igual a senha atual
 									{
-										$idusuario = $user['idusuario'];
+										$cpf = $user['CPF'];
 										//verificar se a senha atual do usuário está correta
 										include_once "classe.php";
 										$obj = new Classe;
-										$sql = "SELECT idusuario, senha FROM sis_login WHERE tipo='u' AND idusuario='$idusuario' AND senha='$senha_atual'";
+										$sql = "SELECT cpf, senha FROM usuario WHERE cpf='$cpf' AND senha='$senha_atual'";
 										$resultado = mysql_query($sql) or die (mysql_error());
 										
 										if(mysql_num_rows($resultado)) //se estiver certo
 										{
-											$obj->atualizar_senha($senha_atual, $idusuario);
-											//$sql = "UPDATE sis_login SET senha='$senha_atual' WHERE idusuario='$idusuario'";
-											//$sd = mysql_query($sql);
+											//$obj->atualizar_senha($senha_atual, $cpf);
+											$sql = "UPDATE usuario SET senha='$senha_nova' WHERE cpf='$cpf'";
+											$sd = mysql_query($sql) or die (mysql_error());
 											echo "<br><center style='color:green;'>Senha atualiada</center>";
 										}
 										else

@@ -9,15 +9,29 @@
 				session_start();
 				include_once 'connect.php';
 				
+				//verifica se esta logado
 				if(isset($_SESSION['logado']))
 				{
 					$cpf = $_SESSION['cpf_user'];
-					$sql = "select * from usuario where CPF='$cpf'";
-					$rs = mysql_query($sql) or die (mysql_error());
-					$user = mysql_fetch_array($rs);
+						
+					//verifica e clicou para alterar estilo do site
+					if(isset($_GET['estilo']))
+					{
+						$estilo = $_GET['estilo'];
+						$sql = '';
+						$sql = "update usuario set estilo='$estilo' where cpf='$cpf'";
+						$rs = mysql_query($sql) or die (mysql_error());
+					}
+					else //se nao tiver clicado apenas busca o estilo o usuario no banco de dados
+					{
+						$sql = "select * from usuario where CPF='$cpf'";
+						$rs = mysql_query($sql) or die (mysql_error());
+						$user = mysql_fetch_array($rs);
+						
+						$estilo = $user["Estilo"];
+					}
 					
-					$estilo = $user["Estilo"];
-					
+					//muda a aparencia do site
 					if($estilo == 'nerd')
 					{
 						echo "<link href='nerd.css' rel='StyleSheet' type='text/css'>";
@@ -25,6 +39,10 @@
 					else if($estilo == 'rock')
 					{
 						echo "<link href='rock.css' rel='StyleSheet' type='text/css'>";
+					}
+					else  if($estilo == 'hello')//hello
+					{
+						echo "<link href='jeito.css' rel='StyleSheet' type='text/css'>";
 					}
 					else //hello
 					{
@@ -158,18 +176,18 @@
 						{
 							echo "<tr>
 									<td><a href='produto.php?produto=$id_produto&&categoria=$categoria'>
-									<img src='$imagem'><br>$nome<br>$preco</a></td>";
+									<img src='$imagem'><br>$nome<br>R$ $preco</a></td>";
 						}
 						else if($cont%3==0)
 						{
 							echo "</tr> <tr>
 									<td><a href='produto.php?produto=$id_produto&&categoria=$categoria'>
-									<img src='$imagem'><br>$nome<br>$preco</a></td>";
+									<img src='$imagem'><br>$nome<br>R$ $preco</a></td>";
 						}
 						else
 						{
 							echo "<td><a href='produto.php?produto=$id_produto&&categoria=$categoria'>
-									<img src='$imagem'><br>$nome<br>$preco</a></td>";
+									<img src='$imagem'><br>$nome<br>R$ $preco</a></td>";
 						}
 						
 						//contador incrementando
