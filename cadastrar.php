@@ -146,6 +146,7 @@
 			<div class='NavbarMenu'>
 				<ul id='nav'>
 					<?php
+						//dependendo da pessoa que esta logada exibe um menu diferente
 						if(isset($_SESSION['logado']) && $_SESSION['logado'] == 2)
 						{
 							//administrador
@@ -160,96 +161,18 @@
 				</ul>
 			</div>
 			
-            <div class="content"><!--Conteúdo-->
-				<?php //////////////************CADASTRANDO INCLUSIVE IMAGEM NO BD*********////////////
+			<!--Conteúdo-->
+            <div class="content">
+				<?php
 					 
 					$caminho_imagem = 'fotos/803fbd58f1ed97adb518c3b2f6cc6d7a.png';
+					
 					// Se o usuário clicou no botão cadastrar efetua as ações
 					if (isset($_POST['cadastrar']))
 					{
-						//testa se eh o usuario que esta logado
-						if(isset($_SESSION['logado']) && $_SESSION['logado'] == 1)
+						//administrador esta logado
+						if(isset($_SESSION['logado']) && $_SESSION['logado'] == 2)
 						{
-							// Recupera os dados dos campos
-							$nome = $_POST['nome'];
-							$sobrenome = $_POST['sobrenome'];
-							$cpf = $_POST['cpf'];
-							$telefone = $_POST['telefone'];
-							$endereco = $_POST['endereco'];
-							$numero = $_POST['numero'];
-							$bairro = $_POST['bairro'];
-							$cidade = $_POST['cidade'];
-							$email = $_POST['email'];
-							$password = $_POST['password'];
-							$password2 = $_POST['password2'];
-							if($user["tipo"]=='a'){$usuario = 'a';}else{$usuario = 'u';}//para cadastro usuário ou admin
-							
-							// Faz a verificação da extensão do arquivo
-							// Array com as extensões permitidas
-
-							/*$extensao = strtolower(end(explode('.', $_FILES['foto']['name'])));						
-							if (array_search($extensao, $_UP['extensoes']) === false) {
-							echo "Por favor, envie arquivos com as seguintes extensões: jpg, png ou gif";						
-							}else{echo "certo!";}*/
-							
-							// testa pra ver se os dados foram preenchidos
-							if(!empty($nome) && !empty($sobrenome) && !empty($cpf) && !empty($telefone) && !empty($endereco) && !empty($numero) && !empty($bairro)
-								&& !empty($cidade) && !empty($email) && !empty($password) && !empty($password2) && $password==$password2) //(!empty($foto["name"]))
-							{
-								//testa pra saber se a imagem foi carregada
-								if($_FILES['foto']['error']==0)
-								{
-									$foto = $_FILES['foto'];
-									// Tamanho máximo do arquivo em bytes
-									$tamanho = 100000;
-									
-									// Verifica se o tamanho da imagem é maior que o tamanho permitido
-									if($foto["size"] > $tamanho)
-									{
-										echo "<center>A imagem deve ter no máximo ".$tamanho." bytes</center><br>";
-									}
-									else
-									{
-										$_UP['extensoes'] = array('jpg', 'jpeg', 'bmp', 'png', 'gif');
-										//if($ext[1] != "jpg" && $ext[1] != "bmp" && $ext[1] != "png" && $ext[1] != "gif" && $ext[1] != "jpg" && $ext[1] != "jpeg")
-										$extensao = strtolower(end(explode('.', $_FILES['foto']['name'])));						
-										if (array_search($extensao, $_UP['extensoes']) === false)
-										{
-										   echo "<center>Isso não é uma imagem!</center><br>";
-										}
-										else
-										{
-											// Pega as dimensões da imagem
-											$dimensoes = getimagesize($foto["tmp_name"]);
-											
-											preg_match("/\.(gif|bmp|png|jpg|jpeg){1}$/i", $foto["name"], $ext);
-											//echo "<br>".$ext[1];
-											// Gera um nome único para a imagem
-											$nome_imagem = md5(uniqid(time())) . "." . $ext[1];
-								 
-											// Caminho de onde ficará a imagem
-											$caminho_imagem = "";
-											$caminho_imagem = "fotos/" . $nome_imagem;
-								 
-											// Faz o upload da imagem para seu respectivo caminho
-											move_uploaded_file($foto["tmp_name"], $caminho_imagem);
-										}
-									}
-								}
-								
-								/*include_once 'classe.php';
-								$obj = new Classe; /*usando a função INSERIR do arquivo classe.php *
-								$obj->inserir($nome, $sobrenome, $cpf, $telefone, $endereco, $numero, $bairro, $cidade, $email, $password, $caminho_imagem);*/
-								echo "<br><center style='color:green;'>Cadastrado com sucesso!</center><br>";
-							}
-							else
-							{
-								echo "<br><center style='color:red;'>Os campos com * não podem ficar em branco!</center><br>";
-							}
-						}
-						else
-						{
-							//administrador esta logado
 							$nome = $_POST['nome'];
 							$cpf = $_POST['cpf'];
 							$email = $_POST['email'];
@@ -265,6 +188,96 @@
 							if(!empty($nome) && !empty($cpf) && !empty($email) && !empty($password) && !empty($password2)) //(!empty($foto["name"]))
 							{
 								if($password==$password2)
+								{
+									if(strlen($cpf) == 14)
+									{
+										//testa pra saber se a imagem foi carregada
+										if($_FILES['foto']['error']==0)
+										{
+											$foto = $_FILES['foto'];
+											// Tamanho máximo do arquivo em bytes
+											$tamanho = 100000;
+											
+											// Verifica se o tamanho da imagem é maior que o tamanho permitido
+											if($foto["size"] > $tamanho)
+											{
+												echo "<center>A imagem deve ter no máximo ".$tamanho." bytes</center><br>";
+											}
+											else
+											{
+												$_UP['extensoes'] = array('jpg', 'jpeg', 'bmp', 'png', 'gif');
+												//if($ext[1] != "jpg" && $ext[1] != "bmp" && $ext[1] != "png" && $ext[1] != "gif" && $ext[1] != "jpg" && $ext[1] != "jpeg")
+												$extensao = strtolower(end(explode('.', $_FILES['foto']['name'])));						
+												if (array_search($extensao, $_UP['extensoes']) === false)
+												{
+												   echo "<center>Isso não é uma imagem!</center><br>";
+												}
+												else
+												{
+													// Pega as dimensões da imagem
+													$dimensoes = getimagesize($foto["tmp_name"]);
+													
+													preg_match("/\.(gif|bmp|png|jpg|jpeg){1}$/i", $foto["name"], $ext);
+													//echo "<br>".$ext[1];
+													// Gera um nome único para a imagem
+													$nome_imagem = md5(uniqid(time())) . "." . $ext[1];
+										 
+													// Caminho de onde ficará a imagem
+													$caminho_imagem = "";
+													$caminho_imagem = "fotos/" . $nome_imagem;
+										 
+													// Faz o upload da imagem para seu respectivo caminho
+													move_uploaded_file($foto["tmp_name"], $caminho_imagem);
+												}
+											}
+										}
+										$sql = '';
+										$sql = "insert into administrador values('$cpf', '$nome', '$password', '$email', '$caminho_imagem');";
+										//echo "insert into administrador values('$cpf', '$nome', '$password', '$email', '$caminho_imagem');";
+										mysql_query($sql) or die(mysql_error());
+										
+										echo "<br><center style='color:green;'>Administrador cadastrado com sucesso!</center><br>";
+									}
+									else
+									{
+										echo "<br><center style='color:red;'>O CPF não está em formato válido!</center><br>";
+									}
+								}
+								else
+								{
+									echo "<br><center style='color:red;'>Senhas não são iguais!</center><br>";
+								}
+							}
+							else
+							{
+								echo "<br><center style='color:red;'>Os campos com * não podem ficar em branco!</center><br>";
+							}
+						}
+						else
+						{
+							//usuario esta logado
+							$nome = $_POST['nome'];
+							$sobrenome = $_POST['sobrenome'];
+							$cpf = $_POST['cpf'];//echo mask($cpf,'###.###.###-##');
+							$telefone = $_POST['telefone'];
+							$endereco = $_POST['endereco'];
+							$numero = $_POST['numero'];
+							$bairro = $_POST['bairro'];
+							$cidade = $_POST['cidade'];
+							$email = $_POST['email'];
+							$password = $_POST['password'];
+							$password2 = $_POST['password2'];
+
+							/*$extensao = strtolower(end(explode('.', $_FILES['foto']['name'])));						
+							if (array_search($extensao, $_UP['extensoes']) === false) {
+							echo "Por favor, envie arquivos com as seguintes extensões: jpg, png ou gif";						
+							}else{echo "certo!";}*/
+							
+							// testa pra ver se os dados foram preenchidos e senhas estao iguais
+							if(!empty($nome) && !empty($sobrenome) && !empty($cpf) && !empty($telefone) && !empty($endereco) && !empty($numero) && !empty($bairro)
+								&& !empty($cidade) && !empty($email) && !empty($password) && !empty($password2) && $password==$password2) //(!empty($foto["name"]))
+							{
+								if(strlen($cpf) == 14)
 								{
 									//testa pra saber se a imagem foi carregada
 									if($_FILES['foto']['error']==0)
@@ -306,19 +319,14 @@
 											}
 										}
 									}
-									$sql = '';
-									//echo "insert into administrador values('$cpf', '$nome', '$password', '$email', '$foto');";
-									$sql = "insert into administrador values('$cpf', '$nome', '$password', '$email', '$foto');";
+									/*$sql = '';
+									$sql = "insert into usuario values('$cpf', '$nome', '$sobrenome', '$password', '$email', '$telefone', '$endereco', '$numero', '$bairro', '$cidade', '$caminho_imagem', 'hello');";
 									mysql_query($sql) or die(mysql_error());
-									
-									/*include_once 'classe.php';
-									$obj = new Classe; /*usando a função INSERIR do arquivo classe.php *
-									$obj->inserir($nome, $sobrenome, $cpf, $telefone, $endereco, $numero, $bairro, $cidade, $email, $password, $caminho_imagem);*/
-									echo "<br><center style='color:green;'>Cadastrado com sucesso!</center><br>";
+									echo "<br><center style='color:green;'>Usuário cadastrado com sucesso!</center><br>";*/
 								}
 								else
 								{
-									echo "<br><center style='color:red;'>Senhas não são iguais!</center><br>";
+									echo "<br><center style='color:red;'>O CPF não está em formato válido!</center><br>";
 								}
 							}
 							else
@@ -327,12 +335,7 @@
 							}
 						}
 					}
-					/*$est_ses = session_id();
-					if(empty($est_ses))
-					{
-						//inicia a sessao
-						session_start();
-					}*/
+					
 					include_once 'connect.php';					
 					
 					//testa se existe um usuario logado
@@ -354,7 +357,7 @@
 									</tr>
 									<tr>
 										<td>* CPF</td>
-										<td><input type='text' id='txt' name='cpf' placeholder='Digite o CPF'></td>
+										<td><input type='text' id='txt' maxlength='14' name='cpf' onKeyUp=\"moeda(this);\" placeholder='Ex: 000.000.000-00'></td>
 									</tr>
 									<tr>
 										<td>* Email</td>
@@ -398,7 +401,7 @@
 									</tr>
 									<tr>
 										<td>* CPF</td>
-										<td><input type='text' id='txt' name='cpf' placeholder='Digite o CPF'></td>
+										<td><input type='text' id='txt' name='cpf' maxlength='14' onKeyUp=\"moeda(this);\" placeholder='Ex: 000.000.000-00'></td>
 									</tr>
 									<tr>
 										<td>* Telefone</td>
@@ -450,6 +453,27 @@
 							</form>";
 						}
 					}
+					
+					//funcao que define o formato do cpf
+					function mask($val, $mask)
+					{
+						 $maskared = '';
+						 $k = 0;
+						 for($i = 0; $i<=strlen($mask)-1; $i++)
+						 {
+							 if($mask[$i] == '#')
+							 {
+								 if(isset($val[$k]))
+								 $maskared .= $val[$k++];
+							 }
+							 else
+							 {
+								 if(isset($mask[$i]))
+								 $maskared .= $mask[$i];
+							 }
+						 }
+						 return $maskared;
+					}
 				?>
             </div>
 			
@@ -458,3 +482,16 @@
         </div>
     </body>
 </html>
+
+<!--Javascript de mascara para valor em R$ -->
+<script language='javascript'>
+        function moeda(z){  
+                v = z.value;
+                v=v.replace(/\D/g,"")  //permite digitar apenas números
+        v=v.replace(/[0-9]{12}/,"inválido")   //limita pra máximo 999.999.999,99
+        v=v.replace(/(\d{1})(\d{8})$/,"$1.$2")  //coloca ponto antes dos últimos 8 digitos
+        v=v.replace(/(\d{1})(\d{5})$/,"$1.$2")  //coloca ponto antes dos últimos 5 digitos
+        v=v.replace(/(\d{1})(\d{1,2})$/,"$1-$2")        //coloca virgula antes dos últimos 2 digitos
+                z.value = v;
+        }
+</script>

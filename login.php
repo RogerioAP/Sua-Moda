@@ -57,8 +57,12 @@
             <title>Sua Moda</title>
     </head>
     <body class="bodyW">
-        <div class="div-borda"><!--Principal-->
-            <div class="cabecalho"><!--Cabeçalho-->
+	
+		<!--Principal-->
+        <div class="div-borda">
+		
+			<!--Cabeçalho-->
+            <div class="cabecalho">
 				<div class="image_title">
 					<?php
 						include_once 'connect.php';
@@ -71,7 +75,9 @@
 						}
 					?>
 				</div>
-				<div class="pes"><!--Espaco "Pessoal"-->
+				
+				<!--Espaco "Pessoal"-->
+				<div class="pes">
 					<?php
 						include("connect.php");
 						if(isset($_SESSION['logado']))
@@ -82,7 +88,7 @@
 							if(mysql_num_rows($rs))
 							{
 								$user = mysql_fetch_array($rs);
-								if($user["tipo"]=='a'){header('Location:admin.php');} //admin tem págs específicas
+								
 								$nome = $user["nome"]; /*nome completo*/
 								$foto = $user["foto"];
 								
@@ -121,13 +127,17 @@
 					{
 						session_start();
 					}
+					
 					include_once 'connect.php';
-					if(isset($_SESSION['logado'])) /*se existir usuário logado dá ERRO (afinal como logar em outra conta já estando logado)*/
+					
+					/*se existir usuário logado dá ERRO (afinal como logar em outra conta já estando logado)*/
+					if(isset($_SESSION['logado']))
 					{
 						echo "<br><center>Existe um usuário ativo no momento, <a href='logout.php'>clique aqui</a> para sair e entrar em outra conta.</center><br>";
 					}
 					else
 					{
+						/*Exibe os campos email, senha e botao para entrar*/
 						echo "<form method='post' action='autenticar.php?usuario'>
 							<br><center>Entrar</center>
 							<table border='0'>
@@ -145,6 +155,8 @@
 							</table>
 						</form>";
 					}
+					
+					/*apos volta da para verificadora se tiver erro exibe a mensagem abaixo*/
 					if(isset($_GET["error"]))
 					{
 						echo "<center>

@@ -5,7 +5,7 @@
             <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
             
 			<?php
-				//Iniciando a sessÃ£o
+				//Iniciando a sessão
 				session_start();
 				include_once 'connect.php';
 				
@@ -54,31 +54,29 @@
 					echo "<link href='jeito.css' rel='StyleSheet' type='text/css'>";
 				}
 			?>
+			
             <title>Sua Moda</title>
     </head>
     <body class="bodyW">
-	
-		<!--Div Principal-->
-        <div class="div-borda">
-		
-			<!--CabeÃ§alho-->
-            <div class="cabecalho">
+        <div class="div-borda"><!--Principal-->
+            <div class="cabecalho"><!--Cabeçalho-->
 				<div class="image_title">
 					<?php
-						include_once 'connect.php';
+						/*include_once 'connect.php';
 						if(isset($_SESSION['logado']))
 						{
-							/*Icones para mudar estilo do site*/
-							echo "<a href='categoria.php?estilo=hello'><img src='picture/hello.png'></a><br>
-							<a href='categoria.php?estilo=rock'><img src='picture/guitarra.png'></a><br>
-							<a href='categoria.php?estilo=nerd'><img src='picture/android_rosa.png'></a>";
-						}
+							/*Icones para mudar estilo do site*
+							echo "<a href='venda_dados.php'><img src='picture/hello.png'></a><br>
+							<a href='venda_dados.php?estilo=rock'><img src='picture/guitarra.png'></a><br>
+							<a href='venda_dados.php?estilo=nerd'><img src='picture/android_rosa.png'></a>";
+						}*/
 					?>
 				</div>
-				<!--Espaco "Pessoal"-->
-				<div class="pes">
+				
+				<div class="pes"><!--Espaco "Pessoal"-->
 					<?php
-						include_once "connect.php";
+						$caminho_imagem = "fotos/803fbd58f1ed97adb518c3b2f6cc6d7a.png"; /*imagem que vai ser utilizada como padrão caso o cliente não escolha nenhuma*/
+						//Iniciando a sessão
 						if(isset($_SESSION['logado']))
 						{
 							$cpf = $_SESSION['cpf_user'];
@@ -87,11 +85,11 @@
 							$rs = mysql_query($sql) or die (mysql_error());
 							if(mysql_num_rows($rs))
 							{
+								global $user;
 								$user = mysql_fetch_array($rs);
-								//if($user["tipo"]=='a'){header('Location:admin.php');} //admin tem pags especï¿½ficas
 								$nome = $user["Nome"]; /*nome completo*/
 								$foto = $user["Foto"];
-								
+								//if($user["tipo"]=='a'){$linha=$nome;} else {$linha="<a href='user_d_pessoais.php' style='color:black;'>$nome</a>";}//desativar link no nome
 								echo "<table border='0' style='float:right'>
 										<tr>
 											<td colspan='2'><img src='$foto' width='55px' height='60px'></td>
@@ -111,95 +109,71 @@
 					?>
 				</div>
             </div>
-			
-			<!--***MENU***-->
+            
 			<div class='NavbarMenu'>
 				<ul id='nav'>
 					<?php include_once 'designer.inc'; menu();?>
 				</ul>
-			</div>
+			</div>						
 			
-			<!--ConteÃºdo-->
+			<!--Conteúdo-->
             <div class="content">
-				<?php					
-					include_once 'connect.php';
-				
-					$categoria = '';
-					if(isset($_GET["cat"])) {$categoria = $_GET['cat'];} //pega qual categoria Ã© para abrir
-					
-					$sql = '';
-					
-					//verifica qual tipo de produto eh para listar
-					if($categoria == 'a')
+				<?php
+					if(isset($_SESSION['logado']))
 					{
-						echo "<div style='clear:both;'>Acessorios</div>";
-						$sql = "SELECT * FROM produto where categoria = 'acessorios' limit 9;";
-					}
-					else if($categoria == 'g')
-					{
-						echo "<div style='clear:both;'>Gadgets</div>";
-						$sql = "SELECT * FROM produto where categoria = 'gadgets' limit 9;";
+						if(isset($_POST['id_produto']))
+						{
+							//passa para a sessao o id do produto
+							$_SESSION['id_produto'] = $_POST['id_produto'];
+							
+							$email = $user['Email'];
+							$telefone = $user['Telefone'];
+							$endereco = $user['Rua'];
+							$numero = $user['Numero'];
+							$bairro = $user['Bairro'];
+							$cidade = $user['Cidade'];
+							
+							echo "<br><center>Você confirma os dados para a compra?</center>
+								<table border='0'>
+									<tr>
+										<td class='tex'>Nome</td>
+										<td class='cai'><input type='text' id='txt' name='email' value='$nome' disabled></td>
+									</tr>
+										<td class='tex'>Email</td>
+										<td class='cai'><input type='text' id='txt' name='senha' value='$email' disabled></td>
+									</tr>
+										<td class='tex'>Telefone</td>
+										<td class='cai'><input type='text' id='txt' name='senha' value='$telefone' disabled></td>
+									</tr>
+										<td class='tex'>Rua</td>
+										<td class='cai'><input type='text' id='txt' name='senha' value='$endereco' disabled></td>
+									</tr>
+										<td class='tex'>Número</td>
+										<td class='cai'><input type='text' id='txt' name='senha' value='$numero' disabled></td>
+									</tr>
+										<td class='tex'>Bairro</td>
+										<td class='cai'><input type='text' id='txt' name='senha' value='$bairro' disabled></td>
+									</tr>
+										<td class='tex'>Cidade</td>
+										<td class='cai'><input type='text' id='txt' name='senha' value='$cidade' disabled></td>
+									</tr>
+									<tr>
+										<td colspan='3'><button onclick='window.location=\"user_d_endereco.php\"'>Atualizar</button><button onclick='window.location=\"venda.php\"'>Avançar</button></td>
+									</tr>
+									<tr></tr>
+								</table>
+							</form>";
+						}
 					}
 					else
 					{
-						echo "<div style='clear:both;'>Vestuario</div>";
-						$sql = "SELECT * FROM produto where categoria = 'vestuario' limit 9;";
+						echo "<br><center>É necessário está logado!<br>
+								<a href='login.php'>Entrar</a></center>";
 					}
-					
-					//passa o resultado da busca para variavel
-					$rs = mysql_query($sql);
-					
-					//contador para saber quando eh para trocar de linha
-					$cont = 0;
-					
-					//exibe produtos					
-					echo "<div>";
-					echo "<table border='0'>";
-					while($linha = mysql_fetch_assoc($rs))
-					{
-						$id_produto = $linha['idProduto'];
-						$preco = $linha['Preco'];
-						$nome = $linha['Nome'];
-						$categoria = $linha['Categoria'];
-						
-						$sql2 = "select * from imagens where idProduto=$id_produto;";
-						$rs2 = '';
-						$rs2 = mysql_query($sql2) or die (mysql_error());
-						if(mysql_num_rows($rs2))
-						{
-							$user2 = mysql_fetch_array($rs2);
-							$imagem = $user2["imagem1"];
-						}
-						
-						// a primeira vez inicia a div e tr
-						if($cont==0)
-						{
-							echo "<tr>
-									<td><a href='produto.php?produto=$id_produto&&categoria=$categoria'>
-									<img src='$imagem'><br>$nome<br>R$ $preco</a></td>";
-						}
-						else if($cont%3==0)
-						{
-							echo "</tr> <tr>
-									<td><a href='produto.php?produto=$id_produto&&categoria=$categoria'>
-									<img src='$imagem'><br>$nome<br>R$ $preco</a></td>";
-						}
-						else
-						{
-							echo "<td><a href='produto.php?produto=$id_produto&&categoria=$categoria'>
-									<img src='$imagem'><br>$nome<br>R$ $preco</a></td>";
-						}
-						
-						//contador incrementando
-						$cont++;
-						//contador para saber quando eh para trocar de linha
-					}
-					echo "</table>";
-					echo "</div>";
 				?>
             </div>
 			
-			<!--**RODAPÃ‰**-->
+			<!--Rodape-->
 			<?php include_once 'designer.inc'; rodape(); ?>
         </div>
     </body>

@@ -62,13 +62,13 @@
 				<div class="image_title">
 					<?php
 						include_once 'connect.php';
-						if(isset($_SESSION['logado']))
+						/*if(isset($_SESSION['logado']))
 						{
-							/*Icones para mudar estilo do site*/
-							echo "<a href='home.php'><img src='picture/hello.png'></a><br>
-							<a href='home.php?estilo=rock'><img src='picture/guitarra.png'></a><br>
-							<a href='home.php?estilo=nerd'><img src='picture/android_rosa.png'></a>";
-						}
+							/*Icones para mudar estilo do site*
+							echo "<a href='produto.php?estilo=hello'><img src='picture/hello.png'></a><br>
+							<a href='produto.php?estilo=rock'><img src='picture/guitarra.png'></a><br>
+							<a href='produto.php?estilo=nerd'><img src='picture/android_rosa.png'></a>";
+						}*/
 					?>
 				</div>
 				<div class="pes"><!--Espaco "Pessoal"-->
@@ -145,8 +145,8 @@
 								<b>$nome</b><br>
 								$descricao<br>
 								R$ $preco<br>
-								<form method='post' action='venda.php'>
-									<button value='$id_produto' name='id_produto' onclick='window.location=\"venda.php\";'>Comprar</button><br><br>
+								<form method='post' action='venda_dados.php'>
+									<button value='$id_produto' name='id_produto'>Comprar</button><br><br>
 								</form>";
 						
 						/*Exibir o link para voltar para a página anterior*/

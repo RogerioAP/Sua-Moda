@@ -68,9 +68,9 @@
 						/*if(isset($_SESSION['logado']))*/
 						{
 							/*Icones para mudar estilo do site*/
-							echo "<a href='home.php'><img src='picture/hello.png'></a><br>
-							<a href='home.php?estilo=rock'><img src='picture/guitarra.png'></a><br>
-							<a href='home.php?estilo=nerd'><img src='picture/android_rosa.png'></a>";
+							echo "<a href='user_d_endereco.php?estilo=hello'><img src='picture/hello.png'></a><br>
+							<a href='user_d_endereco.php?estilo=rock'><img src='picture/guitarra.png'></a><br>
+							<a href='user_d_endereco.php?estilo=nerd'><img src='picture/android_rosa.png'></a>";
 						}
 					?>
 				</div>

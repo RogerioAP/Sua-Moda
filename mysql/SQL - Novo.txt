@@ -52,32 +52,90 @@ ALTER TABLE compra ADD FOREIGN KEY(CPF) REFERENCES Usuario (CPF);
 ALTER TABLE compra ADD FOREIGN KEY(idProduto) REFERENCES Produto (idProduto);
 ALTER TABLE imagens ADD FOREIGN KEY(idProduto) REFERENCES Produto (idProduto);
 
-insert into produto values(null, 'Sapato', 'Rosa', 'vestuario', '29');
-insert into produto values(null, 'Blusas', 'Rosa', 'vestuario', '19');
-insert into produto values(null, 'Sapato', 'Rosa', 'vestuario', '29');
+insert into produto values(null, 'Capa p/ celular', 'Tema Hello Kitty, branco', 'acessorios', '5.00');
+insert into imagens values(1, 'produtos/acessorios/adesivo_celular.jpg', '', '');
 
-insert into produto values(null, 'Relogio', 'Rosa', 'acessorios', '50');
-insert into produto values(null, 'Bolsa', 'Rosa e branca', 'acessorios', '30');
-insert into produto values(null, 'Relogio', 'Rosa', 'acessorios', '50');
+insert into produto values(null, 'Capa p/ notebook', 'Tema Música, branco', 'acessorios', '5.00');
+insert into imagens values(2, 'produtos/acessorios/adesivo_notebook.jpg', '', '');
 
-insert into produto values(null, 'Adesivo p/ celular', 'Rosa', 'gadgets', '2');
-insert into produto values(null, 'Adesivo p/ notebook', 'Rosa', 'gadgets', '2');
-insert into produto values(null, 'Adesivo p/ celular', 'Rosa', 'gadgets', '2');
+insert into produto values(null, 'Capa p/ notebook', 'Rosa', 'acessorios', '5.00');
+insert into imagens values(3, 'produtos/acessorios/adesivo_notebook_rosa.jpg', '', '');
+
+insert into produto values(null, 'Bolsa', 'Tema Doces, branca', 'acessorios', '40.00');
+insert into imagens values(4, 'produtos/acessorios/bolsa.jpg', '', '');
+
+insert into produto values(null, 'Brincos Power', 'Tema Geek', 'acessorios', '3.00');
+insert into imagens values(5, 'produtos/acessorios/brincos.jpg', '', '');
+
+insert into produto values(null, 'Capa p/ celular', 'Multicolorido', 'acessorios', '5.00');
+insert into imagens values(6, 'produtos/acessorios/capa_celular.png', '', '');
+
+insert into produto values(null, 'Colar', 'Cordao Vermelho, tema química', 'acessorios', '2.00');
+insert into imagens values(7, 'produtos/acessorios/colar.jpg', '', '');
+
+insert into produto values(null, 'Relogio Mondaine', 'Pulseira branca', 'acessorios', '29.90');
+insert into imagens values(8, 'produtos/acessorios/relogio.jpeg', '', '');
+
+insert into produto values(null, 'Afinador Digital', 'Somente na cor rosa', 'acessorios', '29.90');
+insert into imagens values(9, 'produtos/acessorios/afinador_digital.jpg', '', '');
 
 
-insert into imagens values(1, 'produtos/sapatos.jpg', '', '');
-insert into imagens values(2, 'produtos/blusas.jpg', '', '');
-insert into imagens values(3, 'produtos/sapatos.jpg', '', '');
 
-insert into imagens values(4, 'produtos/relogio.jpeg', '', '');
-insert into imagens values(5, 'produtos/bolsa.jpg', '', '');
-insert into imagens values(6, 'produtos/relogio.jpeg', '', '');
+insert into produto values(null, 'Amplificador', 'Cor rosa', 'gadgets', '50.00');
+insert into imagens values(10, 'produtos/gadgets/amplificador.jpg', '', '');
 
-insert into imagens values(7, 'produtos/adesivo_celular.jpg', '', '');
-insert into imagens values(8, 'produtos/adesivo_notebook.jpg', '', '');
-insert into imagens values(9, 'produtos/adesivo_celular.jpg', '', '');
+insert into produto values(null, 'Cabo de guitarra', 'Cor rosa', 'gadgets', '5.00');
+insert into imagens values(11, 'produtos/gadgets/cabo_guitarra.png', '', '');
+
+insert into produto values(null, 'Caneta Geek', 'Cor branca', 'gadgets', '18.50');
+insert into imagens values(12, 'produtos/gadgets/caneca_geek.png', '', '');
+
+insert into produto values(null, 'Caneca Troll', 'Cor branca', 'gadgets', '18.50');
+insert into imagens values(13, 'produtos/gadgets/caneca_troll.png', '', '');
+
+insert into produto values(null, 'Guitarra', 'Cor e preta', 'gadgets', '99.90');
+insert into imagens values(14, 'produtos/gadgets/guitarra_rosa.jpg', '', '');
+
+insert into produto values(null, 'Violao', 'Cor rosa e vermelho', 'gadgets', '99.90');
+insert into imagens values(15, 'produtos/gadgets/violao.jpg', '', '');
+
+insert into produto values(null, 'Relogio', 'Cor rosa, estilo tetris', 'gadgets', '19.50');
+insert into imagens values(16, 'produtos/gadgets/relogio.jpg', '', '');
+
+insert into produto values(null, 'Chaveiro Super Mario Bros', 'Somente neste formato', 'gadgets', '5.50');
+insert into imagens values(17, 'produtos/gadgets/chaveiro-mario.jpg', '', '');
+
+insert into produto values(null, 'Boneco Android', 'Somente na cor verde', 'gadgets', '29.90');
+insert into imagens values(18, 'produtos/gadgets/boneco-android.jpg', '', '');
 
 
-insert into usuario values('123.456.789-00', 'Mariana', 'Canela', '123', 'marianinha_canela@hotmail.com', '3232-3232', 'rua Sei Lá', '000', 'Centro', 'Montes Claros', 'fotos/803fbd58f1ed97adb518c3b2f6cc6d7a.png', 'hello');
+insert into produto values(null, 'Sapato e Bolsa', 'Tema Oncinha', 'vestuario', '49.90');
+insert into imagens values(19, 'produtos/vestuario/sapatos_bolsa.jpg', '', '');
+
+insert into produto values(null, 'Blusa - I love drum and bass', 'Somente cor rosa', 'vestuario', '29.90');
+insert into imagens values(20, 'produtos/vestuario/i_love.png', '', '');
+
+insert into produto values(null, 'Blusa - Super Man', 'Somente cor preta', 'vestuario', '29.90');
+insert into imagens values(21, 'produtos/vestuario/blusa_super_man.jpg', '', '');
+
+insert into produto values(null, 'Blusa - Love peace the any time', 'Somente cor vermelha', 'vestuario', '29.90');
+insert into imagens values(22, 'produtos/vestuario/blusas_love.jpg', '', '');
+
+insert into produto values(null, 'Sapatos Chanel', 'Somente cor rosa', 'vestuario', '39.90');
+insert into imagens values(23, 'produtos/vestuario/sapatos.jpg', '', '');
+
+insert into produto values(null, 'Blusa tomara que caia', 'Estilo xadrez', 'vestuario', '29.90');
+insert into imagens values(24, 'produtos/vestuario/blusas_tomara_caia.png', '', '');
+
+insert into produto values(null, 'Blusa Rock', 'Tema Rock', 'vestuario', '29.90');
+insert into imagens values(25, 'produtos/vestuario/camisa_rock.jpg', '', '');
+
+insert into produto values(null, 'Blusa Caveira', 'Tema Rock', 'vestuario', '29.90');
+insert into imagens values(26, 'produtos/vestuario/blusa_caveira.jpg', '', '');
+
+
+
+
+insert into usuario values('123.456.789-00', 'Mariana', 'Canela', '123', 'marianinha_canela@hotmail.com', '3232-3232', 'rua Sei La', '000', 'Centro', 'Montes Claros', 'fotos/803fbd58f1ed97adb518c3b2f6cc6d7a.png', 'hello');
 
 insert into administrador values('100.100.100-10', 'Rogerio Almeida', 'rogerio', 'rogerioalmpe@hotmail.com', 'fotos/rogerio_almeida.png');

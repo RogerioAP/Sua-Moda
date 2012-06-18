@@ -65,7 +65,7 @@
 						if(isset($_SESSION['logado']))
 						{
 							/*Icones para mudar estilo do site*/
-							echo "<a href='servicos.php'><img src='picture/hello.png'></a><br>
+							echo "<a href='servicos.php?estilo=hello'><img src='picture/hello.png'></a><br>
 							<a href='servicos.php?estilo=rock'><img src='picture/guitarra.png'></a><br>
 							<a href='servicos.php?estilo=nerd'><img src='picture/android_rosa.png'></a>";
 						}

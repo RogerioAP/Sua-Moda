@@ -31,7 +31,7 @@
 						$estilo = $user["Estilo"];
 					}
 					
-					//muda a aparencia do site
+					//muda a aparencia do site de acordo com o icone clicado
 					if($estilo == 'nerd')
 					{
 						echo "<link href='nerd.css' rel='StyleSheet' type='text/css'>";
@@ -64,13 +64,13 @@
 			
 			<!--Javascript que define as imagens do slideshow-->
 			<script type="text/javascript">
-			$(function() {
-				$("div#controller").jFlow({
-					slides: "#slides",
-					width: "800px",
-					height: "313px"
+				$(function() {
+					$("div#controller").jFlow({
+						slides: "#slides",
+						width: "800px",
+						height: "313px"
+					});
 				});
-			});
 			</script>
     </head>
     <body class="bodyW">
@@ -92,7 +92,9 @@
 						}
 					?>
 				</div>
-				<div class="pes"><!--Espaco "Pessoal"-->
+				
+				<!--Espaco "Pessoal"-->
+				<div class="pes">
 					<?php
 						include_once 'connect.php';
 						if(isset($_SESSION['logado']))
@@ -152,7 +154,7 @@
 							
 				<?php
 					$sql = '';
-					$sql = 'select imagens.idproduto, imagens.imagem1 from imagens order by idproduto desc limit 3;'; //busca 3 ultimos produtos adicionados no BD
+					$sql = 'select imagens.idproduto, imagens.imagem1 from imagens order by rand() limit 3;'; //busca 3 ultimos produtos adicionados no BD
 					$rs = '';
 					$rs = mysql_query($sql) or die (mysql_error());					
 					
@@ -172,15 +174,15 @@
 
 			<!--Conteúdo-->
             <div class="content">				
-				<div style="width:100%;">
+				<div style="width:100%;"><br>
 					Novidades meninas, olhem!
-					
 					<?php
-						//acessorios
+						//acessorios -> busca no BD imagens e seus nomes e precos para exibir alguns
 						$sql = '';
+						
 						//select que busca tambem uma imagem do produto
 						$sql = "select produto.idproduto, produto.Nome, produto.Preco, imagens.imagem1 from produto,
-						imagens where produto.categoria='acessorios' and produto.idproduto=imagens.idproduto order by produto.idproduto desc limit 3;";
+						imagens where produto.categoria='acessorios' and produto.idproduto=imagens.idproduto order by rand() limit 3;";
 						$rs = '';
 						$rs = mysql_query($sql) or die (mysql_error());					
 						
@@ -191,10 +193,11 @@
 							$aces_pre[] = $linha['Preco'];
 							$aces_id[] = $linha['idproduto'];
 						}
-						//vestuario
+						
+						//vestuario -> busca no BD imagens e seus nomes e precos para exibir alguns
 						$sql = '';
 						$sql = "select produto.idproduto, produto.Nome, produto.Preco, imagens.imagem1 from produto,
-						imagens where produto.categoria='vestuario' and produto.idproduto=imagens.idproduto order by produto.idproduto desc limit 3;";
+						imagens where produto.categoria='vestuario' and produto.idproduto=imagens.idproduto order by rand() limit 3;";
 						$rs = '';
 						$rs = mysql_query($sql) or die (mysql_error());					
 						
@@ -205,10 +208,11 @@
 							$vest_pre[] = $linha['Preco'];
 							$vest_id[] = $linha['idproduto'];
 						}
-						//gadgets
+						
+						//gadgets -> busca no BD imagens e seus nomes e precos para exibir alguns
 						$sql = '';
 						$sql = "select produto.idproduto, produto.Nome, produto.Preco, imagens.imagem1 from produto,
-						imagens where produto.categoria='gadgets' and produto.idproduto=imagens.idproduto order by produto.idproduto desc limit 3;";
+						imagens where produto.categoria='gadgets' and produto.idproduto=imagens.idproduto order by rand() limit 3;";
 						$rs = '';
 						$rs = mysql_query($sql) or die (mysql_error());					
 						
@@ -222,20 +226,22 @@
 						
 					?>
 					
+					<!--Tabela que armazena os produtos depois do destaque-->
 					<table border="0">
 						<tr>
-							<td><a href="produto.php?produto=<?php echo $aces_id[0]; ?>"><img src=<?php echo $acessorios[0]; ?> ><br><?php echo $aces_nome[0]; ?><br><?php echo "R$ ".$aces_pre[0]; ?></a></td>
-							<td><a href="produto.php?produto=<?php echo $aces_id[1]; ?>"><img src=<?php echo $acessorios[1]; ?> ><br><?php echo $aces_nome[1]; ?><br><?php echo "R$ ".$aces_pre[1]; ?></a></td>
-							<td><a href="produto.php?produto=<?php echo $aces_id[2]; ?>"><img src=<?php echo $acessorios[2]; ?> ><br><?php echo $aces_nome[2]; ?><br><?php echo "R$ ".$aces_pre[2]; ?></a></td>
+							<td width='266px'><a href="produto.php?produto=<?php echo $aces_id[0]; ?>"><img src=<?php echo $acessorios[0]; ?> ><br><?php echo $aces_nome[0]; ?><br><?php echo "R$ ".$aces_pre[0]; ?></a></td>
+							<td width='266px'><a href="produto.php?produto=<?php echo $aces_id[1]; ?>"><img src=<?php echo $acessorios[1]; ?> ><br><?php echo $aces_nome[1]; ?><br><?php echo "R$ ".$aces_pre[1]; ?></a></td>
+							<td width='266px'><a href="produto.php?produto=<?php echo $aces_id[2]; ?>"><img src=<?php echo $acessorios[2]; ?> ><br><?php echo $aces_nome[2]; ?><br><?php echo "R$ ".$aces_pre[2]; ?></a></td>
 						</tr>
 						<tr>
-							<td><a href="produto.php?produto=<?php echo $vest_id[0]; ?>"><img src=<?php echo $vestuario[0]; ?> ><br><?php echo $vest_nome[0]; ?><br><?php echo "R$ ".$vest_pre[0]; ?></a></td>
-							<td><a href="produto.php?produto=<?php echo $vest_id[1]; ?>"><img src=<?php echo $vestuario[1]; ?> ><br><?php echo $vest_nome[1]; ?><br><?php echo "R$ ".$vest_pre[1]; ?></a></td>
-							<td><a href="produto.php?produto=<?php echo $vest_id[2]; ?>"><img src=<?php echo $vestuario[2]; ?> ><br><?php echo $vest_nome[2]; ?><br><?php echo "R$ ".$vest_pre[2]; ?></a></td>
+							<td width='268px'><a href="produto.php?produto=<?php echo $vest_id[0]; ?>"><img src=<?php echo $vestuario[0]; ?> ><br><?php echo $vest_nome[0]; ?><br><?php echo "R$ ".$vest_pre[0]; ?></a></td>
+							<td width='268px'><a href="produto.php?produto=<?php echo $vest_id[1]; ?>"><img src=<?php echo $vestuario[1]; ?> ><br><?php echo $vest_nome[1]; ?><br><?php echo "R$ ".$vest_pre[1]; ?></a></td>
+							<td width='268px'><a href="produto.php?produto=<?php echo $vest_id[2]; ?>"><img src=<?php echo $vestuario[2]; ?> ><br><?php echo $vest_nome[2]; ?><br><?php echo "R$ ".$vest_pre[2]; ?></a></td>
 						</tr>
-							<td><a href="produto.php?produto=<?php echo $gad_id[0]; ?>"><img src=<?php echo $gadgets[0]; ?> ><br><?php echo $gad_nome[0]; ?><br><?php echo "R$ ".$gad_pre[0]; ?></a></td>
-							<td><a href="produto.php?produto=<?php echo $gad_id[1]; ?>"><img src=<?php echo $gadgets[1]; ?> ><br><?php echo $gad_nome[1]; ?><br><?php echo "R$ ".$gad_pre[1]; ?></a></td>
-							<td><a href="produto.php?produto=<?php echo $gad_id[2]; ?>"><img src=<?php echo $gadgets[2]; ?> ><br><?php echo $gad_nome[2]; ?><br><?php echo "R$ ".$gad_pre[2]; ?></a></td>
+						<tr>
+							<td width='266px'><a href="produto.php?produto=<?php echo $gad_id[0]; ?>"><img src=<?php echo $gadgets[0]; ?> ><br><?php echo $gad_nome[0]; ?><br><?php echo "R$ ".$gad_pre[0]; ?></a></td>
+							<td width='266px'><a href="produto.php?produto=<?php echo $gad_id[1]; ?>"><img src=<?php echo $gadgets[1]; ?> ><br><?php echo $gad_nome[1]; ?><br><?php echo "R$ ".$gad_pre[1]; ?></a></td>
+							<td width='266px'><a href="produto.php?produto=<?php echo $gad_id[2]; ?>"><img src=<?php echo $gadgets[2]; ?> ><br><?php echo $gad_nome[2]; ?><br><?php echo "R$ ".$gad_pre[2]; ?></a></td>
 						</tr>
 					</table>
 				</div>

@@ -10,7 +10,7 @@
 
 		private function conexao()/*Conexão com o BD*/
 		{
-			$conexao = mysql_connect("localhost", "root", "")
+			$conexao = mysql_connect("localhost", "root", "123456")
 				or die('Conexao com o Mysql falhou!');
 			$bd = mysql_select_db("suamoda")
 				or die('Conexao com o Banco de Dados falhou!');

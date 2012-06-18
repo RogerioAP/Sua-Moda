@@ -16,6 +16,8 @@
 	
 	font-family: "Kristen ITC";/*ANDANTE;/*"Lucida Calligraphy";*"Kristen ITC";/*Jokerman;/*"Harrington";/*"Bauhaus 93";/* "Century Gothic";/*"Lucida Calligraphy Italic";*/
 }
+
+/*cabecalho que vai receber imagem de titulo, links para cadastrar e logar*/
 .cabecalho
 {
     width: 800px;
@@ -23,6 +25,8 @@
     background-color: #ffffff; /*#e9e9e9;*/
     margin: 0px auto;
 }
+
+/*barra do menu*/
 .menu
 {
     background-color: #FF1CAE;
@@ -40,15 +44,15 @@
     width: 800px;
     margin: 0px auto;
 }
+
+/*rodape*/
 .rodape
 {
-    /*background-color: #FF1CAE;*/
     width: 800px;
     margin: auto auto;
     height: 120px; /*altura da imagem do rodapé*/
     padding-top: 20px;
     text-align: center;
-    /*font-family: Verdana;*/
     font-size: 13px;
 	background-image: url("picture/rodape.png");
 }
@@ -70,11 +74,12 @@
     width: 100px;
     height: 100%;
     text-align: center;
-    /*font-family: Verdana;*/
     font-size: 14px;
     padding-top: 10px;
 }
-.menu table tr td a /*item do menu*/
+
+/*item do menu*/
+.menu table tr td a
 {
     width: 100px;
     height: 100%;
@@ -116,12 +121,14 @@
 	height:30px;
 	background-color:#ffffff;
 }
+
+/*Ao passar mouse nos icones para mudar estilo do site*/
 .image_title a img:hover
 {
 	width:40px;
 }
 
-/*espaco pessoal*/
+/*espaco pessoal -> que mostrar foto e nome do usuario/administrador*/
 .pes
 {
 	background-color: #ffffff;
@@ -141,6 +148,7 @@
 	float: right;
 	background-color: #ffffff;
 	padding: 10px 15px 10px 15px;
+	-webkit-transition: 0.2s;
 }
 
 /*cor das letras do Cadastre e Login*/
@@ -167,13 +175,14 @@
 	background-color: #ffffff;
 }
 
+/**/
 .content div table tr td a
 {
 	text-decoration: none;
 	color: #000000;
 }
 
-/*MENU*/
+/*Menu drop down*/
 .NavbarMenu
 {
 	width: 640px;
@@ -231,6 +240,7 @@
 	margin: 0;
 	padding: 9px 15px 8px;
 	text-decoration:none;
+	-webkit-border-radius: 10px 10px 10px 10px; /*arredondar borda de itens do menu*/
 }
 
 #nav li a:hover, #nav li a:active
@@ -301,7 +311,7 @@
 }
 /*FINAL MENU*/
 
-/*****EFEITO DOS DESTAQUES***********/
+/*****EFEITO DOS DESTAQUES - COMECO***********/
 #slider
 {
 	width: 400px; /* Largura das as imagens */
@@ -356,14 +366,13 @@
 .bottom {bottom: 0px;left: 0px;}
 
 ul { list-style-type: none;}
-/*****EFEITO DOS DESTAQUES*******/
+/*****EFEITO DOS DESTAQUES - FINAL*******/
 
 
-/************PÁGINA DE LOGIN******************/
+/************PÁGINA DE LOGIN - INICIO******************/
 .content form table
 {
 	text-align: center;
-	/*margin: 0px auto;*/
 	padding: 20px 0px;
 }
 
@@ -372,19 +381,21 @@ ul { list-style-type: none;}
 	background-color: #ffffff;
 }
 
-.tex /*email*/
+/*email*/
+.tex
 {
 	text-align:right;
 	width:350px;
 }
 
-.cai/*senha*/
+/*senha*/
+.cai
 {
 	text-align:left;
 }
-/************PÁGINA DE LOGIN******************/
+/************PÁGINA DE LOGIN - FINAL******************/
 
-/************PÁGINA DO USUÁRIO***************/
+/************PÁGINA DO USUÁRIO - COMECO***************/
 .show
 {
 	display:none;
@@ -410,10 +421,10 @@ ul { list-style-type: none;}
 {
 	text-decoration:none;
 }
-/************PÁGINA DO USUÁRIO***************/
+/************PÁGINA DO USUÁRIO - FINAL***************/
 
 
-/************PÁGINA DE PRODUTOS***************/
+/************PÁGINA DE PRODUTOS - COMECO***************/
 .lista_produtos tr td a /*lista de produtos para o usuário*/
 {
 	text-decoration:none;
@@ -432,10 +443,10 @@ ul { list-style-type: none;}
 {	
 	text-align:center;
 }
-/************PÁGINA DE PRODUTOS***************/
+/************PÁGINA DE PRODUTOS - FINAL***************/
 
 
-/************** PÁGINA DE ACESSORIOS************************/
+/************** PÁGINA DE ACESSORIOS - COMECO************************/
 .content table tr td div img/*listando os produtos*/
 {
 	width: 100px;
@@ -444,11 +455,11 @@ ul { list-style-type: none;}
 	text-decoration:none;
 	text-align:center;
 }
-/************** PÁGINA DE ACESSORIOS************************/
+/************** PÁGINA DE ACESSORIOS - FINAL************************/
 
 
 
-/*****************PÁGINA DO PRODUTO***********************/
+/*****************PÁGINA DO PRODUTO - COMECO***********************/
 .content img
 {
 	width: 200px;
@@ -461,4 +472,4 @@ ul { list-style-type: none;}
 {
 	text-align: center;
 }
-/*****************PÁGINA DO PRODUTO***********************/
+/*****************PÁGINA DO PRODUTO - FINAL***********************/

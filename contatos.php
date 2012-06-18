@@ -65,7 +65,7 @@
 						if(isset($_SESSION['logado']))
 						{
 							/*Icones para mudar estilo do site*/
-							echo "<a href='contatos.php'><img src='picture/hello.png'></a><br>
+							echo "<a href='contatos.php?estilo=hello'><img src='picture/hello.png'></a><br>
 							<a href='contatos.php?estilo=rock'><img src='picture/guitarra.png'></a><br>
 							<a href='contatos.php?estilo=nerd'><img src='picture/android_rosa.png'></a>";
 						}
@@ -115,8 +115,10 @@
 			</div>
 			
             <div class="content"><!--Conteúdo-->
-				<div><br><center>Para entrar em contato mande email para suamoda@hotmail.com ou ligue para (38) 3333-3333.
-										Estamos também nas redes sociais!</center><br></div>
+				<div><h3>Contato</h3><center>
+					<p>Para entrar em contato mande email para <u>suamoda@hotmail.com</u> ou ligue para (38) 3333-3333.
+										Estamos também nas redes sociais!</p>
+				</center><br></div>
             </div>
 			<?php include_once 'designer.inc'; rodape(); ?>
         </div>

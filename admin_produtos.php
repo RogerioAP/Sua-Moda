@@ -65,7 +65,6 @@
 						if (isset($_POST['adicionar_produto']))/*clicou em adicionar produto*/
 						{
 							$caminho_imagem = "";
-							$caminho_imagem = "produtos/759f0b44b6c2bd4f5a169f862e8f4923.gif";/*imagem para produto sem imagem*/
 							
 							$nome = $_POST['nome'];
 							$descricao = $_POST['descricao'];
@@ -112,16 +111,15 @@
 								 
 											// Caminho de onde ficará a imagem
 											$caminho_imagem = "";
-											$caminho_imagem = "produtos/" . $nome_imagem;
+											$caminho_imagem = "produtos/". $categoria . "/" . $nome_imagem;
 								 
 											// Faz o upload da imagem para seu respectivo caminho
 											move_uploaded_file($foto["tmp_name"], $caminho_imagem);
 										}
-										//echo "INSERT INTO usuarios VALUES (null, \"$nome\", \"$email\", \"$nome_imagem\");";
-										// Insere os dados no banco
-								////////$sql = mysql_query("INSERT INTO sis_login VALUES (null, \"$nome\", \"$email\", \"$password\", \"$caminho_imagem\");");//\"rog\", \"ema\", \"nom\")");//(null, '".$nome."', '".$email."', '".$nome_imagem."')");
 									}
 								}
+								$caminho_imagem = "produtos/".$categoria."/759f0b44b6c2bd4f5a169f862e8f4923.gif";/*imagem para produto sem imagem*/
+
 								$sql = '';
 								$sql = "INSERT INTO produto values(null, '$nome', '$descricao', '$categoria', '$preco')";
 								mysql_query($sql) or die(mysql_error());
@@ -195,7 +193,7 @@
 								<table border='0'>
 									<tr>
 										<td class='tex'>* Nome</td>
-										<td class='cai'><input type='text' id='txt' name='nome' maxlength='10' placeholder='Digite o nome'></td><!--Limmite de 10 dígitos neste campo-->
+										<td class='cai'><input type='text' id='txt' name='nome' maxlength='20' placeholder='Digite o nome'></td><!--Limmite de 10 dígitos neste campo-->
 									</tr>
 									<tr>
 										<td class='tex'>Descrição</td>
@@ -246,7 +244,7 @@
         v=v.replace(/[0-9]{12}/,"inválido")   //limita pra máximo 999.999.999,99
         v=v.replace(/(\d{1})(\d{8})$/,"$1.$2")  //coloca ponto antes dos últimos 8 digitos
         v=v.replace(/(\d{1})(\d{5})$/,"$1.$2")  //coloca ponto antes dos últimos 5 digitos
-        v=v.replace(/(\d{1})(\d{1,2})$/,"$1,$2")        //coloca virgula antes dos últimos 2 digitos
+        v=v.replace(/(\d{1})(\d{1,2})$/,"$1.$2")        //coloca virgula antes dos últimos 2 digitos
                 z.value = v;
         }
 </script>

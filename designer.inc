@@ -25,11 +25,18 @@
 			</ul>
 			</li>
 			<li><a href='servicos.php'>Serviços</a></li>
-			<li><a href='quemsomos.php'>Quem Somos</a></li>
+			<li><a href='#'>Quem Somos</a>
+			<ul>
+			<li><a href='historia.php'>História</a></li>
+			<li><a href='localizacao.php'>Localizacao </a></li>
+			<li><a href='valores_empresa.php'>Valores da Empresa</a></li>
+			</ul>
+			</li>
 			<li><a href='contatos.php'>Contato</a></li>";
 	}
 	
-	function menu_admin()/*menu para admin*/
+	/*menu para administrador*/
+	function menu_admin()
 	{
 		echo "
 			<li><a href='admin.php'>Dados</a></li>

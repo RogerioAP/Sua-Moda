@@ -65,9 +65,9 @@
 						if(isset($_SESSION['logado']))
 						{
 							/*Icones para mudar estilo do site*/
-							echo "<a href='home.php'><img src='picture/hello.png'></a><br>
-							<a href='home.php?estilo=rock'><img src='picture/guitarra.png'></a><br>
-							<a href='home.php?estilo=nerd'><img src='picture/android_rosa.png'></a>";
+							echo "<a href='localizacao.php?estilo=hello'><img src='picture/hello.png'></a><br>
+							<a href='localizacao.php?estilo=rock'><img src='picture/guitarra.png'></a><br>
+							<a href='localizacao.php?estilo=nerd'><img src='picture/android_rosa.png'></a>";
 						}
 					?>
 				</div>
@@ -115,7 +115,9 @@
 			</div>
 			
             <div class="content"><!--Conteúdo-->
-				<div><br><center>Construindo "Localização"...</center><br></div>
+				<div><h3>Localização</h3><center>
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam commodo sollicitudin dui ac viverra. Donec vitae congue turpis. Nulla facilisi. Aenean bibendum viverra aliquam. Suspendisse dapibus lobortis elit ac aliquam. Aenean tincidunt, turpis non gravida tristique, est eros convallis erat, vel iaculis felis ante vitae orci. Morbi consectetur, ipsum vitae rhoncus gravida, dolor tortor porta lorem, nec hendrerit neque velit pharetra est. Proin in felis nec ante rhoncus accumsan. Phasellus venenatis auctor congue. Donec vitae magna ligula. Integer gravida, elit id dictum lacinia, ipsum massa aliquam nulla, sit amet viverra erat felis quis quam. Aenean malesuada iaculis nunc in gravida. Nulla non nunc vel leo egestas ullamcorper.</p>
+				</center><br></div>
             </div>
 			<?php include_once 'designer.inc'; rodape(); ?>
         </div>
