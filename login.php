@@ -5,7 +5,7 @@
             <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
             
 			<?php
-				//Iniciando a sessão
+				//Iniciando a sessï¿½o
 				session_start();
 				include_once 'connect.php';
 				
@@ -61,54 +61,43 @@
 		<!--Principal-->
         <div class="div-borda">
 		
-			<!--Cabeçalho-->
+			<!--Cabeï¿½alho-->
             <div class="cabecalho">
 				<div class="image_title">
-					<?php
+					<div id="titulo">
+						<?php
 						include_once 'connect.php';
 						if(isset($_SESSION['logado']))
 						{
-							/*Icones para mudar estilo do site*/
-							echo "<a href='home.php'><img src='picture/hello.png'></a><br>
-							<a href='home.php?estilo=rock'><img src='picture/guitarra.png'></a><br>
-							<a href='home.php?estilo=nerd'><img src='picture/android_rosa.png'></a>";
-						}
-					?>
-				</div>
-				
-				<!--Espaco "Pessoal"-->
-				<div class="pes">
-					<?php
-						include("connect.php");
-						if(isset($_SESSION['logado']))
-						{
-							$sql = "SELECT * FROM sis_login WHERE idusuario = ".$_SESSION['id_user'];
+							$cpf = $_SESSION['cpf_user'];
+							$sql = '';
+							$sql = "SELECT * FROM usuario WHERE CPF = '$cpf';";
 							
-							$rs = mysql_query($sql);
+							$rs = '';
+							$rs = mysql_query($sql) or die (mysql_error());
 							if(mysql_num_rows($rs))
 							{
 								$user = mysql_fetch_array($rs);
+								//if($user["tipo"]=='a'){header('Location:admin.php');} //admin tem pï¿½gs especï¿½ficas
+								$nome = $user["Nome"]; /*nome completo*/
+								$foto = $user["Foto"];
 								
-								$nome = $user["nome"]; /*nome completo*/
-								$foto = $user["foto"];
-								
-								echo "<table border='0' style='float:right'>
+								echo "<table border='0' style=\"float:right; margin-right: 150px;\">
 										<tr>
 											<td colspan='2'><img src='$foto' width='55px' height='60px'></td>
-										</tr>
-										<tr>
-											<td><a href='user_d_pessoais.php' style='color:black;'>$nome</a></td>
-											<td><a href='logout.php' style='color:red;'>Sair</a></td>
+											<td style=\"margin-right: 100px; font-size: 13px;\"><a href='user_d_pessoais.php' style='color:black;'>$nome</a>
+											<br /><a href='logout.php' style='color:blue; font-size: 13px;'>Sair</a></td>
 										</tr>
 									  </table>";
 							}
 						}
 						else
 						{
-							echo "<div><a href='cadastrar.php'>Cadastrar</a></div><br><br>";
-							echo "<div><a href='login.php'>Login</a></div>";
+							echo "<strong style=\"margin-left: 480px; font-size: 13px;\">&Eacute; visitante? </strong> <a style=\"font-size: 13px;\" href='cadastrar.php'>Registre-se</a> <br />";
+							echo "<strong style=\"margin-left: 430px; font-size: 13px;\"> &Eacute; cadastrado? Fa&ccedil;a seu </strong> <a style=\"font-size: 13px;\" href='login.php'>Login</a>";
 						}
-					?>
+						?>
+					</div>
 				</div>
             </div>
             
@@ -118,11 +107,11 @@
 					<?php include_once 'designer.inc'; menu();?>
 				</ul>
 			</div>
-			
-			<!--Conteúdo-->
+			<br />
+			<!--Conteï¿½do-->
             <div class="content">
 				<?php
-					$est_ses = session_id(); /*pega o estado da conexão se foi iniciada ou não*/
+					$est_ses = session_id(); /*pega o estado da conexï¿½o se foi iniciada ou nï¿½o*/
 					if(empty($est_ses))
 					{
 						session_start();
@@ -130,29 +119,21 @@
 					
 					include_once 'connect.php';
 					
-					/*se existir usuário logado dá ERRO (afinal como logar em outra conta já estando logado)*/
+					/*se existir usuï¿½rio logado dï¿½ ERRO (afinal como logar em outra conta jï¿½ estando logado)*/
 					if(isset($_SESSION['logado']))
 					{
-						echo "<br><center>Existe um usuário ativo no momento, <a href='logout.php'>clique aqui</a> para sair e entrar em outra conta.</center><br>";
+						echo "<br><center>Existe um usuï¿½rio ativo no momento, <a href='logout.php'>clique aqui</a> para sair e entrar em outra conta.</center><br>";
 					}
 					else
 					{
 						/*Exibe os campos email, senha e botao para entrar*/
 						echo "<form method='post' action='autenticar.php?usuario'>
-							<br><center>Entrar</center>
-							<table border='0'>
-								<tr>
-									<td class='tex'>Email
-									<br>Senha</td>
-									<td class='cai'><input type='text' id='txt' name='email' placeholder='Digite o email'>
-									<input type='password' id='txt' name='senha' placeholder='Digite a senha'></td>
-									<td rowspan='2'><a href='login_admin.php'><img src='picture/restrito-2.png' style='height:110px;width:120px;'></a></td>
-								</tr>
-								<tr>
-									<td colspan='3'><button>Entrar</button></td>
-								</tr>
-								<tr></tr>
-							</table>
+								 <br /><center>Fa&ccedil;a seu login</center> <br />
+								 <center>E-mail: <input type='text' id='txt' name='email' placeholder='Digite o e-mail'> </td> <br /></center>
+								 <center>Senha: <input type='password' id='txt' name='senha' placeholder='Digite a senha'> </td> <br /><br /> </center>
+								 <center><button>Entrar</button></td> <br/> </center> <br />
+								 <center><a href='login_admin.php'><img src='picture/restrito-2.png' style='height:90px;width:90px;'></a></td></center>
+							
 						</form>";
 					}
 					
@@ -160,7 +141,7 @@
 					if(isset($_GET["error"]))
 					{
 						echo "<center>
-							Dados inválidos. Tente novamente.<br>Não tem uma conta? <a href='cadastrar.php'>Registre-se!</a></center></br>";
+							Dados inv&aacute;lidos. Tente novamente.<br>N&atilde;o possui uma conta? <a href='cadastrar.php'>Registre-se!</a></center></br>";
 					}
 				?>
             </div>

@@ -5,7 +5,7 @@
             <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
             
 			<?php
-				//Iniciando a sessão
+				//Iniciando a sessï¿½o
 				session_start();
 				include_once 'connect.php';
 				
@@ -58,52 +58,42 @@
     </head>
     <body class="bodyW">
         <div class="div-borda"><!--Principal-->
-            <div class="cabecalho"><!--Cabeçalho-->
+            <div class="cabecalho">
 				<div class="image_title">
-					<?php
+					<div id="titulo">
+						<?php
 						include_once 'connect.php';
 						if(isset($_SESSION['logado']))
 						{
-							/*Icones para mudar estilo do site*/
-							echo "<a href='localizacao.php?estilo=hello'><img src='picture/hello.png'></a><br>
-							<a href='localizacao.php?estilo=rock'><img src='picture/guitarra.png'></a><br>
-							<a href='localizacao.php?estilo=nerd'><img src='picture/android_rosa.png'></a>";
-						}
-					?>
-				</div>
-				<div class="pes"><!--Espaco "Pessoal"-->
-					<?php
-						include("connect.php");
-						if(isset($_SESSION['logado']))
-						{
 							$cpf = $_SESSION['cpf_user'];
+							$sql = '';
 							$sql = "SELECT * FROM usuario WHERE CPF = '$cpf';";
 							
-							$rs = mysql_query($sql) or die(mysql_error());
+							$rs = '';
+							$rs = mysql_query($sql) or die (mysql_error());
 							if(mysql_num_rows($rs))
 							{
 								$user = mysql_fetch_array($rs);
-								//if($user["tipo"]=='a'){header('Location:admin.php');} //admin tem págs específicas
+								//if($user["tipo"]=='a'){header('Location:admin.php');} //admin tem pï¿½gs especï¿½ficas
 								$nome = $user["Nome"]; /*nome completo*/
 								$foto = $user["Foto"];
 								
-								echo "<table border='0' style='float:right'>
+								echo "<table border='0' style=\"float:right; margin-right: 150px;\">
 										<tr>
 											<td colspan='2'><img src='$foto' width='55px' height='60px'></td>
-										</tr>
-										<tr>
-											<td><a href='user_d_pessoais.php' style='color:black;'>$nome</a></td>
-											<td><a href='logout.php' style='color:red;'>Sair</a></td>
+											<td style=\"margin-right: 100px; font-size: 13px;\"><a href='user_d_pessoais.php' style='color:black;'>$nome</a>
+											<br /><a href='logout.php' style='color:blue; font-size: 13px;'>Sair</a></td>
 										</tr>
 									  </table>";
 							}
 						}
 						else
 						{
-							echo "<div><a href='cadastrar.php'>Cadastrar</a></div><br><br>";
-							echo "<div><a href='login.php'>Login</a></div>";
+							echo "<strong style=\"margin-left: 480px; font-size: 13px;\">&Eacute; visitante? </strong> <a style=\"font-size: 13px;\" href='cadastrar.php'>Registre-se</a> <br />";
+							echo "<strong style=\"margin-left: 430px; font-size: 13px;\"> &Eacute; cadastrado? Fa&ccedil;a seu </strong> <a style=\"font-size: 13px;\" href='login.php'>Login</a>";
 						}
-					?>
+						?>
+					</div>
 				</div>
             </div>
             
@@ -114,10 +104,10 @@
 				</ul>
 			</div>
 			
-            <div class="content"><!--Conteúdo-->
-				<div><h3>Localização</h3><center>
+            <div class="content"><!--Conteï¿½do-->
+				<div><h3><br /><br /><center>Localiza&ccedil;&atilde;o</center></h3>
 					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam commodo sollicitudin dui ac viverra. Donec vitae congue turpis. Nulla facilisi. Aenean bibendum viverra aliquam. Suspendisse dapibus lobortis elit ac aliquam. Aenean tincidunt, turpis non gravida tristique, est eros convallis erat, vel iaculis felis ante vitae orci. Morbi consectetur, ipsum vitae rhoncus gravida, dolor tortor porta lorem, nec hendrerit neque velit pharetra est. Proin in felis nec ante rhoncus accumsan. Phasellus venenatis auctor congue. Donec vitae magna ligula. Integer gravida, elit id dictum lacinia, ipsum massa aliquam nulla, sit amet viverra erat felis quis quam. Aenean malesuada iaculis nunc in gravida. Nulla non nunc vel leo egestas ullamcorper.</p>
-				</center><br></div>
+				<br></div>
             </div>
 			<?php include_once 'designer.inc'; rodape(); ?>
         </div>

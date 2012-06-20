@@ -5,7 +5,7 @@
             <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
             
 			<?php
-				//Iniciando a sessão
+				//Iniciando a sessï¿½o
 				session_start();
 				include_once 'connect.php';
 				
@@ -62,26 +62,13 @@
 		<!--Principal-->
         <div class="div-borda">
 		
-			<!--Cabeçalho-->
+			<!--Cabeï¿½alho-->
             <div class="cabecalho">
 				<div class="image_title">
-					<?php
+					<div id="titulo">
+						<?php
 						include_once 'connect.php';
-						if(isset($_SESSION['logado']) && $_SESSION['logado'] == 1)
-						{
-							/*Icones para mudar estilo do site*/
-							echo "<a href='home.php'><img src='picture/hello.png'></a><br>
-							<a href='home.php?estilo=rock'><img src='picture/guitarra.png'></a><br>
-							<a href='home.php?estilo=nerd'><img src='picture/android_rosa.png'></a>";
-						}
-					?>
-				</div>
-				
-				<!--Espaco "Pessoal"-->
-				<div class="pes">
-					<?php
-						include_once 'connect.php';
-						if(isset($_SESSION['logado']) && $_SESSION['logado'] == 1)
+						if(isset($_SESSION['logado']))
 						{
 							$cpf = $_SESSION['cpf_user'];
 							$sql = '';
@@ -92,53 +79,26 @@
 							if(mysql_num_rows($rs))
 							{
 								$user = mysql_fetch_array($rs);
-								//if($user["tipo"]=='a'){header('Location:admin.php');} //admin tem págs específicas
+								//if($user["tipo"]=='a'){header('Location:admin.php');} //admin tem pï¿½gs especï¿½ficas
 								$nome = $user["Nome"]; /*nome completo*/
 								$foto = $user["Foto"];
 								
-								echo "<table border='0' style='float:right'>
+								echo "<table border='0' style=\"float:right; margin-right: 150px;\">
 										<tr>
 											<td colspan='2'><img src='$foto' width='55px' height='60px'></td>
-										</tr>
-										<tr>
-											<td><a href='user_d_pessoais.php' style='color:black;'>$nome</a></td>
-											<td><a href='logout.php' style='color:red;'>Sair</a></td>
-										</tr>
-									  </table>";
-							}
-						}
-						else if(isset($_SESSION['logado']) && $_SESSION['logado'] == 2)
-						{
-							$cpf = $_SESSION['cpf_user'];
-							$sql = '';
-							$sql = "SELECT * FROM administrador WHERE CPF = '$cpf';";
-							
-							$rs = '';
-							$rs = mysql_query($sql) or die (mysql_error());
-							if(mysql_num_rows($rs))
-							{
-								$user = mysql_fetch_array($rs);
-								//if($user["tipo"]=='a'){header('Location:admin.php');} //admin tem págs específicas
-								$nome = $user["Nome"]; /*nome completo*/
-								$foto = $user["Foto"];
-								
-								echo "<table border='0' style='float:right'>
-										<tr>
-											<td colspan='2'><img src='$foto' width='55px' height='60px'></td>
-										</tr>
-										<tr>
-											<td>$nome</td>
-											<td><a href='logout.php' style='color:red;'>Sair</a></td>
+											<td style=\"margin-right: 100px; font-size: 13px;\"><a href='user_d_pessoais.php' style='color:black;'>$nome</a>
+											<br /><a href='logout.php' style='color:blue; font-size: 13px;'>Sair</a></td>
 										</tr>
 									  </table>";
 							}
 						}
 						else
 						{
-							echo "<div><a href='cadastrar.php'>Cadastrar</a></div><br><br>";
-							echo "<div><a href='login.php'>Login</a></div>";
+							echo "<strong style=\"margin-left: 480px; font-size: 13px;\">&Eacute; visitante? </strong> <a style=\"font-size: 13px;\" href='cadastrar.php'>Registre-se</a> <br />";
+							echo "<strong style=\"margin-left: 430px; font-size: 13px;\"> &Eacute; cadastrado? Fa&ccedil;a seu </strong> <a style=\"font-size: 13px;\" href='login.php'>Login</a>";
 						}
-					?>
+						?>
+					</div>
 				</div>
             </div>
 			
@@ -160,14 +120,14 @@
 					?>
 				</ul>
 			</div>
-			
-			<!--Conteúdo-->
+			<br />
+			<!--Conteï¿½do-->
             <div class="content">
 				<?php
 					 
 					$caminho_imagem = 'fotos/803fbd58f1ed97adb518c3b2f6cc6d7a.png';
 					
-					// Se o usuário clicou no botão cadastrar efetua as ações
+					// Se o usuï¿½rio clicou no botï¿½o cadastrar efetua as aï¿½ï¿½es
 					if (isset($_POST['cadastrar']))
 					{
 						//administrador esta logado
@@ -181,7 +141,7 @@
 
 							/*$extensao = strtolower(end(explode('.', $_FILES['foto']['name'])));						
 							if (array_search($extensao, $_UP['extensoes']) === false) {
-							echo "Por favor, envie arquivos com as seguintes extensões: jpg, png ou gif";						
+							echo "Por favor, envie arquivos com as seguintes extensï¿½es: jpg, png ou gif";						
 							}else{echo "certo!";}*/
 							
 							// testa pra ver se os dados foram preenchidos
@@ -195,13 +155,13 @@
 										if($_FILES['foto']['error']==0)
 										{
 											$foto = $_FILES['foto'];
-											// Tamanho máximo do arquivo em bytes
+											// Tamanho mï¿½ximo do arquivo em bytes
 											$tamanho = 100000;
 											
-											// Verifica se o tamanho da imagem é maior que o tamanho permitido
+											// Verifica se o tamanho da imagem ï¿½ maior que o tamanho permitido
 											if($foto["size"] > $tamanho)
 											{
-												echo "<center>A imagem deve ter no máximo ".$tamanho." bytes</center><br>";
+												echo "<center>A imagem deve ter no m&aacute;ximo ".$tamanho." bytes</center><br>";
 											}
 											else
 											{
@@ -210,19 +170,19 @@
 												$extensao = strtolower(end(explode('.', $_FILES['foto']['name'])));						
 												if (array_search($extensao, $_UP['extensoes']) === false)
 												{
-												   echo "<center>Isso não é uma imagem!</center><br>";
+												   echo "<center>Isso n&atilde;o &eacute; uma imagem!</center><br>";
 												}
 												else
 												{
-													// Pega as dimensões da imagem
+													// Pega as dimensï¿½es da imagem
 													$dimensoes = getimagesize($foto["tmp_name"]);
 													
 													preg_match("/\.(gif|bmp|png|jpg|jpeg){1}$/i", $foto["name"], $ext);
 													//echo "<br>".$ext[1];
-													// Gera um nome único para a imagem
+													// Gera um nome ï¿½nico para a imagem
 													$nome_imagem = md5(uniqid(time())) . "." . $ext[1];
 										 
-													// Caminho de onde ficará a imagem
+													// Caminho de onde ficarï¿½ a imagem
 													$caminho_imagem = "";
 													$caminho_imagem = "fotos/" . $nome_imagem;
 										 
@@ -240,17 +200,17 @@
 									}
 									else
 									{
-										echo "<br><center style='color:red;'>O CPF não está em formato válido!</center><br>";
+										echo "<br><center style='color:red;'>O CPF nï¿½o estï¿½ em formato vï¿½lido!</center><br>";
 									}
 								}
 								else
 								{
-									echo "<br><center style='color:red;'>Senhas não são iguais!</center><br>";
+									echo "<br><center style='color:red;'>Senhas nï¿½o sï¿½o iguais!</center><br>";
 								}
 							}
 							else
 							{
-								echo "<br><center style='color:red;'>Os campos com * não podem ficar em branco!</center><br>";
+								echo "<br><center style='color:red;'>Os campos com * nï¿½o podem ficar em branco!</center><br>";
 							}
 						}
 						else
@@ -270,7 +230,7 @@
 
 							/*$extensao = strtolower(end(explode('.', $_FILES['foto']['name'])));						
 							if (array_search($extensao, $_UP['extensoes']) === false) {
-							echo "Por favor, envie arquivos com as seguintes extensões: jpg, png ou gif";						
+							echo "Por favor, envie arquivos com as seguintes extensï¿½es: jpg, png ou gif";						
 							}else{echo "certo!";}*/
 							
 							// testa pra ver se os dados foram preenchidos e senhas estao iguais
@@ -283,13 +243,13 @@
 									if($_FILES['foto']['error']==0)
 									{
 										$foto = $_FILES['foto'];
-										// Tamanho máximo do arquivo em bytes
+										// Tamanho mï¿½ximo do arquivo em bytes
 										$tamanho = 100000;
 										
-										// Verifica se o tamanho da imagem é maior que o tamanho permitido
+										// Verifica se o tamanho da imagem ï¿½ maior que o tamanho permitido
 										if($foto["size"] > $tamanho)
 										{
-											echo "<center>A imagem deve ter no máximo ".$tamanho." bytes</center><br>";
+											echo "<center>A imagem deve ter no mï¿½ximo ".$tamanho." bytes</center><br>";
 										}
 										else
 										{
@@ -298,19 +258,19 @@
 											$extensao = strtolower(end(explode('.', $_FILES['foto']['name'])));						
 											if (array_search($extensao, $_UP['extensoes']) === false)
 											{
-											   echo "<center>Isso não é uma imagem!</center><br>";
+											   echo "<center>Isso nï¿½o ï¿½ uma imagem!</center><br>";
 											}
 											else
 											{
-												// Pega as dimensões da imagem
+												// Pega as dimensï¿½es da imagem
 												$dimensoes = getimagesize($foto["tmp_name"]);
 												
 												preg_match("/\.(gif|bmp|png|jpg|jpeg){1}$/i", $foto["name"], $ext);
 												//echo "<br>".$ext[1];
-												// Gera um nome único para a imagem
+												// Gera um nome ï¿½nico para a imagem
 												$nome_imagem = md5(uniqid(time())) . "." . $ext[1];
 									 
-												// Caminho de onde ficará a imagem
+												// Caminho de onde ficarï¿½ a imagem
 												$caminho_imagem = "";
 												$caminho_imagem = "fotos/" . $nome_imagem;
 									 
@@ -322,16 +282,16 @@
 									/*$sql = '';
 									$sql = "insert into usuario values('$cpf', '$nome', '$sobrenome', '$password', '$email', '$telefone', '$endereco', '$numero', '$bairro', '$cidade', '$caminho_imagem', 'hello');";
 									mysql_query($sql) or die(mysql_error());
-									echo "<br><center style='color:green;'>Usuário cadastrado com sucesso!</center><br>";*/
+									echo "<br><center style='color:green;'>Usuï¿½rio cadastrado com sucesso!</center><br>";*/
 								}
 								else
 								{
-									echo "<br><center style='color:red;'>O CPF não está em formato válido!</center><br>";
+									echo "<br><center style='color:red;'>O CPF nï¿½o estï¿½ em formato vï¿½lido!</center><br>";
 								}
 							}
 							else
 							{
-								echo "<br><center style='color:red;'>Os campos com * não podem ficar em branco!</center><br>";
+								echo "<br><center style='color:red;'>Os campos com * nï¿½o podem ficar em branco!</center><br>";
 							}
 						}
 					}
@@ -341,19 +301,19 @@
 					//testa se existe um usuario logado
 					if(isset($_SESSION['logado']) && $_SESSION['logado'] == 1)
 					{
-						echo "<br><center>Existe um usuário ativo no momento, <a href='logout.php'>clique aqui</a> para sair e entrar em outra conta.</center><br>";
+						echo "<br><center>Existe um usuï¿½rio ativo no momento, <a href='logout.php'>clique aqui</a> para sair e entrar em outra conta.</center><br>";
 					}
 					else
 					{
 						//testa se existe um administrador logado
 						if(isset($_SESSION['logado']) && $_SESSION['logado'] == 2)
 						{
-							echo "<form method='post' action='cadastrar.php' enctype='multipart/form-data'>
+							echo "<form id=\"formtabela\" method='post' action='cadastrar.php' enctype='multipart/form-data'>
 								<br><center>CADASTRAMENTO&nbsp&nbsp&nbspDE&nbsp&nbsp&nbspADMINISTRADOR</center>
-								<table border='0'>
+								<table cellspacing=\"5\">
 									<tr>
 										<td>* Nome</td>
-										<td><input type='text' id='txt' name='nome' maxlength='10' placeholder='Digite o nome'></td><!--Limmite de 10 dígitos neste campo-->
+										<td><input type='text' id='txt' name='nome' maxlength='10' placeholder='Digite o nome'></td><!--Limmite de 10 dï¿½gitos neste campo-->
 									</tr>
 									<tr>
 										<td>* CPF</td>
@@ -368,7 +328,7 @@
 										<td><input type='password' id='txt' name='password' placeholder='Digite a senha'></td>
 									</tr>
 									<tr>
-										<td>* Confirmação da Senha</td>
+										<td>* Confirmaï¿½ï¿½o da Senha</td>
 										<td><input type='password' id='txt' name='password2' placeholder='Digite a senha novamente'></td>
 									</tr>
 									<tr>
@@ -387,17 +347,17 @@
 							//caso nao tenha nenhuma pessoa logada
 							echo "<form method='post' action='cadastrar.php' enctype='multipart/form-data'>
 								<br><center>CADASTRAMENTO</center>
-								<table border='0'>
+								<table id=\"tabcadastro\" border='0'>
 									<tr>
-										<td colspan='2'><u>Dados de Contato</u></td>
+										<td colspan='2'>Dados de Contato</td>
 									</tr>
 									<tr>
 										<td>* Nome</td>
-										<td><input type='text' id='txt' name='nome' maxlength='10' placeholder='Digite o 1° nome'></td><!--Limmite de 10 dígitos neste campo-->
+										<td><input type='text' id='txt' name='nome' maxlength='10' placeholder='Digite seu primeiro nome'></td><!--Limmite de 10 dï¿½gitos neste campo-->
 									</tr>
 									<tr>
 										<td>* Sobrenome</td>
-										<td><input type='text' id='txt' name='sobrenome' placeholder='Digite o sobrenome'></td>
+										<td><input type='text' id='txt' name='sobrenome' placeholder='Digite seu sobrenome'></td>
 									</tr>
 									<tr>
 										<td>* CPF</td>
@@ -405,45 +365,45 @@
 									</tr>
 									<tr>
 										<td>* Telefone</td>
-										<td><input type='text' id='txt' name='telefone' placeholder='Digite o telefone'></td>
+										<td><input type='text' id='txt' name='telefone' placeholder='Digite seu telefone'></td>
 									</tr>
 									<tr>
-										<td colspan='2'><br><u>Dados de Endereço</u></td>
+										<td colspan='2'><br>Dados de Endere&ccedil;o</td>
 									</tr>
 									<tr>
-										<td>* Endereço</td>
-										<td><input type='text' id='txt' name='endereco' placeholder='Digite o endereço'></td>
+										<td>* Endere&ccedil;o</td>
+										<td><input type='text' id='txt' name='endereco' placeholder='Digite o endere&ccedil;o'></td>
 									</tr>
 									<tr>
-										<td>* Número</td>
-										<td><input type='text' id='txt' name='numero' placeholder='Digite o número'></td>
+										<td>* N&uacute;mero</td>
+										<td><input type='text' id='txt' name='numero' placeholder='Digite seu n&uacute;mero'></td>
 									</tr>
 									<tr>
 										<td>* Bairro</td>
-										<td><input type='text' id='txt' name='bairro' placeholder='Digite o bairro'></td>
+										<td><input type='text' id='txt' name='bairro' placeholder='Digite seu bairro'></td>
 									</tr>
 									<tr>
 										<td>* Cidade</td>
-										<td><input type='text' id='txt' name='cidade' placeholder='Digite a cidade'></td>
+										<td><input type='text' id='txt' name='cidade' placeholder='Digite sua cidade'></td>
 									</tr>
 									<tr>
-										<td colspan='2'><br><u>Dados de Identificação</u></td>
+										<td colspan='2'><br>Dados de Identifica&ccedil;&atilde;o</td>
 									</tr>
 									<tr>
-										<td>* Email</td>
-										<td><input type='text' id='txt' name='email' placeholder='Digite o email'></td>
+										<td>* E-mail</td>
+										<td><input type='text' id='txt' name='email' placeholder='Digite seu e-mail'></td>
 									</tr>
 									<tr>
 										<td>* Senha</td>
-										<td><input type='password' id='txt' name='password' placeholder='Digite a senha'></td>
+										<td><input type='password' id='txt' name='password' placeholder='Digite sua senha'></td>
 									</tr>
 									<tr>
-										<td>* Confirmação da Senha</td>
-										<td><input type='password' id='txt' name='password2' placeholder='Digite a senha novamente'></td>
+										<td>* Confirma&ccedil;&atilde;o da Senha</td>
+										<td><input type='password' id='txt' name='password2' placeholder='Digite sua senha novamente'></td>
 									</tr>
 									<tr>
-										<td>Desejar escolher uma foto?</td>
-										<td><img src='$caminho_imagem' width='55px' height='60px'><br>
+										<td>Deseja escolher uma foto?</td>
+										<td><img src='$caminho_imagem' width='45px' height='45px'><br>
 										<input type='file' name='foto'></td>
 									</tr>
 									<tr>
@@ -487,11 +447,11 @@
 <script language='javascript'>
         function moeda(z){  
                 v = z.value;
-                v=v.replace(/\D/g,"")  //permite digitar apenas números
-        v=v.replace(/[0-9]{12}/,"inválido")   //limita pra máximo 999.999.999,99
-        v=v.replace(/(\d{1})(\d{8})$/,"$1.$2")  //coloca ponto antes dos últimos 8 digitos
-        v=v.replace(/(\d{1})(\d{5})$/,"$1.$2")  //coloca ponto antes dos últimos 5 digitos
-        v=v.replace(/(\d{1})(\d{1,2})$/,"$1-$2")        //coloca virgula antes dos últimos 2 digitos
+                v=v.replace(/\D/g,"")  //permite digitar apenas nï¿½meros
+        v=v.replace(/[0-9]{12}/,"invï¿½lido")   //limita pra mï¿½ximo 999.999.999,99
+        v=v.replace(/(\d{1})(\d{8})$/,"$1.$2")  //coloca ponto antes dos ï¿½ltimos 8 digitos
+        v=v.replace(/(\d{1})(\d{5})$/,"$1.$2")  //coloca ponto antes dos ï¿½ltimos 5 digitos
+        v=v.replace(/(\d{1})(\d{1,2})$/,"$1-$2")        //coloca virgula antes dos ï¿½ltimos 2 digitos
                 z.value = v;
         }
 </script>

@@ -3,9 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
     <head>
             <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-			
 			<?php
-				//Iniciando a sessão
+			//Iniciando a sessï¿½o
 				session_start();
 				include_once 'connect.php';
 				
@@ -56,46 +55,33 @@
 			?>
 			<link href="css/default.css" rel="stylesheet" type="text/css" />
 	
-			<!--2 arquivos javascript para o slideshow-->
+			<!--2 arquivos javascript para o slideshow
 			<script src="javascript/jquery-1.2.6.pack.js" type="text/javascript"></script>
-			<script src="javascript/jquery.flow.1.1.min.js" type="text/javascript"></script>
-            
-			<title>Sua Moda</title>
+			<script src="javascript/jquery.flow.1.1.min.js" type="text/javascript"></script> -->
 			
-			<!--Javascript que define as imagens do slideshow-->
+			<!-- Plugins para o slide show -->
+			<script type="text/javascript" src="javascript/coin-slider/jquery-1.4.2.js"></script>
+			<script type="text/javascript" src="javascript/coin-slider/coin-slider.min.js"></script>
+			<link rel="stylesheet" href="javascript/coin-slider/coin-slider-styles.css" type="text/css" />
+			
 			<script type="text/javascript">
-				$(function() {
-					$("div#controller").jFlow({
-						slides: "#slides",
-						width: "800px",
-						height: "313px"
-					});
+				$(document).ready(function() {
+					$('#coin-slider').coinslider({ width: 800, delay: 5000, height: 400, hoverPause: true, effect: 'straight' });
 				});
 			</script>
+            
+			<title>Sua Moda</title>
     </head>
+    
     <body class="bodyW">
+
 		
-		<!--Div que recebe tudo e que tem a borda degradê-->
-		<div class="div-borda">
-		
-			<!--Cabeçalho-->
+		<!--Div que recebe tudo-->
+		<div id="todo">
             <div class="cabecalho">
 				<div class="image_title">
-					<?php
-						include_once 'connect.php';
-						if(isset($_SESSION['logado']))
-						{
-							/*Icones para mudar estilo do site*/
-							echo "<a href='home.php?estilo=hello'><img src='picture/hello.png'></a><br>
-							<a href='home.php?estilo=rock'><img src='picture/guitarra.png'></a><br>
-							<a href='home.php?estilo=nerd'><img src='picture/android_rosa.png'></a>";
-						}
-					?>
-				</div>
-				
-				<!--Espaco "Pessoal"-->
-				<div class="pes">
-					<?php
+					<div id="titulo">
+						<?php
 						include_once 'connect.php';
 						if(isset($_SESSION['logado']))
 						{
@@ -108,27 +94,26 @@
 							if(mysql_num_rows($rs))
 							{
 								$user = mysql_fetch_array($rs);
-								//if($user["tipo"]=='a'){header('Location:admin.php');} //admin tem págs específicas
+								//if($user["tipo"]=='a'){header('Location:admin.php');} //admin tem pï¿½gs especï¿½ficas
 								$nome = $user["Nome"]; /*nome completo*/
 								$foto = $user["Foto"];
 								
-								echo "<table border='0' style='float:right'>
+								echo "<table border='0' style=\"float:right; margin-right: 150px;\">
 										<tr>
 											<td colspan='2'><img src='$foto' width='55px' height='60px'></td>
-										</tr>
-										<tr>
-											<td><a href='user_d_pessoais.php' style='color:black;'>$nome</a></td>
-											<td><a href='logout.php' style='color:red;'>Sair</a></td>
+											<td style=\"margin-right: 100px; font-size: 13px;\"><a href='user_d_pessoais.php' style='color:black;'>$nome</a>
+											<br /><a href='logout.php' style='color:blue; font-size: 13px;'>Sair</a></td>
 										</tr>
 									  </table>";
 							}
 						}
 						else
 						{
-							echo "<div><a href='cadastrar.php'>Cadastrar</a></div><br><br>";
-							echo "<div><a href='login.php'>Login</a></div>";
+							echo "<strong style=\"margin-left: 480px; font-size: 13px;\">&Eacute; visitante? </strong> <a style=\"font-size: 13px;\" href='cadastrar.php'>Registre-se</a> <br />";
+							echo "<strong style=\"margin-left: 430px; font-size: 13px;\"> &Eacute; cadastrado? Fa&ccedil;a seu </strong> <a style=\"font-size: 13px;\" href='login.php'>Login</a>";
 						}
-					?>
+						?>
+					</div>
 				</div>
             </div>
 			
@@ -140,42 +125,39 @@
 			</div>
 			
 			<!--Div do slideshow-->
-			<div id="wrap" style="margin-top:-45px;padding:10px 0px 0px 300px;"><!--style="padding:10px 0px 0px 300px;">-->
-				<div id="controller" class="hidden">
-					<span class="jFlowControl">No 1</span>
-					<span class="jFlowControl">No 2</span>
-					<span class="jFlowControl">No 3</span>
-				</div>
-				
-				<div id="prevNext">
-					<img src="picture/prev.png" alt="Previous Tab" class="jFlowPrev" />
-					<img src="picture/next.png" alt="Next Tab" class="jFlowNext" />
-				</div>
-							
+			<div id='coin-slider'>
 				<?php
-					$sql = '';
-					$sql = 'select imagens.idproduto, imagens.imagem1 from imagens order by rand() limit 3;'; //busca 3 ultimos produtos adicionados no BD
-					$rs = '';
-					$rs = mysql_query($sql) or die (mysql_error());					
+						$sql = '';
+						$sql = 'select imagens.idproduto, imagens.imagem1 from imagens order by rand() limit 3;'; //busca 3 ultimos produtos adicionados no BD
+						$rs = '';
+						$rs = mysql_query($sql) or die (mysql_error());					
+						
+						while($linha = mysql_fetch_assoc($rs))
+						{
+							$imagens[] = $linha['imagem1'];
+							$prod_id[] = $linha['idproduto'];
+						}
+					?>
 					
-					while($linha = mysql_fetch_assoc($rs))
-					{
-						$imagens[] = $linha['imagem1'];
-						$prod_id[] = $linha['idproduto'];
-					}
-				?>
-				
-				<div id="slides" align='center'>
-					<div><a href="produto.php?produto=<?php echo $prod_id[0]; ?>"><img src=<?php echo $imagens[0]; ?> alt="photo" /></a><p>This is photo number one. Neato!</p></div>
-					<div><a href="produto.php?produto=<?php echo $prod_id[1] ?>"><img src=<?php echo $imagens[1]; ?> alt="photo" /></a><p>This is photo number two. Neato!</p></div>
-					<div><a href="produto.php?produto=<?php echo $prod_id[2] ?>"><img src=<?php echo $imagens[2]; ?> alt="photo" /></a><p>This is photo number three. Neato!</p></div>
-				</div>
+				<a href="produto.php?produto=<?php echo $prod_id[0]; ?>">
+					<img style="image-resolution: auto" src=<?php echo $imagens[0]; ?> alt="photo" />
+				</a>
+				<a href="produto.php?produto=<?php echo $prod_id[1] ?>">
+					<img src=<?php echo $imagens[1]; ?> alt="photo" />
+				</a>
+				<a href="produto.php?produto=<?php echo $prod_id[2] ?>">
+					<img src=<?php echo $imagens[2]; ?> alt="photo" />
+				</a>
 			</div>
+			
+			
+			
+			
 
-			<!--Conteúdo-->
+			<!--Conteï¿½do-->
             <div class="content">				
 				<div style="width:100%;"><br>
-					Novidades meninas, olhem!
+					Novidades!!
 					<?php
 						//acessorios -> busca no BD imagens e seus nomes e precos para exibir alguns
 						$sql = '';
@@ -247,8 +229,9 @@
 				</div>
             </div>
 			
-			<!--Rodapé-->
+			<!--Rodapï¿½-->
 			<?php include_once 'designer.inc'; rodape(); ?>
+			
         </div>
     </body>
 </html>

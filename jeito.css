@@ -1,8 +1,4 @@
-/* ROSA PADRÃO ->>> #FF1CAE	*/
 @font-face {
-    /*font-family: 'andante';
-	src: url('andante.woff'); /* formato WOFF funciona para os 3 navegadores principais: Chrome, Mozzila e Internet Explorer*/
-    /*src: local('andante'), url('andante.woff') format('truetype'); /* e o formato TTF funciona só pro Internet Explorer*/
     font-family: 'Kristen ITC';
 	src: url('Kristen.ttf');
     src: local('Kristen ITC'), url('Kristen.ttf') format('truetype');
@@ -10,30 +6,45 @@
 
 .bodyW
 {
-    background-color: #ffffff; /*#e9e9e9;*/
-	/*font-family: "ANDANTE";
-	src:url(ANDANTE.ttf) format("truetype");*/
+    background: -webkit-gradient(linear, left top, left bottom, from(#DDA0DD), to(#fff)) repeat-x;
+	background: -moz-linear-gradient(top, #DDA0DD, #fff) repeat-x;
+    background: -webkit-linear-gradient(top, #DDA0DD, #fff) repeat-x;
+    background: -ms-linear-gradient(top, #DDA0DD, #fff) repeat-x;
+    background: -o-linear-gradient(top, #DDA0DD, #fff) repeat-x;
 	
-	font-family: "Kristen ITC";/*ANDANTE;/*"Lucida Calligraphy";*"Kristen ITC";/*Jokerman;/*"Harrington";/*"Bauhaus 93";/* "Century Gothic";/*"Lucida Calligraphy Italic";*/
+	font-family: "Kristen ITC";
 }
-.div-borda
+
+#coin-slider
 {
-	border-image: url('picture/bord.png') 17 / 0 300px 0 300px stretch;
+	margin: 20px auto;
 }
+
+#coin-slider img
+{
+	height: 250px;
+	width: 800px;
+}
+
 .cabecalho
 {
     width: 800px;
-    height: 100px;
-    background-color: #ff1cae; /*#e9e9e9;*/
+    height: 110px;
     margin: 0px auto;
+    border: none;
+    background: -webkit-gradient(linear, left top, left bottom, from(#DDA0DD), to(#fff)) repeat-x;
+	background: -moz-linear-gradient(top, #DDA0DD, #fff) repeat-x;
+    background: -webkit-linear-gradient(top, #DDA0DD, #fff) repeat-x;
+    background: -ms-linear-gradient(top, #DDA0DD, #fff) repeat-x;
+    background: -o-linear-gradient(top, #DDA0DD, #fff) repeat-x;
 }
 .menu
 {
     background-color: #FF1CAE;
-    width: 650px;/*influência nas posição do menu*/
+    width: 650px;/*influï¿½ncia nas posiï¿½ï¿½o do menu*/
     height: 40px;
     margin: 0px auto;
-    padding-left: 150px;/*influência nas posição do menu*/
+    padding-left: 150px;/*influï¿½ncia nas posiï¿½ï¿½o do menu*/
 }
 
 /*conteudo da pagina*/
@@ -57,24 +68,30 @@
 {
     width: 800px;
     margin: 10px auto;
-    height: 120px; /*altura da imagem do rodapé*/
+    height: 120px; /*altura da imagem do rodapï¿½*/
     padding-top: 20px;
     text-align: center;
     font-size: 13px;
-	background-image: url("picture/rodape.png");
+	background-image: url("picture/rodapepaty.png");
 }
 
 /*imagens redes sociais*/
 /*por causa do internet explorer*/
 .rodape a img 
 {
+	margin-left: 40px;
 	border: none;
+	height: 35px;
+	width: 35px;
+	margin-right: 20px;
+
 }
 
 /*imagens de redes sociais*/
 .rodape a img:hover
 {
-	width: 5.5%;	
+	width: 40px;
+	height: 40px;	
 }
 
 .menu table tr td
@@ -110,6 +127,18 @@
 	color: #000000;
 }
 
+#titulo
+{
+	margin-left: 150px;
+    width: 800px; /*configurado para o tamanho da imagem*/
+    height: 100px; /*configurado para o tamanho da imagem*/
+	text-decoration: none;
+	border: none; /*tira a borda por causa do internet explorer*/
+	background: url("picture/titulo.png") no-repeat; /*imagem do titulo*/
+	display:block;
+	float:left;
+}
+
 /*titulo*/
 .image_title
 {
@@ -117,7 +146,6 @@
     height: 98px; /*configurado para o tamanho da imagem*/
 	text-decoration: none;
 	border: none; /*tira a borda por causa do internet explorer*/
-	background-image: url("picture/titulo.png"); /*imagem do titulo*/
 	display:block;
 	float:left;
 }
@@ -202,11 +230,22 @@
 .NavbarMenu
 {
 	width: 640px;
-	height: 35px;
+	height: 41px;
 	margin: 0px auto;
 	padding-left: 160px;
-	background-color: #FF1CAE;
+	background-color: #fff;
 	text-align: center;
+	border: none;
+}
+
+#formtabela
+{
+	width: 200px;
+}
+
+#tabcadastro td
+{	
+	border: 1px solid black;
 }
 
 #NavbarMenuleft
@@ -251,7 +290,7 @@
 
 #nav li a, #nav li a:link, #nav li a:visited
 {
-	color: #ffffff;
+	color: black;
 	display: block;
 	margin: 0;
 	padding: 9px 15px 8px;
@@ -265,7 +304,7 @@
 	color: #000000;
 	margin: 0;
 	padding: 9px 15px 8px;
-	background-color: #ffffff;
+	background-color: #e9e9e9;
 }
 
 #nav li li a, #nav li li a:link, #nav li li a:visited
@@ -386,7 +425,7 @@ ul { list-style-type: none;}
 /*****EFEITO DOS DESTAQUES*******/
 
 
-/************PÁGINA DE LOGIN******************/
+/************Pï¿½GINA DE LOGIN******************/
 .content form table
 {
 	text-align: center;
@@ -409,9 +448,9 @@ ul { list-style-type: none;}
 {
 	text-align:left;
 }
-/************PÁGINA DE LOGIN******************/
+/************Pï¿½GINA DE LOGIN******************/
 
-/************PÁGINA DO USUÁRIO***************/
+/************Pï¿½GINA DO USUï¿½RIO***************/
 .show
 {
 	display:none;
@@ -437,17 +476,17 @@ ul { list-style-type: none;}
 {
 	text-decoration:none;
 }
-/************PÁGINA DO USUÁRIO***************/
+/************Pï¿½GINA DO USUï¿½RIO***************/
 
 
-/************PÁGINA DE PRODUTOS***************/
-.lista_produtos tr td a /*lista de produtos para o usuário*/
+/************Pï¿½GINA DE PRODUTOS***************/
+.lista_produtos tr td a /*lista de produtos para o usuï¿½rio*/
 {
 	text-decoration:none;
 	text-align:center;
 }
 
-.content div table tr td img /*exibição dos produtos*/
+.content div table tr td img /*exibiï¿½ï¿½o dos produtos*/
 {
 	width: 100px;
 	height: 100px;
@@ -455,14 +494,14 @@ ul { list-style-type: none;}
 	text-decoration:none;
 }
 
-.content div table tr td /*só alinhando os produtos*/
+.content div table tr td /*sï¿½ alinhando os produtos*/
 {	
 	text-align:center;
 }
-/************PÁGINA DE PRODUTOS***************/
+/************Pï¿½GINA DE PRODUTOS***************/
 
 
-/************** PÁGINA DE ACESSORIOS************************/
+/************** Pï¿½GINA DE ACESSORIOS************************/
 .content table tr td div img/*listando os produtos*/
 {
 	width: 100px;
@@ -471,11 +510,11 @@ ul { list-style-type: none;}
 	text-decoration:none;
 	text-align:center;
 }
-/************** PÁGINA DE ACESSORIOS************************/
+/************** Pï¿½GINA DE ACESSORIOS************************/
 
 
 
-/*****************PÁGINA DO PRODUTO***********************/
+/*****************Pï¿½GINA DO PRODUTO***********************/
 .content img
 {
 	width: 200px;
@@ -484,8 +523,8 @@ ul { list-style-type: none;}
 	text-align: center;
 }
 
-.content
+.content p
 {
-	text-align: center;
+	text-align: justify;
 }
-/*****************PÁGINA DO PRODUTO***********************/
+/*****************Pï¿½GINA DO PRODUTO***********************/

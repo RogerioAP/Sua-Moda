@@ -1,0 +1,17 @@
+.jqGSContainer{position:relative;width:750px;;}
+.jqGSContainer .jqGSImgContainer{}
+.jqGSContainer .jqGSImgContainer ul{padding:0;margin:0;position:relative;list-style:none;}
+.jqGSContainer .jqGSImgContainer ul li{padding:0;margin:0;position:relative;margin-top:0;margin-bottom:0px;float:left;}
+.jqGSContainer .jqGSImgContainer ul li .jqGSLoader{width:100%;height:100%;position:absolute;}
+.jqGSContainer .jqGSImgContainer ul li img{border:1px solid #fff;}
+.jqGSContainer .jqGSImgContainer ul li .jqGSTitle{background:#000;position:absolute;right:0px;top:0px; padding:3px;color:#fff;width:300px}
+
+
+.jqGSContainer .jqGSPagination{position:relative;width:100%;height:20px;top:5px;padding: 5px 0;}
+.jqGSContainer .jqGSPagination ul{padding:0;margin:0;list-style:none;position:relative;float:right;}
+.jqGSContainer .jqGSPagination ul li{padding:0;margin-right:5px;float:left;padding-right:1px;text-align:center;padding-bottom:1px;}
+.jqGSContainer .jqGSPagination ul li a{padding:2px 0px;background:#000;border:1px solid #fff; color: #fff;text-decoration:none;display:block;width:20px;font:10px Verdana, Arial, Helvetica, sans-serif;}
+.jqGSContainer .jqGSPagination ul li a.selected{background:#fff;color:#f03;border: 1px solid #eaeaea;}
+.jqGSContainer .jqGSPagination ul li a:hover{background:#fff;color:#000;border:1px solid #fff;}
+
+.jqGSImgContainer{border:1px solid #000;}

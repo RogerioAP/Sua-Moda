@@ -64,51 +64,40 @@
 			<!--Cabeçalho-->
             <div class="cabecalho">
 				<div class="image_title">
-					<?php
+					<div id="titulo">
+						<?php
 						include_once 'connect.php';
 						if(isset($_SESSION['logado']))
 						{
-							/*Icones para mudar estilo do site*/
-							echo "<a href='categoria.php?estilo=hello'><img src='picture/hello.png'></a><br>
-							<a href='categoria.php?estilo=rock'><img src='picture/guitarra.png'></a><br>
-							<a href='categoria.php?estilo=nerd'><img src='picture/android_rosa.png'></a>";
-						}
-					?>
-				</div>
-				<!--Espaco "Pessoal"-->
-				<div class="pes">
-					<?php
-						include_once "connect.php";
-						if(isset($_SESSION['logado']))
-						{
 							$cpf = $_SESSION['cpf_user'];
-							$sql = "SELECT * FROM usuario WHERE cpf = '$cpf'";
+							$sql = '';
+							$sql = "SELECT * FROM usuario WHERE CPF = '$cpf';";
 							
+							$rs = '';
 							$rs = mysql_query($sql) or die (mysql_error());
 							if(mysql_num_rows($rs))
 							{
 								$user = mysql_fetch_array($rs);
-								//if($user["tipo"]=='a'){header('Location:admin.php');} //admin tem pags espec�ficas
+								//if($user["tipo"]=='a'){header('Location:admin.php');} //admin tem p�gs espec�ficas
 								$nome = $user["Nome"]; /*nome completo*/
 								$foto = $user["Foto"];
 								
-								echo "<table border='0' style='float:right'>
+								echo "<table border='0' style=\"float:right; margin-right: 150px;\">
 										<tr>
 											<td colspan='2'><img src='$foto' width='55px' height='60px'></td>
-										</tr>
-										<tr>
-											<td><a href='user_d_pessoais.php' style='color:black;'>$nome</a></td>
-											<td><a href='logout.php' style='color:red;'>Sair</a></td>
+											<td style=\"margin-right: 100px; font-size: 13px;\"><a href='user_d_pessoais.php' style='color:black;'>$nome</a>
+											<br /><a href='logout.php' style='color:blue; font-size: 13px;'>Sair</a></td>
 										</tr>
 									  </table>";
 							}
 						}
 						else
 						{
-							echo "<div><a href='cadastrar.php'>Cadastrar</a></div><br><br>";
-							echo "<div><a href='login.php'>Login</a></div>";
+							echo "<strong style=\"margin-left: 480px; font-size: 13px;\">&Eacute; visitante? </strong> <a style=\"font-size: 13px;\" href='cadastrar.php'>Registre-se</a> <br />";
+							echo "<strong style=\"margin-left: 430px; font-size: 13px;\"> &Eacute; cadastrado? Fa&ccedil;a seu </strong> <a style=\"font-size: 13px;\" href='login.php'>Login</a>";
 						}
-					?>
+						?>
+					</div>
 				</div>
             </div>
 			
@@ -118,7 +107,7 @@
 					<?php include_once 'designer.inc'; menu();?>
 				</ul>
 			</div>
-			
+			<br />
 			<!--Conteúdo-->
             <div class="content">
 				<?php					
@@ -132,17 +121,17 @@
 					//verifica qual tipo de produto eh para listar
 					if($categoria == 'a')
 					{
-						echo "<div style='clear:both;'>Acessorios</div>";
+						echo "<br /><br /><div style='clear:both;'><h3><center>Acess&oacute;rios</center></h3></div>";
 						$sql = "SELECT * FROM produto where categoria = 'acessorios' limit 9;";
 					}
 					else if($categoria == 'g')
 					{
-						echo "<div style='clear:both;'>Gadgets</div>";
+						echo "<br /><br /><div style='clear:both;'><h3><center>Gadgets</center></h3></div>";
 						$sql = "SELECT * FROM produto where categoria = 'gadgets' limit 9;";
 					}
 					else
 					{
-						echo "<div style='clear:both;'>Vestuario</div>";
+						echo "<br /><br /><div style='clear:both;'><h3><center>Vestu&aacute;rio</center></h3></div>";
 						$sql = "SELECT * FROM produto where categoria = 'vestuario' limit 9;";
 					}
 					
@@ -154,6 +143,7 @@
 					
 					//exibe produtos					
 					echo "<div>";
+					echo "<br />";
 					echo "<table border='0'>";
 					while($linha = mysql_fetch_assoc($rs))
 					{
